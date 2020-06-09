@@ -229,6 +229,137 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/09/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/09/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url">数据类型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-09T09:39:14+08:00">
+                2020-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JS数据类型"><a href="#JS数据类型" class="headerlink" title="JS数据类型"></a>JS数据类型</h1><p>除object外的所有数据类型都是不可变的(值本身不可以发生改变)</p>
+<h2 id="7种原始类型"><a href="#7种原始类型" class="headerlink" title="7种原始类型"></a>7种原始类型</h2><h3 id="boolean类型"><a href="#boolean类型" class="headerlink" title="boolean类型"></a><code>boolean类型</code></h3><p>表示一个逻辑实体，可以有两个值：true和false</p>
+<h3 id="Null类型"><a href="#Null类型" class="headerlink" title="Null类型"></a><code>Null类型</code></h3><p>Null类型只有一个值：null。值null是一个字面量，不是全局对象的一个属性。null是表示缺少标识，指示变量没有指向任何对象。</p>
+<h3 id="undefined类型"><a href="#undefined类型" class="headerlink" title="undefined类型"></a><code>undefined类型</code></h3><p>一个没有赋值的变量会有个默认值undefined。undefined是全局对象的一个属性。</p>
+<h3 id="数字类型number"><a href="#数字类型number" class="headerlink" title="数字类型number"></a><code>数字类型number</code></h3><p>JS中只有一种数字类型，双精度64位二进制格式的值-(2^53-1) ~ 2^53-1, 他并没有为整数给出一种特定的类型</p>
+<h3 id="BigInt"><a href="#BigInt" class="headerlink" title="BigInt"></a><code>BigInt</code></h3><p>BigInt是JS中的一种基础数值类型，可以用任意精度表示整数，可以安全操作大整数，甚至可以突破数字的安全整数限制。BigInt通过在整数末尾添加n或者调用构造函数来创建</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">2n</span> ** <span class="number">53n</span> <span class="comment">//9007199254740992n</span></span><br><span class="line"><span class="keyword">const</span> y = x + <span class="number">1n</span> <span class="comment">// 9007199254740993n</span></span><br></pre></td></tr></table></figure>
+<h3 id="字符串类型string"><a href="#字符串类型string" class="headerlink" title="字符串类型string"></a><code>字符串类型string</code></h3><p>JS的字符串是不可更改的，但是可以基于原始字符串创建新的字符串</p>
+<ol>
+<li>string.substr()获取一个字符串的子串</li>
+<li>string.concat()或者‘+’链接两个字符串<h3 id="符号类型symbol"><a href="#符号类型symbol" class="headerlink" title="符号类型symbol"></a><code>符号类型symbol</code></h3>符号(Symbols)是ECMAScript 第6版新定义的。符号类型是唯一的并且是不可修改的, 并且也可以用来作为Object的key的值。<h2 id="object对象类型"><a href="#object对象类型" class="headerlink" title="object对象类型"></a>object对象类型</h2></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -248,7 +379,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/06/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" itemprop="url">我的第一篇博客</a></h1>
+                <a class="post-title-link" href="/2020/06/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" itemprop="url">JavaScript30</a></h1>
         
 
         <div class="post-meta">
@@ -300,11 +431,17 @@
       
         
           
-            <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p>
-<hr>
-<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>内容</p>
-<hr>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://www.lifewithwork.cn" target="_blank" rel="noopener">www.lifewithwork.cn</a></p>
+            <h1 id="1-JavaScript-Drum-Kit"><a href="#1-JavaScript-Drum-Kit" class="headerlink" title="1 JavaScript Drum Kit"></a>1 JavaScript Drum Kit</h1><blockquote>
+<p>@<a href="https://github.com/cx748" target="_blank" rel="noopener">帕吉的小肚腩</a></p>
+</blockquote>
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p>模拟一个打鼓的界面，用户在按下 ASDFGHJKL 这几个键之后，与之对应的的按钮会随之变大，对应的鼓点声音也会响起来。</p>
+<p><a href="http://lifewithwork.cn/input.html" target="_blank" rel="noopener">在线效果</a></p>
+<h2 id="关键要点"><a href="#关键要点" class="headerlink" title="关键要点"></a>关键要点</h2><ol>
+<li>键盘事件</li>
+<li>播放声音</li>
+<li>改变样式</li>
+</ol>
+<p><a href="http://www.lifewithwork.cn" target="_blank" rel="noopener">www.lifewithwork.cn</a></p>
 
           
         
@@ -518,7 +655,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
