@@ -166,9 +166,9 @@
 
 
   
-    <article id="post-我的第一篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-01DrumKit" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/06/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
+    <a href="/2020/06/06/01DrumKit/" class="article-date">
   <time datetime="2020-06-06T02:24:33.000Z" itemprop="datePublished">2020-06-06</time>
 </a>
     
@@ -180,7 +180,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">JavaScript30</a>
+      <a class="article-title" href="/2020/06/06/01DrumKit/">JavaScript30</a>
     </h1>
   
 
@@ -198,12 +198,38 @@
 <li>播放声音</li>
 <li>改变样式</li>
 </ol>
+<h2 id="步骤分解"><a href="#步骤分解" class="headerlink" title="步骤分解"></a>步骤分解</h2><ol>
+<li><strong>添加键盘事件监听</strong> 在window上增加keydown事件 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'keydown'</span>, playSound);</span><br></pre></td></tr></table></figure></li>
+<li><strong>对应的事件处理playSound</strong>：按下键盘后会播放声音<ol>
+<li>获取键码</li>
+<li>根据键码找到对应的音频 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> audio = <span class="built_in">document</span>.querySelector(<span class="string">`audio[data-key = "<span class="subst">$&#123;event.keyCode&#125;</span>"]`</span>);</span><br></pre></td></tr></table></figure></li>
+<li>根据键码找到页面中对应的元素 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> key = <span class="built_in">document</span>.querySelector(<span class="string">`div[data-key = "<span class="subst">$&#123;event.keyCode&#125;</span>"]`</span>);</span><br></pre></td></tr></table></figure></li>
+<li>播放对应的音频并放大按钮 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">key.classList.add(<span class="string">"playing"</span>) </span><br><span class="line">audio.currentTime = <span class="number">0</span>; <span class="comment">//每次播放后都将音频进度归零</span></span><br><span class="line">audio.play();</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><strong>为所有的<code>div.key</code> 添加transition事件监听</strong>：每次按键对应的按钮会随之变大<ol>
+<li>获取所有样式为<code>key</code>的元素<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> keys = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">'.key'</span>))</span><br></pre></td></tr></table></figure></li>
+<li>为每一个样式添加事件监听<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeTransition</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (event.propertyName !== <span class="string">'transform'</span>) <span class="keyword">return</span>; <span class="comment">// 过滤其中一种事件</span></span><br><span class="line">  event.target.classList.remove(<span class="string">'playing'</span>); <span class="comment">// 移除高亮的样式</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">keys.forEach(<span class="function"><span class="params">key</span> =&gt;</span> key.addEventListener(<span class="string">"transitionend"</span>, removeTransition);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="解决难点"><a href="#解决难点" class="headerlink" title="解决难点"></a>解决难点</h2><h3 id="如何将按键与页面按钮连接起来"><a href="#如何将按键与页面按钮连接起来" class="headerlink" title="如何将按键与页面按钮连接起来"></a>如何将按键与页面按钮连接起来</h3><p>连接的帮手是<code>keydown</code>事件中的<code>keyCode</code>属性。keyCode属性的值与键盘对应的ASCII码值相等。在初始的页面中，div和audio都添加了一个<code>data-key</code>属性用于存储对应的键码。这样的话可以在触发键盘监听事件后既可获取<code>keyCode</code>的属性值。</p>
+<h3 id="如何使页面按钮恢复原状"><a href="#如何使页面按钮恢复原状" class="headerlink" title="如何使页面按钮恢复原状"></a>如何使页面按钮恢复原状</h3><p>可以利用transitioned这个事件，它在每次CSS transition结束后会触发，我们可以利用这个事件，在每次击鼓样式改变(变大，变颜色)完成之后清除对应的样式</p>
+<h2 id="这个小项目用的语法和事件"><a href="#这个小项目用的语法和事件" class="headerlink" title="这个小项目用的语法和事件"></a>这个小项目用的语法和事件</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p> `字符串 ${ 变量、属性名 } `：模板字面量（Template literals）中用于表示模板字符串的标识。特点是字符串首尾用反引号（`），内部的模板部分用 ${ } 括起来表示，具体请看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/template_strings" target="_blank" rel="noopener">MDN文档</a>。简单例子如下：</p>
+<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="comment">//不用模板的写法</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"三是"</span> + (a + b) + <span class="string">"不是"</span> + (<span class="number">2</span> * a + b)); <span class="comment">//"三是3不是4"</span></span><br><span class="line"><span class="comment">//使用模板字符串的写法</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`三是<span class="subst">$&#123;a + b&#125;</span>不是<span class="subst">$&#123;<span class="number">2</span> * a + b&#125;</span>`</span>); <span class="comment">//"三是3不是4"</span></span><br></pre></td></tr></table></figure></code></pre><h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><ol>
+<li><p>keydown：事件触发与键盘按键按下的时候，所有的按键都会触发keydown事件，无论这些按键是否产生字符值</p>
+</li>
+<li><p>transitionend：transitionend 事件会在 CSS transition 结束后触发</p>
+</li>
+</ol>
 <p><a href="http://www.lifewithwork.cn" target="_blank" rel="noopener">www.lifewithwork.cn</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="ckb7bko070001dow4ga0899nw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/06/01DrumKit/" data-id="ckb7tpkcr00006cw4f4vvgg8e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -301,7 +327,7 @@
           </li>
         
           <li>
-            <a href="/2020/06/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">JavaScript30</a>
+            <a href="/2020/06/06/01DrumKit/">JavaScript30</a>
           </li>
         
           <li>
