@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>musicPlayer | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="音乐播放器因为现在播放器因为版权问题，会时常下架一些歌，一直换播放器也是比较麻烦的事情，所以想着是否能够把自己非常喜欢的歌下载下来，然后通过自己做的播放器播放。 模块设计 列表播放器 播放器视图 歌词 背景音频可视化 调音工具(暂时还没完成，以后会更新)  模块功能播放列表功能 根据歌名选择对应的音频 当前歌曲播放完毕后会按列表顺序播放音频 列表播放按钮随着歌曲状态改变 音频状态切歌的时候要改变">
+<meta property="og:type" content="article">
+<meta property="og:title" content="musicPlayer">
+<meta property="og:url" content="http://yoursite.com/2020/06/30/musicPlayer/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="音乐播放器因为现在播放器因为版权问题，会时常下架一些歌，一直换播放器也是比较麻烦的事情，所以想着是否能够把自己非常喜欢的歌下载下来，然后通过自己做的播放器播放。 模块设计 列表播放器 播放器视图 歌词 背景音频可视化 调音工具(暂时还没完成，以后会更新)  模块功能播放列表功能 根据歌名选择对应的音频 当前歌曲播放完毕后会按列表顺序播放音频 列表播放按钮随着歌曲状态改变 音频状态切歌的时候要改变">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-30T14:44:14.845Z">
+<meta property="article:modified_time" content="2020-06-30T13:20:02.514Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-musicPlayer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/30/musicPlayer/" class="article-date">
+  <time datetime="2020-06-30T14:44:14.845Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      musicPlayer
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="音乐播放器"><a href="#音乐播放器" class="headerlink" title="音乐播放器"></a>音乐播放器</h1><p>因为现在播放器因为版权问题，会时常下架一些歌，一直换播放器也是比较麻烦的事情，所以想着是否能够把自己非常喜欢的歌下载下来，然后通过自己做的播放器播放。</p>
+<h2 id="模块设计"><a href="#模块设计" class="headerlink" title="模块设计"></a>模块设计</h2><ol>
+<li>列表播放器</li>
+<li>播放器视图</li>
+<li>歌词</li>
+<li>背景音频可视化</li>
+<li>调音工具(暂时还没完成，以后会更新)</li>
+</ol>
+<h3 id="模块功能"><a href="#模块功能" class="headerlink" title="模块功能"></a>模块功能</h3><h4 id="播放列表功能"><a href="#播放列表功能" class="headerlink" title="播放列表功能"></a>播放列表功能</h4><ol>
+<li>根据歌名选择对应的音频</li>
+<li>当前歌曲播放完毕后会按列表顺序播放音频</li>
+<li>列表播放按钮随着歌曲状态改变</li>
+<li>音频状态切歌的时候要改变</li>
+</ol>
+<h3 id="播放器视图"><a href="#播放器视图" class="headerlink" title="播放器视图"></a>播放器视图</h3><ol>
+<li>播放器的播放按钮能控制当前的音频</li>
+<li>播放器的播放按钮图标随着音频状态更新</li>
+</ol>
+<h3 id="歌词栏"><a href="#歌词栏" class="headerlink" title="歌词栏"></a>歌词栏</h3><ol>
+<li>歌词要随着歌曲播放时间轮播</li>
+</ol>
+<h3 id="背景音频可视化"><a href="#背景音频可视化" class="headerlink" title="背景音频可视化"></a>背景音频可视化</h3><ol>
+<li>将音频的频率在页面背景可视化展现出来</li>
+</ol>
+<h2 id="模块功能实现"><a href="#模块功能实现" class="headerlink" title="模块功能实现"></a>模块功能实现</h2><h3 id="播放列表"><a href="#播放列表" class="headerlink" title="播放列表"></a>播放列表</h3><h4 id="生成播放列表"><a href="#生成播放列表" class="headerlink" title="生成播放列表"></a>生成播放列表</h4><p>每一首歌应该都有<code>src</code>,<code>name</code>,<code>lyric</code>属性，为了减少 html 里的代码量，可以把这些抽象在一个对象数组<code>songs</code>里，数组的每一项代表每一首歌的属性。然后根据这个数组来添加 html 的 dom 节点增加播放列表的 item。列表里的每首歌后面会有一个播放按钮用来控制和显示当前该歌曲的播放状态。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; songs.length; i++) &#123;</span><br><span class="line">  <span class="keyword">let</span> song = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">  song.className = <span class="string">"song"</span>;</span><br><span class="line">  song.dataset.src = songs[i].src;</span><br><span class="line">  song.dataset.lyc = songs[i].lyric;</span><br><span class="line">  song.innerHTML = <span class="string">`&lt;span&gt;<span class="subst">$&#123;songs[i].name&#125;</span>&lt;/span&gt; &lt;span class="iconfont toggle" data-title="<span class="subst">$&#123;songs[i].name&#125;</span>""&gt;&amp;#xe645;&lt;/span&gt;`</span>;</span><br><span class="line">  playList.appendChild(song);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据 songs 里的数据循环地创建&lt;div class=”song”&gt;的 dom 节点，然后再给这个 dom 赋予自定义的属性和这个 dom 的子节点，然后把这个节点插入到他的父节点下。<br><code>dataset</code>：HTMLElement.dataset 属性允许无论是在读取模式还是写入模式访问 HTML 或者 Dom 中元素设置的所有自定义数据属性<code>(data-*)</code>集。<br>`${ }`：其中反引号 ( ` )标识这是一个模板字面量，而${}是变量占位符，之间允许放入任意的 JS 表达式，会将运算结果当做是这个模板字面量的一部分。在上面的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">song.innerHTML = <span class="string">`&lt;span&gt;<span class="subst">$&#123;songs[i].name&#125;</span>&lt;/span&gt; &lt;span class="iconfont toggle"</span></span><br></pre></td></tr></table></figure>
+
+<p>会访问 songs[i]的 name，并将其插入到 song.innerHTML 字符串中。</p>
+<h3 id="播放列表中需要增加的事件监听"><a href="#播放列表中需要增加的事件监听" class="headerlink" title="播放列表中需要增加的事件监听"></a>播放列表中需要增加的事件监听</h3><ol>
+<li>监听列表每首歌的播放按钮的点击事件，用来控制单首歌的播放暂停。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">toggles.forEach(<span class="function">(<span class="params">toggle</span>) =&gt;</span> &#123;</span><br><span class="line">  toggle.addEventListener(<span class="string">"click"</span>, handlePressed);</span><br><span class="line">&#125;); <span class="comment">//给播放按钮添加事件监听</span></span><br></pre></td></tr></table></figure>
+
+<p><code>handlePressed</code>函数用来处理歌曲的播放状态和切歌动作。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handlePressed</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> srcNow = <span class="built_in">decodeURI</span>(audioPlay.src); <span class="comment">//获取当前播放/暂停下的歌曲src</span></span><br><span class="line">  <span class="keyword">const</span> nameNow = audioPlay.dataset.name; <span class="comment">//获取当前播放/暂停下的歌曲sname</span></span><br><span class="line">  <span class="keyword">const</span> nameNext = <span class="keyword">this</span>.dataset.title; <span class="comment">//获取将要操作的歌曲name</span></span><br><span class="line">  <span class="keyword">const</span> audioToPlaySrc = songs.find(<span class="function">(<span class="params">song</span>) =&gt;</span> song.name == nameNext).src; <span class="comment">//获取将要操作的歌曲src</span></span><br><span class="line">  <span class="keyword">if</span> (nameNow != nameNext) &#123;</span><br><span class="line">    <span class="comment">//根据name判断歌曲是否是当前歌曲，不是的话则切歌，切歌则会触发change事件，在change事件中改变样式</span></span><br><span class="line">    audioPlay.src = audioToPlaySrc; <span class="comment">//更改src</span></span><br><span class="line">    audioPlay.dataset.name = nameNext; <span class="comment">//更改data-name</span></span><br><span class="line">    <span class="comment">//console.log(audioPlay);</span></span><br><span class="line">    audioPlay.play();</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//如果是则暂停/播放</span></span><br><span class="line">    <span class="keyword">if</span> (audioPlay.paused) &#123;</span><br><span class="line">      audioPlay.play();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      audioPlay.pause();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>监听正在播放音频的结束事件，用来控制按列表顺序播放。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">audioPlay.addEventListener(<span class="string">"ended"</span>, sequentialPlay); <span class="comment">//监听歌曲结束事件，处理歌曲的顺序播放</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sequentialPlay</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//实现顺序播放</span></span><br><span class="line">  <span class="keyword">const</span> index = songs.findIndex(<span class="function">(<span class="params">song</span>) =&gt;</span> song.name == audioPlay.dataset.name);</span><br><span class="line">  <span class="built_in">console</span>.log(index);</span><br><span class="line">  audioPlay.src = songs[index + <span class="number">1</span>].src;</span><br><span class="line">  audioPlay.dataset.name = songs[index + <span class="number">1</span>].name;</span><br><span class="line">  audioPlay.play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="播放器"><a href="#播放器" class="headerlink" title="播放器"></a>播放器</h3><h4 id="画出播放器"><a href="#画出播放器" class="headerlink" title="画出播放器"></a>画出播放器</h4><h4 id="监听播放器按钮的点击事件"><a href="#监听播放器按钮的点击事件" class="headerlink" title="监听播放器按钮的点击事件"></a>监听播放器按钮的点击事件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">420</span>,</span><br><span class="line">  y = <span class="number">2</span>,</span><br><span class="line">  w = <span class="number">35</span>,</span><br><span class="line">  h = <span class="number">26</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//播放按钮</span></span><br><span class="line">canvas.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 鼠标x轴 &gt;= 矩阵x轴 &amp;&amp; 鼠标x轴 &lt;= 矩阵x轴 + 矩阵宽度</span></span><br><span class="line">  <span class="comment">// 鼠标y轴 &gt;= 矩阵y轴 &amp;&amp; 鼠标y轴 &lt;= 矩阵y轴 + 矩阵高度</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    e.layerX &gt;= x &amp;&amp;</span><br><span class="line">    e.layerX &lt;= x + w &amp;&amp;</span><br><span class="line">    e.layerY &gt;= y &amp;&amp;</span><br><span class="line">    e.layerY &lt;= y + h</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">if</span> (audioPlay.paused) &#123;</span><br><span class="line">      audioPlay.play();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      audioPlay.pause();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>x,y,w,h 属性确定按钮所在位置，然后通过监听鼠标点击这个位置的事件来控制当前的歌曲。</p>
+<h2 id="歌词"><a href="#歌词" class="headerlink" title="歌词"></a>歌词</h2><h3 id="生成歌词"><a href="#生成歌词" class="headerlink" title="生成歌词"></a>生成歌词</h3><p>在网上下载的歌词文档格式是下面这种格式<br>[00:23.10]人群里突然觉得空<br>[00:25.52]眼前飘过有你的种种<br>我们可以把每一句歌词改成一个对象，对象有两个属性 time，和 text 分别对应时间和歌词，然后将这些对象存入一个总的 lyrics 数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createLyrics</span>(<span class="params">lrcContent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (lrcContent.length == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">var</span> lrcs = lrcContent.split(<span class="string">"\n"</span>); <span class="comment">//把整个歌词拆分成一句歌词一句歌词的数组</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> lrcs) &#123;</span><br><span class="line">    lrcs[i] = lrcs[i].replace(<span class="regexp">/(^\s*) | (\s*$)/g</span>, <span class="string">""</span>); <span class="comment">//去除前后空格</span></span><br><span class="line">    <span class="keyword">var</span> timeOrigin = lrcs[i].substring(</span><br><span class="line">      lrcs[i].indexOf(<span class="string">"["</span>) + <span class="number">1</span>,</span><br><span class="line">      lrcs[i].indexOf(<span class="string">"]"</span>)</span><br><span class="line">    ); <span class="comment">//取[]之间的内容：时间</span></span><br><span class="line">    <span class="keyword">var</span> timeProcessed = timeOrigin.split(<span class="string">":"</span>); <span class="comment">//分离 : 前后的文字</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(<span class="built_in">parseInt</span>(timeProcessed[<span class="number">0</span>]))) &#123;</span><br><span class="line">      <span class="keyword">var</span> time =</span><br><span class="line">        <span class="built_in">parseFloat</span>(timeProcessed[<span class="number">0</span>]) * <span class="number">60</span> + <span class="built_in">parseFloat</span>(timeProcessed[<span class="number">1</span>]); <span class="comment">//将时间转化成秒</span></span><br><span class="line">      <span class="keyword">var</span> text = lrcs[i].substring(lrcs[i].indexOf(<span class="string">"]"</span>) + <span class="number">1</span>); <span class="comment">//将每句歌词对象插入歌词数组</span></span><br><span class="line">      lyrics.push(&#123;</span><br><span class="line">        time: time,</span><br><span class="line">        text: text,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有了歌词的对象数组后，我们可以根据歌的播放时间来决定轮播哪句歌词, 监听 audio 的 timeupdate 事件来更新歌词和样式。lrcContent 形参是原生歌词的文本字符串，将其放在 textarea 里面，但是 display 是 none。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">audioPlay.addEventListener(<span class="string">"timeupdate"</span>, lyricsChange); <span class="comment">//当歌曲的currentTime发生改变时，要处理相应dom的样式和歌词</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lyricsChange</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//更新歌词</span></span><br><span class="line">  <span class="keyword">if</span> (lyrics.length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">//如果歌词为空，则创建歌词对象数组</span></span><br><span class="line">    <span class="keyword">let</span> lrcContent = <span class="built_in">document</span>.getElementById(<span class="string">`<span class="subst">$&#123;audioPlay.dataset.name&#125;</span>`</span>)</span><br><span class="line">      .innerHTML;</span><br><span class="line">    createLyrics(lrcContent);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (j == lyrics.length) <span class="keyword">return</span>; <span class="comment">//在页面显示歌词，j是歌词数组的索引</span></span><br><span class="line">  <span class="keyword">let</span> curTime = <span class="keyword">this</span>.currentTime;</span><br><span class="line">  <span class="built_in">console</span>.log(curTime);</span><br><span class="line">  <span class="built_in">console</span>.log(j);</span><br><span class="line">  <span class="built_in">console</span>.log(lyrics[j].time);</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">parseFloat</span>(lyrics[j].time) &lt;= curTime) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(lyrics[j].text);</span><br><span class="line">    lrcRow.innerHTML = lyrics[j].text;</span><br><span class="line">    j++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每一首歌开始播放的时候，都应该初始化歌词数组，然后把新歌的歌词写到数组里</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">audioPlay.addEventListener(<span class="string">"durationchange"</span>, lyricInit); <span class="comment">//监听切歌事件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lyricInit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//初始化歌词数组和索引</span></span><br><span class="line">  lyrics = [];</span><br><span class="line">  j = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="按钮状态更新"><a href="#按钮状态更新" class="headerlink" title="按钮状态更新"></a>按钮状态更新</h2><p>因为这些按钮的状态都是根据 audio 的播放/暂停来决定的，所以我们可以监听 audio 的开始播放和暂停事件来完成操作。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">audioPlay.addEventListener(<span class="string">"pause"</span>, styleChange); <span class="comment">//监听歌曲暂停事件，处理样式</span></span><br><span class="line">audioPlay.addEventListener(<span class="string">"play"</span>, styleChange); <span class="comment">//监听歌曲播放事件，处理样式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">styleChange</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> icon;</span><br><span class="line">  <span class="comment">//更新当前播放按钮的样式</span></span><br><span class="line">  <span class="keyword">if</span> (audioPlay.paused) &#123;</span><br><span class="line">    icon = <span class="string">"&amp;#xe645;"</span>;</span><br><span class="line">    run(<span class="string">"rgb(100,100,250)"</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    icon = <span class="string">"&amp;#xe615;"</span>;</span><br><span class="line">    run(<span class="string">"rgb(100,260,170)"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> toggle = toggles.find(</span><br><span class="line">    (toggle) =&gt; toggle.dataset.title == audioPlay.dataset.name <span class="comment">//找到当前audio对应的toggle</span></span><br><span class="line">  );</span><br><span class="line">  toggle.innerHTML = icon;</span><br><span class="line">  toggles</span><br><span class="line">    .filter(<span class="function">(<span class="params">toggleLeft</span>) =&gt;</span> toggleLeft !== toggle)</span><br><span class="line">    .forEach(<span class="function">(<span class="params">toggleLeft</span>) =&gt;</span> &#123;</span><br><span class="line">      toggleLeft.innerHTML = <span class="string">"&amp;#xe645;"</span>; <span class="comment">//其他audio对应的toggle变成待播放</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="背景音频可视化-1"><a href="#背景音频可视化-1" class="headerlink" title="背景音频可视化"></a>背景音频可视化</h2><p>调用 audioContext API 可以获得 audio 源的频率数据和波形数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> audioCtx = <span class="keyword">new</span> (<span class="built_in">window</span>.AudioContext || <span class="built_in">window</span>.webkitAudioContext)(); <span class="comment">//创建一个audioCtx的接口</span></span><br><span class="line"><span class="built_in">console</span>.log(audioCtx);</span><br><span class="line">audioPlay.crossOrigin = <span class="string">"anonymous"</span>; <span class="comment">// 设置允许跨域,audioContext连接对跨域有限制</span></span><br><span class="line"><span class="keyword">var</span> analyser = audioCtx.createAnalyser(); <span class="comment">//创建一个分析器，分析器也是一个audioContent节点，用于显示音频时间和频率数据</span></span><br><span class="line">source = audioCtx.createMediaElementSource(audioPlay); <span class="comment">//创建源, 在这是正在播放的音乐</span></span><br><span class="line">source.connect(analyser); <span class="comment">//将源audioContext与分析器连接起来</span></span><br><span class="line"><span class="keyword">var</span> distotion = audioCtx.createWaveShaper(); <span class="comment">//创建一个表示非线性失真的waveShaperNode，可以给音频添加失真效果。</span></span><br><span class="line">analyser.connect(distotion); <span class="comment">//分析器与失真器连接起来</span></span><br><span class="line">distotion.connect(audioCtx.destination); <span class="comment">//连接音频上下文的最终节点输出</span></span><br><span class="line"><span class="comment">//现在需要通过分析器analyser抓取音频数据，analyser将使用快速傅里叶变换在特定频域中捕获音频数据，具体的频域通过analyer.fftSize设置，默认是2048，并且fifSize的值必须是2的幂。</span></span><br><span class="line"><span class="comment">//analyser.fftSize = 20486;</span></span><br><span class="line">analyser.fftSize = <span class="number">256</span>;</span><br><span class="line"><span class="comment">//新创建一个数组用来缓存抓取到的每一次频率数据，由于接下来的抓取数据方法返回的数据比较特别，标准的js数组满足不了，所以根据要抓取数据的内容，选择Float32Array还是Uint8Array。</span></span><br><span class="line"><span class="keyword">var</span> bufferLength = analyser.frequencyBinCount; <span class="comment">//设置缓冲区的大小，frequencyBincount是ffSize的一半</span></span><br><span class="line"><span class="keyword">var</span> dataArray = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(bufferLength); <span class="comment">//如果用的是analyser.getByteTimeDomainData的方法抓取波形数据 byte整形数据，占1个字节</span></span><br><span class="line"><span class="comment">//抓取频率数据我们需要Analyser.getFloatFrequrencyData() 和 analyser.getByteFrequencyData()方法</span></span><br><span class="line"><span class="comment">//抓取波形数据我们需要analyser.getFloatTimeDomainData() 和 analyer.getByteTimeDomainData()方法</span></span><br><span class="line"><span class="comment">//analyser.getByteTimeDomainData(dataArray); //此时的波形数据已经存到dataArray数组里了</span></span><br><span class="line"><span class="comment">//analyser.getByteFrequencyData(dataArray); //此时的频率数据已经存到dataArray数组里了</span></span><br></pre></td></tr></table></figure>
+
+<p>dataArray 经过分析器的处理，获得的是那一帧的波形或者频率数据，要实现可视化，我们需要在画布中对每一帧数据都可视化。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">drawBgBar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> drawVisual = requestAnimationFrame(drawBgBar); <span class="comment">//通过requestAnimationFrame每秒执行60次drawBgBar函数。</span></span><br><span class="line">  analyser.getByteFrequencyData(dataArray); <span class="comment">//获得频率数据</span></span><br><span class="line">  <span class="built_in">console</span>.log(dataArray);</span><br><span class="line">  canvasBgCtx.fillStyle = <span class="string">"black"</span>;</span><br><span class="line">  canvasBgCtx.fillRect(<span class="number">0</span>, <span class="number">0</span>, WIDTH, HEIGHT); <span class="comment">//讲画布背景变黑</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> barWidth = WIDTH / bufferLength; <span class="comment">//把画布的宽度除以数组长度获得每个数组应该占屏幕的位置</span></span><br><span class="line">  <span class="keyword">var</span> barHeight;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; bufferLength; i++) &#123;</span><br><span class="line">    barHeight = dataArray[i] / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> linGrad2 = ctx.createLinearGradient(</span><br><span class="line">      x,  <span class="comment">//柱状图的左上横轴坐标</span></span><br><span class="line">      HEIGHT - barHeight / <span class="number">2</span>,<span class="comment">//柱状图的左上纵轴坐标</span></span><br><span class="line">      x + barWidth, <span class="comment">//柱状图下方横坐标</span></span><br><span class="line">      HEIGHT <span class="comment">//柱状图下方纵坐标，就是屏幕最低点</span></span><br><span class="line">    ); <span class="comment">//柱状图的颜色是渐变的</span></span><br><span class="line">    linGrad2.addColorStop(<span class="string">"0"</span>, <span class="string">"#f00"</span>); <span class="comment">//渐变颜色的开始</span></span><br><span class="line">    linGrad2.addColorStop(<span class="string">"0.5"</span>, <span class="string">"#ff0"</span>);</span><br><span class="line">    linGrad2.addColorStop(<span class="string">"1.0"</span>, <span class="string">"#0f0"</span>);</span><br><span class="line">    canvasBgCtx.fillStyle = linGrad2;<span class="comment">// 渐变填充柱状图矩形</span></span><br><span class="line">    canvasBgCtx.fillRect(x, HEIGHT - barHeight / <span class="number">2</span>, barWidth, barHeight);</span><br><span class="line"></span><br><span class="line">    x += barWidth + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/30/musicPlayer/" data-id="ckc21lhij0000msw41f7pe4et" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/06/13/display/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">display</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/30/musicPlayer/">musicPlayer</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/13/display/">display</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/10/CSS%E9%97%AE%E9%A2%98/">CSS问题</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/09/webpack/">webpack</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/09/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">数据类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
