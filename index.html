@@ -361,6 +361,55 @@
 
 
   
+    <article id="post-数据类型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/09/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="article-date">
+  <time datetime="2020-06-09T01:39:14.964Z" itemprop="datePublished">2020-06-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/09/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">数据类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JS数据类型"><a href="#JS数据类型" class="headerlink" title="JS数据类型"></a>JS数据类型</h1><p>除object外的所有数据类型都是不可变的(值本身不可以发生改变)</p>
+<h2 id="7种原始类型"><a href="#7种原始类型" class="headerlink" title="7种原始类型"></a>7种原始类型</h2><h3 id="boolean类型"><a href="#boolean类型" class="headerlink" title="boolean类型"></a><code>boolean类型</code></h3><p>表示一个逻辑实体，可以有两个值：true和false</p>
+<h3 id="Null类型"><a href="#Null类型" class="headerlink" title="Null类型"></a><code>Null类型</code></h3><p>Null类型只有一个值：null。值null是一个字面量，不是全局对象的一个属性。null是表示缺少标识，指示变量没有指向任何对象。</p>
+<h3 id="undefined类型"><a href="#undefined类型" class="headerlink" title="undefined类型"></a><code>undefined类型</code></h3><p>一个没有赋值的变量会有个默认值undefined。undefined是全局对象的一个属性。</p>
+<h3 id="数字类型number"><a href="#数字类型number" class="headerlink" title="数字类型number"></a><code>数字类型number</code></h3><p>JS中只有一种数字类型，双精度64位二进制格式的值-(2^53-1) ~ 2^53-1, 他并没有为整数给出一种特定的类型</p>
+<h3 id="BigInt"><a href="#BigInt" class="headerlink" title="BigInt"></a><code>BigInt</code></h3><p>BigInt是JS中的一种基础数值类型，可以用任意精度表示整数，可以安全操作大整数，甚至可以突破数字的安全整数限制。BigInt通过在整数末尾添加n或者调用构造函数来创建</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">2n</span> ** <span class="number">53n</span> <span class="comment">//9007199254740992n</span></span><br><span class="line"><span class="keyword">const</span> y = x + <span class="number">1n</span> <span class="comment">// 9007199254740993n</span></span><br></pre></td></tr></table></figure>
+<h3 id="字符串类型string"><a href="#字符串类型string" class="headerlink" title="字符串类型string"></a><code>字符串类型string</code></h3><p>JS的字符串是不可更改的，但是可以基于原始字符串创建新的字符串</p>
+<ol>
+<li>string.substr()获取一个字符串的子串</li>
+<li>string.concat()或者‘+’链接两个字符串</li>
+</ol>
+<h3 id="符号类型symbol"><a href="#符号类型symbol" class="headerlink" title="符号类型symbol"></a><code>符号类型symbol</code></h3><p>符号(Symbols)是ECMAScript 第6版新定义的。符号类型是唯一的并且是不可修改的, 并且也可以用来作为Object的key的值。</p>
+<h2 id="object对象类型"><a href="#object对象类型" class="headerlink" title="object对象类型"></a>object对象类型</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/09/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="ckc3bic9r0000zkw436z9dbh2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-01DrumKit" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/06/01DrumKit/" class="article-date">
@@ -530,7 +579,7 @@
           </li>
         
           <li>
-            <a href="/2020/06/06/01DrumKit/">JavaScript30</a>
+            <a href="/2020/06/09/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">数据类型</a>
           </li>
         
       </ul>
