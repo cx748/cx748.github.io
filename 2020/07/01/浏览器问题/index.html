@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>浏览器问题 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Cookie，Session，SameSite会话（Session）跟踪是Web程序中常用的技术，用来跟踪用户的整个会话。常用的会话跟踪技术是Cookie与Session。Cookie通过在客户端记录信息确定用户身份，Session通过在服务器端记录信息确定用户身份 Cookie机制首先，Http协议是无状态的协议，一旦数据交换完毕，客户端与服务端的连接就会关闭，要再次交换数据的话需要建立新的连接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器问题">
+<meta property="og:url" content="http://yoursite.com/2020/07/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Cookie，Session，SameSite会话（Session）跟踪是Web程序中常用的技术，用来跟踪用户的整个会话。常用的会话跟踪技术是Cookie与Session。Cookie通过在客户端记录信息确定用户身份，Session通过在服务器端记录信息确定用户身份 Cookie机制首先，Http协议是无状态的协议，一旦数据交换完毕，客户端与服务端的连接就会关闭，要再次交换数据的话需要建立新的连接">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-01T15:53:29.580Z">
+<meta property="article:modified_time" content="2020-07-02T09:10:26.024Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-浏览器问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-07-01T15:53:29.580Z" itemprop="datePublished">2020-07-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浏览器问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Cookie，Session，SameSite"><a href="#Cookie，Session，SameSite" class="headerlink" title="Cookie，Session，SameSite"></a>Cookie，Session，SameSite</h1><p>会话（Session）跟踪是Web程序中常用的技术，用来跟踪用户的整个会话。常用的会话跟踪技术是Cookie与Session。Cookie通过在客户端记录信息确定用户身份，Session通过在服务器端记录信息确定用户身份</p>
+<h2 id="Cookie机制"><a href="#Cookie机制" class="headerlink" title="Cookie机制"></a>Cookie机制</h2><p>首先，Http协议是无状态的协议，一旦数据交换完毕，客户端与服务端的连接就会关闭，要再次交换数据的话需要建立新的连接，这就意味着服务器无法在连接上跟踪回话。Cookie的引用可以用来跟踪会话。</p>
+<h3 id="什么是Cookie"><a href="#什么是Cookie" class="headerlink" title="什么是Cookie"></a>什么是Cookie</h3><p>Cookie是一小段的文本信息。客户端向服务端提出请求，如果服务端需要记住该用户状态，就会使用response向客户端颁发一个Cookie。客户端浏览器会将这个cookie保存起来。当浏览器再次请求服务器时，浏览器把请求的网址和该cookie一同提交给服务器。服务器检查该cookie来确认用户状态。服务器也可以修改cookie内容。</p>
+<h3 id="Cookie的属性"><a href="#Cookie的属性" class="headerlink" title="Cookie的属性"></a>Cookie的属性</h3><ol>
+<li>Name/Value</li>
+<li>Expires 设置Cookie的过期时间，当Expires属性缺省时，表示的是会话性Cookie，此时值保存在客户端内存中，用户关闭浏览器时失效。与之对应的是持久性Cookie，持久性Cookie会保存在用户的硬盘中，直至过期或者清除，设定的日期只和客户端有关。</li>
+<li>Max-Age 用于设置Cookie失效前需要经过的秒数，如果和Expires同时存在，则Max-age的优先级更高</li>
+<li>Domain Domain指定了Cookie可以送达的主机名，如果没有指定，那么默认值为当前文档访问地址中的主机部分。不能够跨域设置Cookie。</li>
+<li>Path 指定了一个URL路径。这个路径必须要出现在请求的资源中才可以发送Cookie首部。</li>
+<li>secure 标记为secure的Cookie只应通过https协议加密过的请求发送给服务端。</li>
+<li>SameSite<h3 id="SameSite"><a href="#SameSite" class="headerlink" title="SameSite"></a>SameSite</h3>SameSite属性可以让Cookie在跨站请求时不会被发送，从而可以阻止跨站请求伪造攻击。他可以有下列三种值：</li>
+<li>Strict 仅允许一方携带Cookie，即浏览器将只发送相同站点请求Cookie，即当前网页URL与请求目标URL完全一致</li>
+<li>Lax 允许部分第三方请求携带Cookie</li>
+<li>None 无论是否跨站都会发送Cookie</li>
+</ol>
+<p>之前是默认为None，chrome80 后默认是Lax</p>
+<h4 id="跨域和跨站"><a href="#跨域和跨站" class="headerlink" title="跨域和跨站"></a>跨域和跨站</h4><p>同源（same-origin）/ 跨域 (cross-origin) 同源的意思是指两个URL的协议/主机名/端口都一致。<br>同站（same-site）/ 跨站（cross-site）同站只要两个URL的eTLD+1(顶级域名 + 二级域名 如 taobao.com)相同就可，不需要考虑协议和端口。<br>举几个例子 <a href="http://www.taobao.com和www.baidu.com是跨站，www.a.taobao.com和www.b.taobao.com是同站" target="_blank" rel="noopener">www.taobao.com和www.baidu.com是跨站，www.a.taobao.com和www.b.taobao.com是同站</a>, a.github.io和b.github.io是跨站。</p>
+<h2 id="Session机制"><a href="#Session机制" class="headerlink" title="Session机制"></a>Session机制</h2><p>　　除了使用Cookie，Web应用程序中还经常使用Session来记录客户端状态。Session是服务器端使用的一种记录客户端状态的机制，使用上比Cookie简单一些，相应的也增加了服务器的存储压力。</p>
+<h3 id="什么是session"><a href="#什么是session" class="headerlink" title="什么是session"></a>什么是session</h3><p>Session是另一种记录客户状态的机制，不同的是Cookie保存在客户端浏览器中，而Session保存在服务器上。客户端浏览器访问服务器的时候，服务器把客户端信息以某种形式记录在服务器上。这就是Session。客户端浏览器再次访问时只需要从该Session中查找该客户的状态就可以了。</p>
+<p>如果说Cookie机制是通过检查客户身上的“通行证”来确定客户身份的话，那么Session机制就是通过检查服务器上的“客户明细表”来确认客户身份。Session相当于程序在服务器上建立的一份客户档案，客户来访的时候只需要查询客户档案表就可以了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E9%97%AE%E9%A2%98/" data-id="ckc5mqrac0006w4w4bnpl0r2k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/01/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          常见算法题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/01/HTML%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HTML常见问题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/07/02/JS03-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">JS03-原型与原型链</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/02/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/02/JS-02%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/">JS-02浅拷贝与深拷贝</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/01/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E9%A2%98/">常见算法题</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E9%97%AE%E9%A2%98/">浏览器问题</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

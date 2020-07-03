@@ -64,6 +64,303 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JS03-原型与原型链" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/02/JS03-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="article-date">
+  <time datetime="2020-07-02T12:47:47.357Z" itemprop="datePublished">2020-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/02/JS03-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">JS03-原型与原型链</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="面向对象与原型"><a href="#面向对象与原型" class="headerlink" title="面向对象与原型"></a>面向对象与原型</h1><h2 id="理解原型"><a href="#理解原型" class="headerlink" title="理解原型"></a>理解原型</h2><p>原型的概念很简单，每个对象都有对原型的引用，当查找属性时，如果此对象不存在这个属性，则查找原型上有没有这个属性，原型也是一个对象。<br><code>对象可以通过原型访问其他对象的属性</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Daxia = &#123; <span class="attr">wuqi</span>: <span class="literal">true</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> Ren = &#123; <span class="attr">shou</span>: <span class="literal">true</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> animal = &#123; <span class="attr">move</span>: <span class="literal">true</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"shou"</span> <span class="keyword">in</span> Daxia); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(Daxia, Ren); <span class="comment">//将Ren作为Daxia的原型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"shou"</span> <span class="keyword">in</span> Daxia); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"move"</span> <span class="keyword">in</span> Daxia); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(ren, animal); <span class="comment">//将animal设为Ren的原型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"move"</span> <span class="keyword">in</span> Daxia); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>在 JavaScript 中，对象的原型属性是内置属性，无法直接访问，可以用内置的方法 Object.setPrototypeOf 需要传入两个对象作为参数，并将第二个对象设置为第一个对象的原型。<br>每个对象都可以有一个原型，每个对象的原型也可以拥有一个原型，以此类推，形成一个原型链。查找特定属性将会被委托在整个原型链上，只有当没有更多的原型可以进行查找时，才会停止查找。</p>
+<h2 id="对象构造器与原型"><a href="#对象构造器与原型" class="headerlink" title="对象构造器与原型"></a>对象构造器与原型</h2><p>每个函数都有一个原型对象，该原型对象将被自动设置为通过这个函数创建对象的原型。</p>
+<p><code>清单</code>2 通过原型方法创建新的实例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Ninja.prototype.swingSword = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ninja1 = Ninja(); <span class="comment">//作为函数调用Ninja</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja1 === <span class="literal">undefined</span>); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ninja2 = <span class="keyword">new</span> Ninja(); <span class="comment">//作为构造函数调用</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja2 &amp;&amp; ninja2.swingSword &amp;&amp; ninja2.swingSword()); <span class="comment">//验证不仅创建了新的实例，并且该实例具有原型上的方法</span></span><br></pre></td></tr></table></figure>
+
+<p>在这段代码中，我们先定义了一个名为 Ninja 的空函数，并通过两种方法进行调用：一种是作为普通函数,const ninja1 = Ninja(),另一种是作为构造器进行调用，const ninja2 = new Ninja();<br>当函数创建完成后，会立即获得一个原型对象，可以通过 prototype 属性对原型对象进行扩展，在本例中，在原型对象上添加了 swingSword 方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Ninja.prototype.swingSword = <span class="function"><span class="keyword">function</span>(<span class="params">&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">    return true;</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="../img/%E5%8E%9F%E5%9E%8B1.svg" alt="avatar"><br>swingSword 方法是 Ninja 的原型属性，而不是 ninja 实例的属性，接下来我们探讨一下实例属性和原型属性的区别</p>
+<h3 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h3><p>当把函数作为构造函数，通过操作符<code>new</code>进行调用时，它的上下文被定义为新的对象实例。通过原型暴露属性，通过构造函数的参数进行初始化。<br><code>清单三</code> 观察初始化过程的优先级</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.swung = <span class="literal">false</span>; <span class="comment">//创建布尔类型的实例变量</span></span><br><span class="line">  <span class="keyword">this</span>.swingSword = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !<span class="keyword">this</span>.swung;</span><br><span class="line">  &#125;; <span class="comment">//创建实例方法，该方法返回实例变量的反</span></span><br><span class="line">&#125;</span><br><span class="line">Ninja.prototype.swingSword = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.swung; <span class="comment">//定义一个与实例方法相同的原型方法，将会优先使用哪一个呢</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ninja1 = <span class="keyword">new</span> Ninja();</span><br><span class="line"><span class="built_in">console</span>.log(ninja.swingSword()); <span class="comment">//如果在实例中查找到属性，则不会查找原型</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="../img/%E5%8E%9F%E5%9E%8B2.png" alt="avatar"><br>在构造函数内部，this 指向的是新创建的对象实例，所以在构造器内添加的属性就直接在新的 ninja 实例上了，然后通过 ninja 访问 swingSword 属性时，就直接在实例上找到了，不需要再遍历原型链了。</p>
+<p><code>清单4</code> 通过原型，一切都可以在运行的时候修改</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.swung = <span class="literal">true</span>; <span class="comment">//创建布尔类型的实例变量</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> ninja1 = <span class="keyword">new</span> Ninja();</span><br><span class="line">Ninja.prototype.swingSword = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.swung;</span><br><span class="line">&#125;; <span class="comment">//在原型上添加方法</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja1.swingSword()); <span class="comment">//验证之前的实例是否有这个方法</span></span><br><span class="line"><span class="comment">//true</span></span><br><span class="line">Ninja.prototype = &#123;</span><br><span class="line">  pierce: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;; <span class="comment">//使用字面量重写函数原型</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja1.swingSword()); <span class="comment">//验证之前的实例化后的对象是否还有swingsword方法</span></span><br><span class="line"><span class="comment">//true</span></span><br><span class="line"><span class="keyword">const</span> ninja2 = <span class="keyword">new</span> Ninja();</span><br><span class="line"><span class="built_in">console</span>.log(ninja2.pierce()); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja2.swingSword); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+<p>首先，我们定义一个构造器Ninja，然后实例化一个对象，此时的状态如下：<br><img src="../img/%E5%8E%9F%E5%9E%8B3.png" alt="avatar"><br>构造完成后，实例化对象ninja1有swung属性，他的原型是构造器的原型，只有constructor属性。<br>实例化创建完成后，我们在Ninja原型添加了swingSword方法。此时的状态如下<br><img src="../img/%E5%8E%9F%E5%9E%8B4.png" alt="avatar"><br>因为ninja1实例指向Ninja原型，在实例构造完成之后对原型做更改，该实例仍然能够访问.</p>
+<p>然后，我们使用字面量对象完全重写Ninja的原型对象，该字面量<br>对象仅含有pierce方法。<br><img src="../img/%E5%8E%9F%E5%9E%8B5.png" alt="avatar"><br>即使Ninja函数不再指向旧的Ninja原型，但是旧的原<br>型仍然存在于ninja1的实例中，通过原型链仍然能够访问swingSword方<br>法。  </p>
+<p>但是，如果我们在Ninja发生这些变化之后再创建新的实例对象，此时的程序状态如下<br><img src="../img/%E5%8E%9F%E5%9E%8B6.png" alt="avatar"><br><code>对象与函数原型之间的引用关系是在对象创建时建立的。新创建的对象将引用新的原型</code>，它只能访问pierce方法，原来旧的对象保持着原有的原型，仍然能够访问swingSword方法</p>
+<h3 id="通过构造函数实现对象类型"><a href="#通过构造函数实现对象类型" class="headerlink" title="通过构造函数实现对象类型"></a>通过构造函数实现对象类型</h3><p>我们已经知道能够通过原型查找引用属性，我们也需要知道对象实例是通过哪个函数构造创建的。<br><code>清单5</code> 检查实例与他的constructor</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> ninja = <span class="keyword">new</span> Ninja();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> ninja);<span class="comment">// object</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja <span class="keyword">instanceof</span> Ninja);<span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja.constructor === Ninja)<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>我们先定义一个构造器函数，并且用这个构造器实例化一个对象。然后使用操作符typeof检查该实例的对象类型。这也发现不了什么。因为所有的实例都是对象类型。而instanceof操作符提供了一种检测一个实例是否由特定的构造函数创建的方法。<br>此外，我们可以使用实例原型上的constructor属性，所有实例对象都可以访问constructor属性，constructor属性是创建实例对象的函数的引用，因此我们可以使用该属性创建新的Ninja对象。<br><code>清单6</code> 使用constructor的引用创建新对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> ninja = <span class="keyword">new</span> Ninja();</span><br><span class="line"><span class="keyword">const</span> ninja2 = <span class="keyword">new</span> ninja.constructor(); <span class="comment">//通过第一个实例化对象的constructtor方法创建第二个实例化对象。</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/02/JS03-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/" data-id="ckc5mqraa0003w4w4db5uhu6w" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/02/test/" class="article-date">
+  <time datetime="2020-07-02T09:39:15.544Z" itemprop="datePublished">2020-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/02/test/">test</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  <meta name="generator" content="Hexo 4.2.1"></head>
+  <body>
+    <script>
+      function Ninja() {}
+      const ninja = new Ninja();
+
+      console.log(typeof ninja); //
+      console.log(ninja instanceof Ninja); //
+      console.log(ninja.constructor === Ninja); //
+    </script>
+  </body>
+</html>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/02/test/" data-id="ckc5mqrab0005w4w475i7han5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JS-02浅拷贝与深拷贝" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/02/JS-02%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/" class="article-date">
+  <time datetime="2020-07-02T09:23:14.171Z" itemprop="datePublished">2020-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/02/JS-02%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/">JS-02浅拷贝与深拷贝</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="栈与堆的区别"><a href="#栈与堆的区别" class="headerlink" title="栈与堆的区别"></a>栈与堆的区别</h2><p>其实深拷贝与浅拷贝的主要区别来源于数据在内存中的存储类型不同。<br>栈和堆都是从内存中划出来用来存储的区域：</p>
+<ul>
+<li>栈(stack)是自动分配的内存空间，由系统自动释放</li>
+<li>堆(heap)是动态分配的内存，大小不定也不会自动释放</li>
+</ul>
+<h2 id="数据类型与存储方式"><a href="#数据类型与存储方式" class="headerlink" title="数据类型与存储方式"></a>数据类型与存储方式</h2><p>我们在JS-01中知道，数据类型主要有2种，基本数据类型和引用数据类型，<code>基本数据类型</code>是存放在栈中，是直接按照值来存放的。基本数据类型的值是不可变的，动态修改基本类型的值，他的原始值也不会变。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"abc"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str[<span class="number">1</span>] = <span class="string">"f"</span>) <span class="comment">// f</span></span><br><span class="line"><span class="built_in">console</span>.log(str) <span class="comment">//  abc</span></span><br></pre></td></tr></table></figure>
+<p>而<code>引用数据类型</code>时候存放在堆中，变量实际上是存放在栈内存的指针，这个指针指向堆内存中的地址。<br><img src="https://upload-images.jianshu.io/upload_images/17551433-37161303b825a34f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/636/format/webp" alt="avatar"><br>引用数据类型的值可以变</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]; <span class="comment">//数组是引用类型</span></span><br><span class="line">a[<span class="number">1</span>] = <span class="number">5</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//[1,5,3]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h2><ul>
+<li><code>传值和传址</code><br>当我们进行赋值操作时，基本数据类型的赋值是在内存中开辟一段栈内存，然后再把值赋给这个基本数据类型的变量。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br></pre></td></tr></table></figure>
+<img src="https://upload-images.jianshu.io/upload_images/17551433-977a5fba523d8237.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/652/format/webp" alt=""><br>但是引用类型的赋值是传址，只是改变指针的指向。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;&#125;; <span class="comment">// a保存了一个空对象的实例</span></span><br><span class="line"><span class="keyword">var</span> b = a;  <span class="comment">// a和b都指向了这个空对象</span></span><br><span class="line"></span><br><span class="line">a.name = <span class="string">'jozo'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a.name); <span class="comment">// 'jozo'</span></span><br><span class="line"><span class="built_in">console</span>.log(b.name); <span class="comment">// 'jozo'</span></span><br><span class="line"></span><br><span class="line">b.age = <span class="number">22</span>;</span><br><span class="line"><span class="built_in">console</span>.log(b.age);<span class="comment">// 22</span></span><br><span class="line"><span class="built_in">console</span>.log(a.age);<span class="comment">// 22</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a == b);<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<img src="https://upload-images.jianshu.io/upload_images/17551433-d0334e70183e4488.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/650/format/webp" alt=""></li>
+</ul>
+<h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><p>上面内容只是常用的赋值引用，还不能算浅拷贝。</p>
+<ul>
+<li>浅拷贝和赋值有什么区别<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    <span class="string">'name'</span>: <span class="string">'zhangsan'</span>;</span><br><span class="line">    <span class="string">'age'</span>: <span class="string">'18'</span>;</span><br><span class="line">    <span class="string">'language'</span>: [</span><br><span class="line">        <span class="number">1</span>,</span><br><span class="line">        [<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">        [<span class="number">4</span>,<span class="number">5</span>],</span><br><span class="line">    ]</span><br><span class="line">&#125;;<span class="comment">//定义对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj2 = obj1; <span class="comment">//赋值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj3 = shallowCopy(obj1); <span class="comment">//浅拷贝</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowCopy</span>(<span class="params">src</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dst = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> prop <span class="keyword">in</span> src)&#123;</span><br><span class="line">        <span class="keyword">if</span>(src.hasOwnProperty(prop))&#123;</span><br><span class="line">            dst[prop] = src[prop];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dst;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj2.name = <span class="string">"lisi"</span>;</span><br><span class="line">obj3.age=<span class="string">"20"</span>;</span><br><span class="line"></span><br><span class="line">obj2.language[<span class="number">1</span>] = [<span class="string">"二"</span>,<span class="string">"三"</span>];</span><br><span class="line">obj3.language[<span class="number">2</span>] = [<span class="string">"二"</span>,<span class="string">"三"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj1);</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">'name'</span>: <span class="string">'lisi'</span>,</span><br><span class="line">    <span class="string">'age'</span>: <span class="string">'20'</span>,</span><br><span class="line">    <span class="string">'language'</span>: [</span><br><span class="line">        <span class="number">1</span>,</span><br><span class="line">        [<span class="string">'二'</span>，<span class="string">'三'</span>],</span><br><span class="line">        [<span class="string">''</span>,<span class="string">''</span>]</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(obj2);</span><br><span class="line"><span class="built_in">console</span>.log(obj3);</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/02/JS-02%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/" data-id="ckc5mqra90002w4w4apsd6j08" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-常见算法题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/01/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E9%A2%98/" class="article-date">
+  <time datetime="2020-07-01T15:54:21.837Z" itemprop="datePublished">2020-07-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/01/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E9%A2%98/">常见算法题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/01/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E9%A2%98/" data-id="ckc5mqra80001w4w44hzj0bnl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-浏览器问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-07-01T15:53:29.580Z" itemprop="datePublished">2020-07-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E9%97%AE%E9%A2%98/">浏览器问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Cookie，Session，SameSite"><a href="#Cookie，Session，SameSite" class="headerlink" title="Cookie，Session，SameSite"></a>Cookie，Session，SameSite</h1><p>会话（Session）跟踪是Web程序中常用的技术，用来跟踪用户的整个会话。常用的会话跟踪技术是Cookie与Session。Cookie通过在客户端记录信息确定用户身份，Session通过在服务器端记录信息确定用户身份</p>
+<h2 id="Cookie机制"><a href="#Cookie机制" class="headerlink" title="Cookie机制"></a>Cookie机制</h2><p>首先，Http协议是无状态的协议，一旦数据交换完毕，客户端与服务端的连接就会关闭，要再次交换数据的话需要建立新的连接，这就意味着服务器无法在连接上跟踪回话。Cookie的引用可以用来跟踪会话。</p>
+<h3 id="什么是Cookie"><a href="#什么是Cookie" class="headerlink" title="什么是Cookie"></a>什么是Cookie</h3><p>Cookie是一小段的文本信息。客户端向服务端提出请求，如果服务端需要记住该用户状态，就会使用response向客户端颁发一个Cookie。客户端浏览器会将这个cookie保存起来。当浏览器再次请求服务器时，浏览器把请求的网址和该cookie一同提交给服务器。服务器检查该cookie来确认用户状态。服务器也可以修改cookie内容。</p>
+<h3 id="Cookie的属性"><a href="#Cookie的属性" class="headerlink" title="Cookie的属性"></a>Cookie的属性</h3><ol>
+<li>Name/Value</li>
+<li>Expires 设置Cookie的过期时间，当Expires属性缺省时，表示的是会话性Cookie，此时值保存在客户端内存中，用户关闭浏览器时失效。与之对应的是持久性Cookie，持久性Cookie会保存在用户的硬盘中，直至过期或者清除，设定的日期只和客户端有关。</li>
+<li>Max-Age 用于设置Cookie失效前需要经过的秒数，如果和Expires同时存在，则Max-age的优先级更高</li>
+<li>Domain Domain指定了Cookie可以送达的主机名，如果没有指定，那么默认值为当前文档访问地址中的主机部分。不能够跨域设置Cookie。</li>
+<li>Path 指定了一个URL路径。这个路径必须要出现在请求的资源中才可以发送Cookie首部。</li>
+<li>secure 标记为secure的Cookie只应通过https协议加密过的请求发送给服务端。</li>
+<li>SameSite<h3 id="SameSite"><a href="#SameSite" class="headerlink" title="SameSite"></a>SameSite</h3>SameSite属性可以让Cookie在跨站请求时不会被发送，从而可以阻止跨站请求伪造攻击。他可以有下列三种值：</li>
+<li>Strict 仅允许一方携带Cookie，即浏览器将只发送相同站点请求Cookie，即当前网页URL与请求目标URL完全一致</li>
+<li>Lax 允许部分第三方请求携带Cookie</li>
+<li>None 无论是否跨站都会发送Cookie</li>
+</ol>
+<p>之前是默认为None，chrome80 后默认是Lax</p>
+<h4 id="跨域和跨站"><a href="#跨域和跨站" class="headerlink" title="跨域和跨站"></a>跨域和跨站</h4><p>同源（same-origin）/ 跨域 (cross-origin) 同源的意思是指两个URL的协议/主机名/端口都一致。<br>同站（same-site）/ 跨站（cross-site）同站只要两个URL的eTLD+1(顶级域名 + 二级域名 如 taobao.com)相同就可，不需要考虑协议和端口。<br>举几个例子 <a href="http://www.taobao.com和www.baidu.com是跨站，www.a.taobao.com和www.b.taobao.com是同站" target="_blank" rel="noopener">www.taobao.com和www.baidu.com是跨站，www.a.taobao.com和www.b.taobao.com是同站</a>, a.github.io和b.github.io是跨站。</p>
+<h2 id="Session机制"><a href="#Session机制" class="headerlink" title="Session机制"></a>Session机制</h2><p>　　除了使用Cookie，Web应用程序中还经常使用Session来记录客户端状态。Session是服务器端使用的一种记录客户端状态的机制，使用上比Cookie简单一些，相应的也增加了服务器的存储压力。</p>
+<h3 id="什么是session"><a href="#什么是session" class="headerlink" title="什么是session"></a>什么是session</h3><p>Session是另一种记录客户状态的机制，不同的是Cookie保存在客户端浏览器中，而Session保存在服务器上。客户端浏览器访问服务器的时候，服务器把客户端信息以某种形式记录在服务器上。这就是Session。客户端浏览器再次访问时只需要从该Session中查找该客户的状态就可以了。</p>
+<p>如果说Cookie机制是通过检查客户身上的“通行证”来确定客户身份的话，那么Session机制就是通过检查服务器上的“客户明细表”来确认客户身份。Session相当于程序在服务器上建立的一份客户档案，客户来访的时候只需要查询客户档案表就可以了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E9%97%AE%E9%A2%98/" data-id="ckc5mqrac0006w4w4bnpl0r2k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-HTML常见问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/01/HTML%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-07-01T15:51:39.989Z" itemprop="datePublished">2020-07-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/01/HTML%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">HTML常见问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/01/HTML%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" data-id="ckc5mqr9r0000w4w492m69x1f" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-musicPlayer" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/30/musicPlayer/" class="article-date">
@@ -164,9 +461,9 @@
 
 
   
-    <article id="post-display" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-页面布局" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/06/13/display/" class="article-date">
+    <a href="/2020/06/13/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/" class="article-date">
   <time datetime="2020-06-13T02:05:58.405Z" itemprop="datePublished">2020-06-13</time>
 </a>
     
@@ -178,7 +475,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/13/display/">display</a>
+      <a class="article-title" href="/2020/06/13/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/">页面布局</a>
     </h1>
   
 
@@ -256,12 +553,11 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">flex</span>: none | auto | [ &lt;<span class="string">'flex-grow'</span>&gt; &lt;<span class="string">'flex-shrink'</span>&gt;? || &lt;<span class="string">'flex-basis'</span>&gt; ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>该属性有两个快捷值，auto(1 1 auto) 和 none(0 0 auto)。<br>优先使用flex属性，没必要分开写成三个属性。</p>
 <h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><p>align-self属性允许单个项目与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示可继承父元素的align-item属性，如果没有父元素，则等同于stretch。</p>
-<p>##</p>
-
+<h2 id="Grid网格布局"><a href="#Grid网格布局" class="headerlink" title="Grid网格布局"></a>Grid网格布局</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/13/display/" data-id="ckbz106t80001now44arh8mty" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/13/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/" data-id="ckc5mqrad0007w4w422vs3uye" class="article-share-link">Share</a>
       
       
     </footer>
@@ -361,178 +657,12 @@
 
 
   
-    <article id="post-数据类型" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/09/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="article-date">
-  <time datetime="2020-06-09T01:39:14.964Z" itemprop="datePublished">2020-06-09</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/09/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">数据类型</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JS数据类型"><a href="#JS数据类型" class="headerlink" title="JS数据类型"></a>JS数据类型</h1><p>除object外的所有数据类型都是不可变的(值本身不可以发生改变)</p>
-<h2 id="7种原始类型"><a href="#7种原始类型" class="headerlink" title="7种原始类型"></a>7种原始类型</h2><h3 id="boolean类型"><a href="#boolean类型" class="headerlink" title="boolean类型"></a><code>boolean类型</code></h3><p>表示一个逻辑实体，可以有两个值：true和false</p>
-<h3 id="Null类型"><a href="#Null类型" class="headerlink" title="Null类型"></a><code>Null类型</code></h3><p>Null类型只有一个值：null。值null是一个字面量，不是全局对象的一个属性。null是表示缺少标识，指示变量没有指向任何对象。</p>
-<h3 id="undefined类型"><a href="#undefined类型" class="headerlink" title="undefined类型"></a><code>undefined类型</code></h3><p>一个没有赋值的变量会有个默认值undefined。undefined是全局对象的一个属性。</p>
-<h3 id="数字类型number"><a href="#数字类型number" class="headerlink" title="数字类型number"></a><code>数字类型number</code></h3><p>JS中只有一种数字类型，双精度64位二进制格式的值-(2^53-1) ~ 2^53-1, 他并没有为整数给出一种特定的类型</p>
-<h3 id="BigInt"><a href="#BigInt" class="headerlink" title="BigInt"></a><code>BigInt</code></h3><p>BigInt是JS中的一种基础数值类型，可以用任意精度表示整数，可以安全操作大整数，甚至可以突破数字的安全整数限制。BigInt通过在整数末尾添加n或者调用构造函数来创建</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">2n</span> ** <span class="number">53n</span> <span class="comment">//9007199254740992n</span></span><br><span class="line"><span class="keyword">const</span> y = x + <span class="number">1n</span> <span class="comment">// 9007199254740993n</span></span><br></pre></td></tr></table></figure>
-<h3 id="字符串类型string"><a href="#字符串类型string" class="headerlink" title="字符串类型string"></a><code>字符串类型string</code></h3><p>JS的字符串是不可更改的，但是可以基于原始字符串创建新的字符串</p>
-<ol>
-<li>string.substr()获取一个字符串的子串</li>
-<li>string.concat()或者‘+’链接两个字符串</li>
-</ol>
-<h3 id="符号类型symbol"><a href="#符号类型symbol" class="headerlink" title="符号类型symbol"></a><code>符号类型symbol</code></h3><p>符号(Symbols)是ECMAScript 第6版新定义的。符号类型是唯一的并且是不可修改的, 并且也可以用来作为Object的key的值。</p>
-<h2 id="object对象类型"><a href="#object对象类型" class="headerlink" title="object对象类型"></a>object对象类型</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/09/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="ckc3bic9r0000zkw436z9dbh2" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-01DrumKit" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/06/01DrumKit/" class="article-date">
-  <time datetime="2020-06-06T02:24:33.000Z" itemprop="datePublished">2020-06-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/06/01DrumKit/">JavaScript30</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-JavaScript-Drum-Kit"><a href="#1-JavaScript-Drum-Kit" class="headerlink" title="1 JavaScript Drum Kit"></a>1 JavaScript Drum Kit</h1><blockquote>
-<p>@<a href="https://github.com/cx748" target="_blank" rel="noopener">帕吉的小肚腩</a></p>
-</blockquote>
-<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p>模拟一个打鼓的界面，用户在按下 ASDFGHJKL 这几个键之后，与之对应的的按钮会随之变大，对应的鼓点声音也会响起来。</p>
-<p><a href="http://lifewithwork.cn/JS30/day1/drumkit.html" target="_blank" rel="noopener">在线效果</a></p>
-<h2 id="关键要点"><a href="#关键要点" class="headerlink" title="关键要点"></a>关键要点</h2><ol>
-<li>键盘事件</li>
-<li>播放声音</li>
-<li>改变样式</li>
-</ol>
-<h2 id="步骤分解"><a href="#步骤分解" class="headerlink" title="步骤分解"></a>步骤分解</h2><ol>
-<li><strong>添加键盘事件监听</strong> 在window上增加keydown事件 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'keydown'</span>, playSound);</span><br></pre></td></tr></table></figure></li>
-<li><strong>对应的事件处理playSound</strong>：按下键盘后会播放声音<ol>
-<li>获取键码</li>
-<li>根据键码找到对应的音频 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> audio = <span class="built_in">document</span>.querySelector(<span class="string">`audio[data-key = "<span class="subst">$&#123;event.keyCode&#125;</span>"]`</span>);</span><br></pre></td></tr></table></figure></li>
-<li>根据键码找到页面中对应的元素 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> key = <span class="built_in">document</span>.querySelector(<span class="string">`div[data-key = "<span class="subst">$&#123;event.keyCode&#125;</span>"]`</span>);</span><br></pre></td></tr></table></figure></li>
-<li>播放对应的音频并放大按钮 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">key.classList.add(<span class="string">"playing"</span>) </span><br><span class="line">audio.currentTime = <span class="number">0</span>; <span class="comment">//每次播放后都将音频进度归零</span></span><br><span class="line">audio.play();</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-<li><strong>为所有的<code>div.key</code> 添加transition事件监听</strong>：每次按键对应的按钮会随之变大<ol>
-<li>获取所有样式为<code>key</code>的元素<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> keys = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">'.key'</span>))</span><br></pre></td></tr></table></figure></li>
-<li>为每一个样式添加事件监听<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeTransition</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (event.propertyName !== <span class="string">'transform'</span>) <span class="keyword">return</span>; <span class="comment">// 过滤其中一种事件</span></span><br><span class="line">  event.target.classList.remove(<span class="string">'playing'</span>); <span class="comment">// 移除高亮的样式</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">keys.forEach(<span class="function"><span class="params">key</span> =&gt;</span> key.addEventListener(<span class="string">"transitionend"</span>, removeTransition);</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-</li>
-</ol>
-<h2 id="解决难点"><a href="#解决难点" class="headerlink" title="解决难点"></a>解决难点</h2><h3 id="如何将按键与页面按钮连接起来"><a href="#如何将按键与页面按钮连接起来" class="headerlink" title="如何将按键与页面按钮连接起来"></a>如何将按键与页面按钮连接起来</h3><p>连接的帮手是<code>keydown</code>事件中的<code>keyCode</code>属性。keyCode属性的值与键盘对应的ASCII码值相等。在初始的页面中，div和audio都添加了一个<code>data-key</code>属性用于存储对应的键码。这样的话可以在触发键盘监听事件后既可获取<code>keyCode</code>的属性值。</p>
-<h3 id="如何使页面按钮恢复原状"><a href="#如何使页面按钮恢复原状" class="headerlink" title="如何使页面按钮恢复原状"></a>如何使页面按钮恢复原状</h3><p>可以利用transitioned这个事件，它在每次CSS transition结束后会触发，我们可以利用这个事件，在每次击鼓样式改变(变大，变颜色)完成之后清除对应的样式</p>
-<h2 id="这个小项目用的语法和事件"><a href="#这个小项目用的语法和事件" class="headerlink" title="这个小项目用的语法和事件"></a>这个小项目用的语法和事件</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p> `字符串 ${ 变量、属性名 } `：模板字面量（Template literals）中用于表示模板字符串的标识。特点是字符串首尾用反引号（`），内部的模板部分用 ${ } 括起来表示，具体请看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/template_strings" target="_blank" rel="noopener">MDN文档</a>。简单例子如下：</p>
-<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="comment">//不用模板的写法</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"三是"</span> + (a + b) + <span class="string">"不是"</span> + (<span class="number">2</span> * a + b)); <span class="comment">//"三是3不是4"</span></span><br><span class="line"><span class="comment">//使用模板字符串的写法</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`三是<span class="subst">$&#123;a + b&#125;</span>不是<span class="subst">$&#123;<span class="number">2</span> * a + b&#125;</span>`</span>); <span class="comment">//"三是3不是4"</span></span><br></pre></td></tr></table></figure></code></pre><h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><ol>
-<li><p>keydown：事件触发与键盘按键按下的时候，所有的按键都会触发keydown事件，无论这些按键是否产生字符值</p>
-</li>
-<li><p>transitionend：transitionend 事件会在 CSS transition 结束后触发</p>
-</li>
-</ol>
-<p><a href="http://www.lifewithwork.cn" target="_blank" rel="noopener">www.lifewithwork.cn</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/06/01DrumKit/" data-id="ckb7tpkcr00006cw4f4vvgg8e" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/06/hello-world/" class="article-date">
-  <time datetime="2020-06-06T02:19:26.418Z" itemprop="datePublished">2020-06-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/06/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/06/hello-world/" data-id="ckb7bko000000dow46x9zhdzy" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+  </nav>
 
 </section>
         
@@ -550,7 +680,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
     </div>
   </div>
 
@@ -563,23 +693,23 @@
       <ul>
         
           <li>
-            <a href="/2020/06/30/musicPlayer/">musicPlayer</a>
+            <a href="/2020/07/02/JS03-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">JS03-原型与原型链</a>
           </li>
         
           <li>
-            <a href="/2020/06/13/display/">display</a>
+            <a href="/2020/07/02/test/">test</a>
           </li>
         
           <li>
-            <a href="/2020/06/10/CSS%E9%97%AE%E9%A2%98/">CSS问题</a>
+            <a href="/2020/07/02/JS-02%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/">JS-02浅拷贝与深拷贝</a>
           </li>
         
           <li>
-            <a href="/2020/06/09/webpack/">webpack</a>
+            <a href="/2020/07/01/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E9%A2%98/">常见算法题</a>
           </li>
         
           <li>
-            <a href="/2020/06/09/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">数据类型</a>
+            <a href="/2020/07/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E9%97%AE%E9%A2%98/">浏览器问题</a>
           </li>
         
       </ul>
