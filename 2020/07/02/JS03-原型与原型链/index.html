@@ -20,8 +20,9 @@
 <meta property="og:image" content="http://yoursite.com/2020/07/02/img/%E5%8E%9F%E5%9E%8B4.png">
 <meta property="og:image" content="http://yoursite.com/2020/07/02/img/%E5%8E%9F%E5%9E%8B5.png">
 <meta property="og:image" content="http://yoursite.com/2020/07/02/img/%E5%8E%9F%E5%9E%8B6.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/02/img/%E7%BB%A7%E6%89%BF1.png">
 <meta property="article:published_time" content="2020-07-02T12:47:47.357Z">
-<meta property="article:modified_time" content="2020-07-03T02:24:30.532Z">
+<meta property="article:modified_time" content="2020-07-05T13:41:33.716Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2020/07/02/img/%E5%8E%9F%E5%9E%8B1.svg">
@@ -120,6 +121,11 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> ninja = <span class="keyword">new</span> Ninja();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> ninja);<span class="comment">// object</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja <span class="keyword">instanceof</span> Ninja);<span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja.constructor === Ninja)<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <p>我们先定义一个构造器函数，并且用这个构造器实例化一个对象。然后使用操作符typeof检查该实例的对象类型。这也发现不了什么。因为所有的实例都是对象类型。而instanceof操作符提供了一种检测一个实例是否由特定的构造函数创建的方法。<br>此外，我们可以使用实例原型上的constructor属性，所有实例对象都可以访问constructor属性，constructor属性是创建实例对象的函数的引用，因此我们可以使用该属性创建新的Ninja对象。<br><code>清单6</code> 使用constructor的引用创建新对象</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> ninja = <span class="keyword">new</span> Ninja();</span><br><span class="line"><span class="keyword">const</span> ninja2 = <span class="keyword">new</span> ninja.constructor(); <span class="comment">//通过第一个实例化对象的constructtor方法创建第二个实例化对象。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="实现原型继承"><a href="#实现原型继承" class="headerlink" title="实现原型继承"></a>实现原型继承</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Person.prototype.dance = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Ninja.prototype = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(Ninja.prototype, <span class="string">"constructor"</span>, &#123;</span><br><span class="line">　enumerable: <span class="literal">false</span>,</span><br><span class="line">　value: Ninja,</span><br><span class="line">　writable: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ninja = <span class="keyword">new</span> Ninja();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(ninja <span class="keyword">instanceof</span> Ninja);<span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja <span class="keyword">instanceof</span> Person); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">//true</span></span><br><span class="line"><span class="comment">//instanceof 它会检查操作符右边的函数的原型是否存在于操作符左边的对象的原型链上</span></span><br></pre></td></tr></table></figure>
+<p><img src="../img/%E7%BB%A7%E6%89%BF1.png" alt="通过将Ninja的原型构造器赋值为Person的实例，实现Ninja继承Person"></p>
+<p>当定义一个Person函数时，同时也创建了person原型，该原型通过constructor属性引用函数本身，然后可以扩展原型上的方法<br>然后定义一个Ninja函数，这个Ninja函数的原型也有一个constructor属性指向函数本身<br>接下来，为了实现继承<code>将Ninja的原型赋值为Person的实例</code>，现在没当创建一个新的Ninja对象时,新创建的Ninja对象将设置为Ninja的原型所指向的对象即Person实例。   </p>
+<h2 id="在ES6中实现继承"><a href="#在ES6中实现继承" class="headerlink" title="在ES6中实现继承"></a>在ES6中实现继承</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  dance()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ninja</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123; <span class="comment">//使用关键字extends实现继承</span></span><br><span class="line">  <span class="keyword">constructor</span>(name,weapon)&#123;</span><br><span class="line">    <span class="keyword">super</span>(name);  <span class="comment">//使用关键字super调用基类构造函数</span></span><br><span class="line">    <span class="keyword">this</span>.weapon = weapon;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  wieldWeapon()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(<span class="string">"Bob"</span>);</span><br><span class="line"><span class="keyword">var</span> ninja = <span class="keyword">new</span> Ninja(<span class="string">"yoshi"</span>,<span class="string">"Wakizashi"</span>);</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
@@ -131,6 +137,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2020/07/05/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          水平垂直居中的几种方法
+        
+      </div>
+    </a>
   
   
     <a href="/2020/07/02/test/" id="article-nav-older" class="article-nav-link-wrap">
@@ -172,23 +187,23 @@
       <ul>
         
           <li>
+            <a href="/2020/07/06/JS05-%E4%BD%9C%E7%94%A8%E5%9F%9F/">JS05-作用域</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/05/JS06-%E9%97%AD%E5%8C%85/">JS06-闭包</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/05/JS04-ES%E8%A7%84%E8%8C%83%E8%A7%A3%E8%AF%BBthis/">JS04-ES规范解读this</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/05/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">水平垂直居中的几种方法</a>
+          </li>
+        
+          <li>
             <a href="/2020/07/02/JS03-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">JS03-原型与原型链</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/02/test/">test</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/02/JS-02%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/">JS-02浅拷贝与深拷贝</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/01/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E9%A2%98/">常见算法题</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E9%97%AE%E9%A2%98/">浏览器问题</a>
           </li>
         
       </ul>

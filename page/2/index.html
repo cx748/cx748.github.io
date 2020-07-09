@@ -64,6 +64,305 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-musicPlayer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/30/musicPlayer/" class="article-date">
+  <time datetime="2020-06-30T14:44:14.845Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/30/musicPlayer/">musicPlayer</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="音乐播放器"><a href="#音乐播放器" class="headerlink" title="音乐播放器"></a>音乐播放器</h1><p>因为现在播放器因为版权问题，会时常下架一些歌，一直换播放器也是比较麻烦的事情，所以想着是否能够把自己非常喜欢的歌下载下来，然后通过自己做的播放器播放。</p>
+<h2 id="模块设计"><a href="#模块设计" class="headerlink" title="模块设计"></a>模块设计</h2><ol>
+<li>列表播放器</li>
+<li>播放器视图</li>
+<li>歌词</li>
+<li>背景音频可视化</li>
+<li>调音工具(暂时还没完成，以后会更新)</li>
+</ol>
+<h3 id="模块功能"><a href="#模块功能" class="headerlink" title="模块功能"></a>模块功能</h3><h4 id="播放列表功能"><a href="#播放列表功能" class="headerlink" title="播放列表功能"></a>播放列表功能</h4><ol>
+<li>根据歌名选择对应的音频</li>
+<li>当前歌曲播放完毕后会按列表顺序播放音频</li>
+<li>列表播放按钮随着歌曲状态改变</li>
+<li>音频状态切歌的时候要改变</li>
+</ol>
+<h3 id="播放器视图"><a href="#播放器视图" class="headerlink" title="播放器视图"></a>播放器视图</h3><ol>
+<li>播放器的播放按钮能控制当前的音频</li>
+<li>播放器的播放按钮图标随着音频状态更新</li>
+</ol>
+<h3 id="歌词栏"><a href="#歌词栏" class="headerlink" title="歌词栏"></a>歌词栏</h3><ol>
+<li>歌词要随着歌曲播放时间轮播</li>
+</ol>
+<h3 id="背景音频可视化"><a href="#背景音频可视化" class="headerlink" title="背景音频可视化"></a>背景音频可视化</h3><ol>
+<li>将音频的频率在页面背景可视化展现出来</li>
+</ol>
+<h2 id="模块功能实现"><a href="#模块功能实现" class="headerlink" title="模块功能实现"></a>模块功能实现</h2><h3 id="播放列表"><a href="#播放列表" class="headerlink" title="播放列表"></a>播放列表</h3><h4 id="生成播放列表"><a href="#生成播放列表" class="headerlink" title="生成播放列表"></a>生成播放列表</h4><p>每一首歌应该都有<code>src</code>,<code>name</code>,<code>lyric</code>属性，为了减少 html 里的代码量，可以把这些抽象在一个对象数组<code>songs</code>里，数组的每一项代表每一首歌的属性。然后根据这个数组来添加 html 的 dom 节点增加播放列表的 item。列表里的每首歌后面会有一个播放按钮用来控制和显示当前该歌曲的播放状态。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; songs.length; i++) &#123;</span><br><span class="line">  <span class="keyword">let</span> song = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">  song.className = <span class="string">"song"</span>;</span><br><span class="line">  song.dataset.src = songs[i].src;</span><br><span class="line">  song.dataset.lyc = songs[i].lyric;</span><br><span class="line">  song.innerHTML = <span class="string">`&lt;span&gt;<span class="subst">$&#123;songs[i].name&#125;</span>&lt;/span&gt; &lt;span class="iconfont toggle" data-title="<span class="subst">$&#123;songs[i].name&#125;</span>""&gt;&amp;#xe645;&lt;/span&gt;`</span>;</span><br><span class="line">  playList.appendChild(song);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据 songs 里的数据循环地创建&lt;div class=”song”&gt;的 dom 节点，然后再给这个 dom 赋予自定义的属性和这个 dom 的子节点，然后把这个节点插入到他的父节点下。<br><code>dataset</code>：HTMLElement.dataset 属性允许无论是在读取模式还是写入模式访问 HTML 或者 Dom 中元素设置的所有自定义数据属性<code>(data-*)</code>集。<br>`${ }`：其中反引号 ( ` )标识这是一个模板字面量，而${}是变量占位符，之间允许放入任意的 JS 表达式，会将运算结果当做是这个模板字面量的一部分。在上面的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">song.innerHTML = <span class="string">`&lt;span&gt;<span class="subst">$&#123;songs[i].name&#125;</span>&lt;/span&gt; &lt;span class="iconfont toggle"</span></span><br></pre></td></tr></table></figure>
+
+<p>会访问 songs[i]的 name，并将其插入到 song.innerHTML 字符串中。</p>
+<h3 id="播放列表中需要增加的事件监听"><a href="#播放列表中需要增加的事件监听" class="headerlink" title="播放列表中需要增加的事件监听"></a>播放列表中需要增加的事件监听</h3><ol>
+<li>监听列表每首歌的播放按钮的点击事件，用来控制单首歌的播放暂停。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">toggles.forEach(<span class="function">(<span class="params">toggle</span>) =&gt;</span> &#123;</span><br><span class="line">  toggle.addEventListener(<span class="string">"click"</span>, handlePressed);</span><br><span class="line">&#125;); <span class="comment">//给播放按钮添加事件监听</span></span><br></pre></td></tr></table></figure>
+
+<p><code>handlePressed</code>函数用来处理歌曲的播放状态和切歌动作。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handlePressed</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> srcNow = <span class="built_in">decodeURI</span>(audioPlay.src); <span class="comment">//获取当前播放/暂停下的歌曲src</span></span><br><span class="line">  <span class="keyword">const</span> nameNow = audioPlay.dataset.name; <span class="comment">//获取当前播放/暂停下的歌曲sname</span></span><br><span class="line">  <span class="keyword">const</span> nameNext = <span class="keyword">this</span>.dataset.title; <span class="comment">//获取将要操作的歌曲name</span></span><br><span class="line">  <span class="keyword">const</span> audioToPlaySrc = songs.find(<span class="function">(<span class="params">song</span>) =&gt;</span> song.name == nameNext).src; <span class="comment">//获取将要操作的歌曲src</span></span><br><span class="line">  <span class="keyword">if</span> (nameNow != nameNext) &#123;</span><br><span class="line">    <span class="comment">//根据name判断歌曲是否是当前歌曲，不是的话则切歌，切歌则会触发change事件，在change事件中改变样式</span></span><br><span class="line">    audioPlay.src = audioToPlaySrc; <span class="comment">//更改src</span></span><br><span class="line">    audioPlay.dataset.name = nameNext; <span class="comment">//更改data-name</span></span><br><span class="line">    <span class="comment">//console.log(audioPlay);</span></span><br><span class="line">    audioPlay.play();</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//如果是则暂停/播放</span></span><br><span class="line">    <span class="keyword">if</span> (audioPlay.paused) &#123;</span><br><span class="line">      audioPlay.play();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      audioPlay.pause();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>监听正在播放音频的结束事件，用来控制按列表顺序播放。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">audioPlay.addEventListener(<span class="string">"ended"</span>, sequentialPlay); <span class="comment">//监听歌曲结束事件，处理歌曲的顺序播放</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sequentialPlay</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//实现顺序播放</span></span><br><span class="line">  <span class="keyword">const</span> index = songs.findIndex(<span class="function">(<span class="params">song</span>) =&gt;</span> song.name == audioPlay.dataset.name);</span><br><span class="line">  <span class="built_in">console</span>.log(index);</span><br><span class="line">  audioPlay.src = songs[index + <span class="number">1</span>].src;</span><br><span class="line">  audioPlay.dataset.name = songs[index + <span class="number">1</span>].name;</span><br><span class="line">  audioPlay.play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="播放器"><a href="#播放器" class="headerlink" title="播放器"></a>播放器</h3><h4 id="画出播放器"><a href="#画出播放器" class="headerlink" title="画出播放器"></a>画出播放器</h4><h4 id="监听播放器按钮的点击事件"><a href="#监听播放器按钮的点击事件" class="headerlink" title="监听播放器按钮的点击事件"></a>监听播放器按钮的点击事件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">420</span>,</span><br><span class="line">  y = <span class="number">2</span>,</span><br><span class="line">  w = <span class="number">35</span>,</span><br><span class="line">  h = <span class="number">26</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//播放按钮</span></span><br><span class="line">canvas.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 鼠标x轴 &gt;= 矩阵x轴 &amp;&amp; 鼠标x轴 &lt;= 矩阵x轴 + 矩阵宽度</span></span><br><span class="line">  <span class="comment">// 鼠标y轴 &gt;= 矩阵y轴 &amp;&amp; 鼠标y轴 &lt;= 矩阵y轴 + 矩阵高度</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    e.layerX &gt;= x &amp;&amp;</span><br><span class="line">    e.layerX &lt;= x + w &amp;&amp;</span><br><span class="line">    e.layerY &gt;= y &amp;&amp;</span><br><span class="line">    e.layerY &lt;= y + h</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">if</span> (audioPlay.paused) &#123;</span><br><span class="line">      audioPlay.play();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      audioPlay.pause();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>x,y,w,h 属性确定按钮所在位置，然后通过监听鼠标点击这个位置的事件来控制当前的歌曲。</p>
+<h2 id="歌词"><a href="#歌词" class="headerlink" title="歌词"></a>歌词</h2><h3 id="生成歌词"><a href="#生成歌词" class="headerlink" title="生成歌词"></a>生成歌词</h3><p>在网上下载的歌词文档格式是下面这种格式<br>[00:23.10]人群里突然觉得空<br>[00:25.52]眼前飘过有你的种种<br>我们可以把每一句歌词改成一个对象，对象有两个属性 time，和 text 分别对应时间和歌词，然后将这些对象存入一个总的 lyrics 数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createLyrics</span>(<span class="params">lrcContent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (lrcContent.length == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">var</span> lrcs = lrcContent.split(<span class="string">"\n"</span>); <span class="comment">//把整个歌词拆分成一句歌词一句歌词的数组</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> lrcs) &#123;</span><br><span class="line">    lrcs[i] = lrcs[i].replace(<span class="regexp">/(^\s*) | (\s*$)/g</span>, <span class="string">""</span>); <span class="comment">//去除前后空格</span></span><br><span class="line">    <span class="keyword">var</span> timeOrigin = lrcs[i].substring(</span><br><span class="line">      lrcs[i].indexOf(<span class="string">"["</span>) + <span class="number">1</span>,</span><br><span class="line">      lrcs[i].indexOf(<span class="string">"]"</span>)</span><br><span class="line">    ); <span class="comment">//取[]之间的内容：时间</span></span><br><span class="line">    <span class="keyword">var</span> timeProcessed = timeOrigin.split(<span class="string">":"</span>); <span class="comment">//分离 : 前后的文字</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(<span class="built_in">parseInt</span>(timeProcessed[<span class="number">0</span>]))) &#123;</span><br><span class="line">      <span class="keyword">var</span> time =</span><br><span class="line">        <span class="built_in">parseFloat</span>(timeProcessed[<span class="number">0</span>]) * <span class="number">60</span> + <span class="built_in">parseFloat</span>(timeProcessed[<span class="number">1</span>]); <span class="comment">//将时间转化成秒</span></span><br><span class="line">      <span class="keyword">var</span> text = lrcs[i].substring(lrcs[i].indexOf(<span class="string">"]"</span>) + <span class="number">1</span>); <span class="comment">//将每句歌词对象插入歌词数组</span></span><br><span class="line">      lyrics.push(&#123;</span><br><span class="line">        time: time,</span><br><span class="line">        text: text,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有了歌词的对象数组后，我们可以根据歌的播放时间来决定轮播哪句歌词, 监听 audio 的 timeupdate 事件来更新歌词和样式。lrcContent 形参是原生歌词的文本字符串，将其放在 textarea 里面，但是 display 是 none。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">audioPlay.addEventListener(<span class="string">"timeupdate"</span>, lyricsChange); <span class="comment">//当歌曲的currentTime发生改变时，要处理相应dom的样式和歌词</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lyricsChange</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//更新歌词</span></span><br><span class="line">  <span class="keyword">if</span> (lyrics.length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">//如果歌词为空，则创建歌词对象数组</span></span><br><span class="line">    <span class="keyword">let</span> lrcContent = <span class="built_in">document</span>.getElementById(<span class="string">`<span class="subst">$&#123;audioPlay.dataset.name&#125;</span>`</span>)</span><br><span class="line">      .innerHTML;</span><br><span class="line">    createLyrics(lrcContent);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (j == lyrics.length) <span class="keyword">return</span>; <span class="comment">//在页面显示歌词，j是歌词数组的索引</span></span><br><span class="line">  <span class="keyword">let</span> curTime = <span class="keyword">this</span>.currentTime;</span><br><span class="line">  <span class="built_in">console</span>.log(curTime);</span><br><span class="line">  <span class="built_in">console</span>.log(j);</span><br><span class="line">  <span class="built_in">console</span>.log(lyrics[j].time);</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">parseFloat</span>(lyrics[j].time) &lt;= curTime) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(lyrics[j].text);</span><br><span class="line">    lrcRow.innerHTML = lyrics[j].text;</span><br><span class="line">    j++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每一首歌开始播放的时候，都应该初始化歌词数组，然后把新歌的歌词写到数组里</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">audioPlay.addEventListener(<span class="string">"durationchange"</span>, lyricInit); <span class="comment">//监听切歌事件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lyricInit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//初始化歌词数组和索引</span></span><br><span class="line">  lyrics = [];</span><br><span class="line">  j = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="按钮状态更新"><a href="#按钮状态更新" class="headerlink" title="按钮状态更新"></a>按钮状态更新</h2><p>因为这些按钮的状态都是根据 audio 的播放/暂停来决定的，所以我们可以监听 audio 的开始播放和暂停事件来完成操作。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">audioPlay.addEventListener(<span class="string">"pause"</span>, styleChange); <span class="comment">//监听歌曲暂停事件，处理样式</span></span><br><span class="line">audioPlay.addEventListener(<span class="string">"play"</span>, styleChange); <span class="comment">//监听歌曲播放事件，处理样式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">styleChange</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> icon;</span><br><span class="line">  <span class="comment">//更新当前播放按钮的样式</span></span><br><span class="line">  <span class="keyword">if</span> (audioPlay.paused) &#123;</span><br><span class="line">    icon = <span class="string">"&amp;#xe645;"</span>;</span><br><span class="line">    run(<span class="string">"rgb(100,100,250)"</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    icon = <span class="string">"&amp;#xe615;"</span>;</span><br><span class="line">    run(<span class="string">"rgb(100,260,170)"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> toggle = toggles.find(</span><br><span class="line">    (toggle) =&gt; toggle.dataset.title == audioPlay.dataset.name <span class="comment">//找到当前audio对应的toggle</span></span><br><span class="line">  );</span><br><span class="line">  toggle.innerHTML = icon;</span><br><span class="line">  toggles</span><br><span class="line">    .filter(<span class="function">(<span class="params">toggleLeft</span>) =&gt;</span> toggleLeft !== toggle)</span><br><span class="line">    .forEach(<span class="function">(<span class="params">toggleLeft</span>) =&gt;</span> &#123;</span><br><span class="line">      toggleLeft.innerHTML = <span class="string">"&amp;#xe645;"</span>; <span class="comment">//其他audio对应的toggle变成待播放</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="背景音频可视化-1"><a href="#背景音频可视化-1" class="headerlink" title="背景音频可视化"></a>背景音频可视化</h2><p>调用 audioContext API 可以获得 audio 源的频率数据和波形数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> audioCtx = <span class="keyword">new</span> (<span class="built_in">window</span>.AudioContext || <span class="built_in">window</span>.webkitAudioContext)(); <span class="comment">//创建一个audioCtx的接口</span></span><br><span class="line"><span class="built_in">console</span>.log(audioCtx);</span><br><span class="line">audioPlay.crossOrigin = <span class="string">"anonymous"</span>; <span class="comment">// 设置允许跨域,audioContext连接对跨域有限制</span></span><br><span class="line"><span class="keyword">var</span> analyser = audioCtx.createAnalyser(); <span class="comment">//创建一个分析器，分析器也是一个audioContent节点，用于显示音频时间和频率数据</span></span><br><span class="line">source = audioCtx.createMediaElementSource(audioPlay); <span class="comment">//创建源, 在这是正在播放的音乐</span></span><br><span class="line">source.connect(analyser); <span class="comment">//将源audioContext与分析器连接起来</span></span><br><span class="line"><span class="keyword">var</span> distotion = audioCtx.createWaveShaper(); <span class="comment">//创建一个表示非线性失真的waveShaperNode，可以给音频添加失真效果。</span></span><br><span class="line">analyser.connect(distotion); <span class="comment">//分析器与失真器连接起来</span></span><br><span class="line">distotion.connect(audioCtx.destination); <span class="comment">//连接音频上下文的最终节点输出</span></span><br><span class="line"><span class="comment">//现在需要通过分析器analyser抓取音频数据，analyser将使用快速傅里叶变换在特定频域中捕获音频数据，具体的频域通过analyer.fftSize设置，默认是2048，并且fifSize的值必须是2的幂。</span></span><br><span class="line"><span class="comment">//analyser.fftSize = 20486;</span></span><br><span class="line">analyser.fftSize = <span class="number">256</span>;</span><br><span class="line"><span class="comment">//新创建一个数组用来缓存抓取到的每一次频率数据，由于接下来的抓取数据方法返回的数据比较特别，标准的js数组满足不了，所以根据要抓取数据的内容，选择Float32Array还是Uint8Array。</span></span><br><span class="line"><span class="keyword">var</span> bufferLength = analyser.frequencyBinCount; <span class="comment">//设置缓冲区的大小，frequencyBincount是ffSize的一半</span></span><br><span class="line"><span class="keyword">var</span> dataArray = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(bufferLength); <span class="comment">//如果用的是analyser.getByteTimeDomainData的方法抓取波形数据 byte整形数据，占1个字节</span></span><br><span class="line"><span class="comment">//抓取频率数据我们需要Analyser.getFloatFrequrencyData() 和 analyser.getByteFrequencyData()方法</span></span><br><span class="line"><span class="comment">//抓取波形数据我们需要analyser.getFloatTimeDomainData() 和 analyer.getByteTimeDomainData()方法</span></span><br><span class="line"><span class="comment">//analyser.getByteTimeDomainData(dataArray); //此时的波形数据已经存到dataArray数组里了</span></span><br><span class="line"><span class="comment">//analyser.getByteFrequencyData(dataArray); //此时的频率数据已经存到dataArray数组里了</span></span><br></pre></td></tr></table></figure>
+
+<p>dataArray 经过分析器的处理，获得的是那一帧的波形或者频率数据，要实现可视化，我们需要在画布中对每一帧数据都可视化。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">drawBgBar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> drawVisual = requestAnimationFrame(drawBgBar); <span class="comment">//通过requestAnimationFrame每秒执行60次drawBgBar函数。</span></span><br><span class="line">  analyser.getByteFrequencyData(dataArray); <span class="comment">//获得频率数据</span></span><br><span class="line">  <span class="built_in">console</span>.log(dataArray);</span><br><span class="line">  canvasBgCtx.fillStyle = <span class="string">"black"</span>;</span><br><span class="line">  canvasBgCtx.fillRect(<span class="number">0</span>, <span class="number">0</span>, WIDTH, HEIGHT); <span class="comment">//讲画布背景变黑</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> barWidth = WIDTH / bufferLength; <span class="comment">//把画布的宽度除以数组长度获得每个数组应该占屏幕的位置</span></span><br><span class="line">  <span class="keyword">var</span> barHeight;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; bufferLength; i++) &#123;</span><br><span class="line">    barHeight = dataArray[i] / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> linGrad2 = ctx.createLinearGradient(</span><br><span class="line">      x,  <span class="comment">//柱状图的左上横轴坐标</span></span><br><span class="line">      HEIGHT - barHeight / <span class="number">2</span>,<span class="comment">//柱状图的左上纵轴坐标</span></span><br><span class="line">      x + barWidth, <span class="comment">//柱状图下方横坐标</span></span><br><span class="line">      HEIGHT <span class="comment">//柱状图下方纵坐标，就是屏幕最低点</span></span><br><span class="line">    ); <span class="comment">//柱状图的颜色是渐变的</span></span><br><span class="line">    linGrad2.addColorStop(<span class="string">"0"</span>, <span class="string">"#f00"</span>); <span class="comment">//渐变颜色的开始</span></span><br><span class="line">    linGrad2.addColorStop(<span class="string">"0.5"</span>, <span class="string">"#ff0"</span>);</span><br><span class="line">    linGrad2.addColorStop(<span class="string">"1.0"</span>, <span class="string">"#0f0"</span>);</span><br><span class="line">    canvasBgCtx.fillStyle = linGrad2;<span class="comment">// 渐变填充柱状图矩形</span></span><br><span class="line">    canvasBgCtx.fillRect(x, HEIGHT - barHeight / <span class="number">2</span>, barWidth, barHeight);</span><br><span class="line"></span><br><span class="line">    x += barWidth + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/30/musicPlayer/" data-id="ckc21lhij0000msw41f7pe4et" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-页面布局" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/13/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/" class="article-date">
+  <time datetime="2020-06-13T02:05:58.405Z" itemprop="datePublished">2020-06-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/13/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/">页面布局</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Display"><a href="#Display" class="headerlink" title="Display"></a>Display</h1><p>display属性 指网页的布局，主要有两个重要的布局方式：flex和grid</p>
+<h2 id="弹性布局-flex"><a href="#弹性布局-flex" class="headerlink" title="弹性布局 flex"></a>弹性布局 flex</h2><p>布局的传统解决方案是基于盒状模型，依赖display属性 + position属性 + float属性。这种解决方案对于那些特殊的布局非常不方便，比如垂直居中。</p>
+<h2 id="flex语法"><a href="#flex语法" class="headerlink" title="flex语法"></a>flex语法</h2><p>Flex 是 flexible box的缩写，意思是弹性布局，用来为盒状模型提供更大的灵活性。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>采用flex布局的元素，称为flex容器，它的所有子元素成为容器成员，成为flex项目(flex item)，简称项目。<br><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png" alt="avatar"><br>容器默认存在两个轴，main axis–主轴， cross axis交叉轴。项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴的空间叫做cross-size。</p>
+<h3 id="容器的属性"><a href="#容器的属性" class="headerlink" title="容器的属性"></a>容器的属性</h3><ul>
+<li>flex-direction</li>
+<li>flex-warp</li>
+<li>flex-flow</li>
+<li>justify-content</li>
+<li>align-items</li>
+<li>align-content</li>
+</ul>
+<h4 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h4><p>flex-direction属性决定主轴的方向。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">flex-direction</span>: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>row(默认值)：主轴为水平方向，起点在左端。</li>
+<li>row-reverse: 主轴为水平方向，起点在右端。</li>
+<li>column：主轴为垂直方向，起点在上沿。</li>
+<li>column-reverse：主轴为垂直方向，起点在下沿。<h3 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h3>默认情况下，项目是沿着轴线排列，flex-wrap属性决定在一条轴线排不下的情况下如何换行。<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: nowrap | wrap | wrap-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>nowrap(默认)：不换行</li>
+</ul>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071007.png" alt="avatar"></p>
+<ul>
+<li>wrap：换行，第一行在上方</li>
+</ul>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071008.jpg" alt="avatar"></p>
+<ul>
+<li>wrap-reverse：换行，第一行在下方</li>
+</ul>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071009.jpg" alt="avatar"></p>
+<h3 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h3><p>flex-flow是属性flex-direction与属性flex-flow的简写，默认值是row nowrap</p>
+<h3 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h3><p>justify-content定义了项目在主轴上的排列方式</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">justify-content</span>: flex-start|flex-end|center|space-between|space-around;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071010.png" alt="avatar"><br>它可能取5个值，具体的对齐方式与主轴有关，假设主轴是从左到右。</p>
+<ul>
+<li>flex-start(默认值): 左对齐。</li>
+<li>flex-end：右对齐 </li>
+<li>center：居中对齐</li>
+<li>space-between：两端对齐，项目之间的间隔相等。</li>
+<li>space-around：每个项目两侧的间隔相等。</li>
+</ul>
+<h3 id="align-item"><a href="#align-item" class="headerlink" title="align-item"></a>align-item</h3><p>align-item属性定义在交叉轴上的对齐方式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">align-item</span>: flex-start|flex-end|center|baseline|stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071012.png" alt="avatar"></p>
+<p>stretch(默认值)：轴线占满整个交叉轴</p>
+<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h3><p>align-content属性定义了多根轴线的对齐方式，如果只有一根轴线则补齐作用。</p>
+<h2 id="项目的属性"><a href="#项目的属性" class="headerlink" title="项目的属性"></a>项目的属性</h2><p>以下的6个属性设置在项目上</p>
+<ul>
+<li>order</li>
+<li>flex-grow</li>
+<li>flex-shrink</li>
+<li>flex-basis</li>
+<li>flex</li>
+<li>align-self</li>
+</ul>
+<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>order属性定义项目的顺序。数值越小越靠前</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">order</span>: &lt;integer&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h3><p>flex-grow属性定义项目放大比例，默认为0，既如果存在剩余空间，也不放大。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>: &lt;number&gt; <span class="comment">/*默认为0，不放大*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071014.png" alt="avatar"><br>如果所有项目的flex-grow属性都为1，则他们将等分剩余空间。如果一个项目的flex-grow属性为2，其他的项目都为1，则这个项目分得的空间是其他项目的两倍。</p>
+<h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h3><p>flex-shrink 属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: &lt;number&gt;<span class="comment">/*默认为1，项目会在空间不足的时候缩小*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071015.jpg" alt="avatar"></p>
+<p>如果所有的项目item的flex-shrink属性值都是1，当空间不足时都会等比例缩小。如果一个项目的flex-shrink的值是0，其他项目的属性值是1，则空间不足时，前者不缩小。</p>
+<h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h3><p>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间(main size)。浏览器根据这个属性，计算主轴是否有多余的空间。它的默认值是auto，就是项目本来的大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: &lt;length&gt; <span class="comment">/* 默认值是auto*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p>flex属性是flex-grow，flex-shrink，flex-basis的简写，默认值是 0 1 auto。后两个属性值可选</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">flex</span>: none | auto | [ &lt;<span class="string">'flex-grow'</span>&gt; &lt;<span class="string">'flex-shrink'</span>&gt;? || &lt;<span class="string">'flex-basis'</span>&gt; ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该属性有两个快捷值，auto(1 1 auto) 和 none(0 0 auto)。<br>优先使用flex属性，没必要分开写成三个属性。</p>
+<h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><p>align-self属性允许单个项目与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示可继承父元素的align-item属性，如果没有父元素，则等同于stretch。</p>
+<h2 id="Grid网格布局"><a href="#Grid网格布局" class="headerlink" title="Grid网格布局"></a>Grid网格布局</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/13/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/" data-id="ckc5mqrad0007w4w422vs3uye" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CSS问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/10/CSS%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-06-10T09:42:12.217Z" itemprop="datePublished">2020-06-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/10/CSS%E9%97%AE%E9%A2%98/">CSS问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="学习与实战过程中遇到的CSS问题"><a href="#学习与实战过程中遇到的CSS问题" class="headerlink" title="学习与实战过程中遇到的CSS问题"></a>学习与实战过程中遇到的CSS问题</h1><h2 id="导航栏在页面变化时，格式发生了错误"><a href="#导航栏在页面变化时，格式发生了错误" class="headerlink" title="导航栏在页面变化时，格式发生了错误"></a>导航栏在页面变化时，格式发生了错误</h2><p>网页放大会将窗口大小缩小相应的放大倍数；<br>网页缩小会将窗口大小放大相应的缩小倍数的倒数分之一。<br>网页缩放时，有定长宽的元素不会受到缩放的影响；<br>如果元素有设置max-width或者min-width，缩放到一定程度是该元素就不会受到缩放倍数的影响（放大时页面会产生滚动条）；<br>如果页面是百分比布局，没有设置max-width或者min-width，窗口不会产生滚动条</p>
+<h2 id="盒模型的两种模式"><a href="#盒模型的两种模式" class="headerlink" title="盒模型的两种模式"></a>盒模型的两种模式</h2><p>标准模式：box-sizing: content-box(默认)；宽高不包括内边距和外边距<br>怪异模式：box-border；宽高包括内边距和外边距</p>
+<h2 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h2><p>一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。</p>
+<p>二是触发浮动元素父元素的BFC，使到该父元素可以包含浮动元素，关于这一点</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/10/CSS%E9%97%AE%E9%A2%98/" data-id="ckbz106t30000now425xc5qj6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-webpack" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/09/webpack/" class="article-date">
+  <time datetime="2020-06-09T06:38:43.817Z" itemprop="datePublished">2020-06-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/09/webpack/">webpack</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="webpack-学习"><a href="#webpack-学习" class="headerlink" title="webpack 学习"></a>webpack 学习</h1><hr>
+<h2 id="01-webpack安装"><a href="#01-webpack安装" class="headerlink" title="01 webpack安装"></a>01 webpack安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev webpack-cli</span><br></pre></td></tr></table></figure>
+<h2 id="02-初始化webpack"><a href="#02-初始化webpack" class="headerlink" title="02 初始化webpack"></a>02 初始化webpack</h2><p>在工作目录本地安装webpack，接着安装webpack-cli(此工具用于在命令行运行webpack)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br><span class="line">npm install webpack webpack-cli --save-dev</span><br></pre></td></tr></table></figure>
+
+<h2 id="03-webpack初体验"><a href="#03-webpack初体验" class="headerlink" title="03 webpack初体验"></a>03 webpack初体验</h2><p>运行指令：</p>
+<ol>
+<li>开发环境：webpack 源文件 -o 目标文件 –mode=development</li>
+<li>生产环境： wenpack 源文件 -o 目标文件 –mode=production</li>
+</ol>
+<p>生产环境生成的built.js是压缩后的，在学习过程中使用开发环境</p>
+<h2 id="04-打包样式资源"><a href="#04-打包样式资源" class="headerlink" title="04 打包样式资源"></a>04 打包样式资源</h2><p>webpack只能打包JS/JSON文件，不能处理其他的资源，但是我们通过loader引入其他类型的文件。<br>例如，我们需要引入CSS文件：<br>首先下载引入CSS所需要的loarder</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">webpack init</span><br><span class="line"></span><br><span class="line">npm i webpack webpack-cli -D</span><br><span class="line">npm i css-loader style-loader -D</span><br></pre></td></tr></table></figure>
+<p>然后在webpack.config.js中进行配置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    webpack.config.js 是webpack的配置文件</span></span><br><span class="line"><span class="comment">        作用：指示webpack做什么事情</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        所有构建工具都是基于nodejs这个平台，模块化默认采用commonJS</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//resolve 用来拼接绝对路径的方法</span></span><br><span class="line"><span class="keyword">const</span> &#123; resolve &#125; = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">//webpack配置</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//入口起点</span></span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    <span class="comment">//输出</span></span><br><span class="line">    output: &#123;</span><br><span class="line">        <span class="comment">//文件名</span></span><br><span class="line">        filename: <span class="string">'built.js'</span>,</span><br><span class="line">        <span class="comment">//输出路径</span></span><br><span class="line">        <span class="comment">//_dirname代表当前文件的目录绝对路径</span></span><br><span class="line">        path: resolve(__dirname, <span class="string">'build'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//loader的配置</span></span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules: [</span><br><span class="line">            <span class="comment">//详细loader配置</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//匹配哪些文件</span></span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    <span class="comment">//执行顺序，从右到左</span></span><br><span class="line">                    <span class="comment">//创建style标签，将JS中的项目资源插入进去，添加到head中生效</span></span><br><span class="line">                    <span class="string">'style-loader'</span>, </span><br><span class="line">                    <span class="comment">//将CSS文件变成commonJS的模块加载到JS，里面内容是样式字符串</span></span><br><span class="line">                    <span class="string">'css-loader'</span></span><br><span class="line">                 ]</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    <span class="string">'style-loader'</span>, </span><br><span class="line">                    <span class="string">'css-loader'</span>,</span><br><span class="line">                    <span class="string">'less-loader'</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//plugins的配置</span></span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">//详细plugins的配置</span></span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">    <span class="comment">//模式</span></span><br><span class="line">    mode: <span class="string">'development'</span>,</span><br><span class="line">        <span class="comment">//mode: 'production'</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置完成之后在工作目录下执行 <code>webpack</code> 就会把配置中的资源打包到目标文件里。</p>
+<h2 id="05-打包html资源"><a href="#05-打包html资源" class="headerlink" title="05 打包html资源"></a>05 打包html资源</h2><p>webpack.config配置文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">loader: 1.下载  2.使用</span></span><br><span class="line"><span class="comment">plugins：1. 下载  2.引用  3.使用</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; resolve &#125; = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line"></span><br><span class="line">    output: &#123; </span><br><span class="line">        filename: <span class="string">'built.js'</span>,</span><br><span class="line">        path: resolve(__dirname,<span class="string">'build'</span>)</span><br><span class="line">     &#125;,</span><br><span class="line"></span><br><span class="line">     <span class="built_in">module</span>: &#123;</span><br><span class="line">         rules: [</span><br><span class="line">             <span class="comment">//loader配置</span></span><br><span class="line">         ]</span><br><span class="line">     &#125;,</span><br><span class="line"></span><br><span class="line">     plugins: [</span><br><span class="line">        <span class="comment">//plugin的配置</span></span><br><span class="line">        <span class="comment">//npm html-webpack-plugin -D 下载</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//功能：默认会创建一个空的html，自动引入打包输出的所有资源</span></span><br><span class="line">        <span class="comment">//需要有结构的html文件</span></span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            <span class="comment">//复制'./src/index.htm'文件，并自动引入打包输出的所有资源</span></span><br><span class="line">            template: <span class="string">'./src/index.html'</span></span><br><span class="line">        &#125;)</span><br><span class="line">     ],</span><br><span class="line"></span><br><span class="line">     mode: <span class="string">'development'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/09/webpack/" data-id="ckb7o2wci0000nkw4950l5nde" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JS01-数据类型" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/09/JS01-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="article-date">
@@ -330,23 +629,23 @@ ECMAJS中object是所有对象的基础，因些所有对象都具有这些基�
       <ul>
         
           <li>
+            <a href="/2020/07/06/JS05-%E4%BD%9C%E7%94%A8%E5%9F%9F/">JS05-作用域</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/05/JS06-%E9%97%AD%E5%8C%85/">JS06-闭包</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/05/JS04-ES%E8%A7%84%E8%8C%83%E8%A7%A3%E8%AF%BBthis/">JS04-ES规范解读this</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/05/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">水平垂直居中的几种方法</a>
+          </li>
+        
+          <li>
             <a href="/2020/07/02/JS03-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">JS03-原型与原型链</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/02/test/">test</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/02/JS-02%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/">JS-02浅拷贝与深拷贝</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/01/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E9%A2%98/">常见算法题</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E9%97%AE%E9%A2%98/">浏览器问题</a>
           </li>
         
       </ul>
