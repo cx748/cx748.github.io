@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>CSS3 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="学习与实战过程中遇到的CSS问题导航栏在页面变化时，格式发生了错误网页放大会将窗口大小缩小相应的放大倍数；网页缩小会将窗口大小放大相应的缩小倍数的倒数分之一。网页缩放时，有定长宽的元素不会受到缩放的影响；如果元素有设置max-width或者min-width，缩放到一定程度是该元素就不会受到缩放倍数的影响（放大时页面会产生滚动条）；如果页面是百分比布局，没有设置max-width或者min-wid">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS3">
+<meta property="og:url" content="http://yoursite.com/2020/06/10/CSS3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="学习与实战过程中遇到的CSS问题导航栏在页面变化时，格式发生了错误网页放大会将窗口大小缩小相应的放大倍数；网页缩小会将窗口大小放大相应的缩小倍数的倒数分之一。网页缩放时，有定长宽的元素不会受到缩放的影响；如果元素有设置max-width或者min-width，缩放到一定程度是该元素就不会受到缩放倍数的影响（放大时页面会产生滚动条）；如果页面是百分比布局，没有设置max-width或者min-wid">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-10T09:42:12.217Z">
+<meta property="article:modified_time" content="2020-07-15T06:46:48.847Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CSS3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/10/CSS3/" class="article-date">
+  <time datetime="2020-06-10T09:42:12.217Z" itemprop="datePublished">2020-06-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CSS3
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="学习与实战过程中遇到的CSS问题"><a href="#学习与实战过程中遇到的CSS问题" class="headerlink" title="学习与实战过程中遇到的CSS问题"></a>学习与实战过程中遇到的CSS问题</h1><h2 id="导航栏在页面变化时，格式发生了错误"><a href="#导航栏在页面变化时，格式发生了错误" class="headerlink" title="导航栏在页面变化时，格式发生了错误"></a>导航栏在页面变化时，格式发生了错误</h2><p>网页放大会将窗口大小缩小相应的放大倍数；<br>网页缩小会将窗口大小放大相应的缩小倍数的倒数分之一。<br>网页缩放时，有定长宽的元素不会受到缩放的影响；<br>如果元素有设置max-width或者min-width，缩放到一定程度是该元素就不会受到缩放倍数的影响（放大时页面会产生滚动条）；<br>如果页面是百分比布局，没有设置max-width或者min-width，窗口不会产生滚动条</p>
+<h2 id="盒模型的两种模式"><a href="#盒模型的两种模式" class="headerlink" title="盒模型的两种模式"></a>盒模型的两种模式</h2><p>标准模式：box-sizing: content-box(默认)；宽高不包括内边距和外边距<br>怪异模式：box-border；宽高包括内边距和外边距</p>
+<h2 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h2><p>一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。</p>
+<p>二是触发浮动元素父元素的BFC，使到该父元素可以包含浮动元素，关于这一点</p>
+<h1 id="CSS3-特性"><a href="#CSS3-特性" class="headerlink" title="CSS3 特性"></a>CSS3 特性</h1><h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><h3 id="新增选择器"><a href="#新增选择器" class="headerlink" title="新增选择器"></a>新增选择器</h3><p>-:first-child: 选取属于父元素的首个子元素的指定选择器<br>-:last-child: 选取属于父元素的最后一个元素的指定选择器<br>-:nth-child: 匹配属于父元素的第n个子元素，不论元素类型<br>-:nth-last-child：匹配属于父元素的倒数第n个子元素</p>
+<h4 id="目标伪类选择器"><a href="#目标伪类选择器" class="headerlink" title="目标伪类选择器"></a>目标伪类选择器</h4><p>:target 选择器用于获取当前活动的目标元素</p>
+<h4 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h4><p>div[class^=font] {<br>  color: pink<br>}</p>
+<h3 id="伪元素选择器"><a href="#伪元素选择器" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h3><p>E::first-letter 文本的第一个单词或字<br>E::first-line 文本第一行<br>E::selection 选中中的文本</p>
+<h3 id="伪类与伪元素的区别"><a href="#伪类与伪元素的区别" class="headerlink" title="伪类与伪元素的区别"></a>伪类与伪元素的区别</h3><p>CSS3规范中，’:’用来表示伪类，’::’用来表示伪元素<br>根本区别在于他们是否创造了新的元素</p>
+<ul>
+<li>伪类：用于向某些选择器添加特殊的效果<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:last-child</span></span><br><span class="line"><span class="selector-pseudo">:first-child</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span> &#123; <span class="attribute">color</span>: <span class="number">#FF0000</span>&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:visted</span> &#123;<span class="attribute">color</span>: <span class="number">#FFF000</span>&#125; <span class="comment">/*已访问的链接*/</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;<span class="attribute">color</span>: <span class="number">#FF00FF</span>&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:active</span>&#123;<span class="attribute">color</span>: <span class="number">#FFFFFF</span>&#125; <span class="comment">/* 选定的链接*/</span></span><br></pre></td></tr></table></figure></li>
+<li>伪元素：创建了html中不存在的元素，用于将特殊的效果添加到某些选择器<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">::before</span> &#123;&#125; <span class="comment">/*选择器再被选元素的前面插入内容和定义css，content属性指定要出人的内容*/</span></span><br><span class="line"><span class="selector-pseudo">::after</span> &#123;&#125; <span class="comment">/*选择器在被选元素的后面插入内容和定义css*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="背景和边框"><a href="#背景和边框" class="headerlink" title="背景和边框"></a>背景和边框</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3>background-size: 规定背景图片的尺寸(cover:填充，100% 100%：拉伸)<br>background-origin: 规定图片的定位区域，content-box，padding-box，border-box<h3 id="边框"><a href="#边框" class="headerlink" title="边框"></a>边框</h3>border-radius<br>box-shadow/text-shadow<br>border-image</li>
+</ul>
+<h2 id="文本效果"><a href="#文本效果" class="headerlink" title="文本效果"></a>文本效果</h2><ul>
+<li>text-shadow 文本阴影</li>
+<li>text-justify 文本对齐方式</li>
+<li>text-wrap 文本的换行规则</li>
+<li>text-outline 规定文本的轮廓</li>
+<li>text-overflow 规定文本溢出包含元素时发生的事情</li>
+<li>text-decoration 文本修饰符：overline，line-through，underline分别是上划线，中划线，下划线</li>
+</ul>
+<h2 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h2><ul>
+<li>linear-gradient 线性渐变</li>
+<li>radial-gradient 径向渐变</li>
+</ul>
+<h2 id="2D与3D转换"><a href="#2D与3D转换" class="headerlink" title="2D与3D转换"></a>2D与3D转换</h2><h3 id="2D转换-transform"><a href="#2D转换-transform" class="headerlink" title="2D转换(transform)"></a>2D转换(transform)</h3><ol>
+<li>translate(): 元素从当前位置移动，根据给定的位置参数x，y。transform: translate(40px,40px)</li>
+<li>rotate(): 元素顺时针旋转给定的角度，负值则逆时针旋转。transform: rotate(30deg)</li>
+<li>scale(): 元素的尺寸的增加或者减少。transform: scale(2,3)</li>
+<li>skew(): 元素翻转给定的角度，根据给定的水平线与垂直线参数 transform: skew(30deg,20deg)<h3 id="3D转换"><a href="#3D转换" class="headerlink" title="3D转换"></a>3D转换</h3></li>
+<li>rotateX(): 元素围绕其X轴以给定的度数进行旋转。</li>
+<li>rotateY(): 元素围绕其X轴以给定的度数进行旋转。</li>
+<li>perspective: 规定3D的透视效果</li>
+</ol>
+<h2 id="动画、过渡"><a href="#动画、过渡" class="headerlink" title="动画、过渡"></a>动画、过渡</h2><h3 id="过渡-transition"><a href="#过渡-transition" class="headerlink" title="过渡(transition)"></a>过渡(transition)</h3><ol>
+<li>transition-property: 执行动画对应的属性，如color，background</li>
+<li>transition-duration：过渡动画的一个持续时间</li>
+<li>transition-delay：延迟多久开始动画</li>
+<li>transition-timeing-function：持续时间内动画变化的速率，常见的有ease/linear/ease-in/ease-out/cubic-bezier<h3 id="动画-animation"><a href="#动画-animation" class="headerlink" title="动画(animation)"></a>动画(animation)</h3></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/10/CSS3/" data-id="ckct5amf70001zow43779g1zw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/13/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          页面布局
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/09/webpack/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">webpack</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/07/16/Vue/">Vue</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/JS07-%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0%E4%B8%8Epromise/">JS07-生成器函数与promise</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">事件循环</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/canvas/">canvas</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

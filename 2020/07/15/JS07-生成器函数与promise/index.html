@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>JS07-生成器函数与promise | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="生成器generator函数生成器函数能生成一组值的序列，但是每个值的生成都是基于一次请求，我们必须显示的向生成器请求一个新的值，随后生成器响应一个新生成的值，或者告诉我们它不会再生成新的值。 创建生成器函数在关键字function后面加一个 * 就能定义一个生成器函数，这样一来生成器内部就能使用新关键子yield生成独立的值。 迭代器对象控制生成器调用生成器并不会执行生成器函数，它会创建一个叫作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS07-生成器函数与promise">
+<meta property="og:url" content="http://yoursite.com/2020/07/15/JS07-%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0%E4%B8%8Epromise/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="生成器generator函数生成器函数能生成一组值的序列，但是每个值的生成都是基于一次请求，我们必须显示的向生成器请求一个新的值，随后生成器响应一个新生成的值，或者告诉我们它不会再生成新的值。 创建生成器函数在关键字function后面加一个 * 就能定义一个生成器函数，这样一来生成器内部就能使用新关键子yield生成独立的值。 迭代器对象控制生成器调用生成器并不会执行生成器函数，它会创建一个叫作">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/07/15/Img/%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0.png">
+<meta property="article:published_time" content="2020-07-15T13:15:10.797Z">
+<meta property="article:modified_time" content="2020-07-17T13:50:14.238Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/15/Img/%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JS07-生成器函数与promise" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/15/JS07-%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0%E4%B8%8Epromise/" class="article-date">
+  <time datetime="2020-07-15T13:15:10.797Z" itemprop="datePublished">2020-07-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JS07-生成器函数与promise
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="生成器generator函数"><a href="#生成器generator函数" class="headerlink" title="生成器generator函数"></a>生成器generator函数</h2><p>生成器函数能生成一组值的序列，但是每个值的生成都是基于一次请求，我们必须显示的向生成器请求一个新的值，随后生成器响应一个新生成的值，或者告诉我们它不会再生成新的值。</p>
+<h3 id="创建生成器函数"><a href="#创建生成器函数" class="headerlink" title="创建生成器函数"></a>创建生成器函数</h3><p>在关键字function后面加一个 * 就能定义一个生成器函数，这样一来生成器内部就能使用新关键子yield生成独立的值。<br><img src="../Img/%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0.png" alt="生成器函数"></p>
+<h3 id="迭代器对象控制生成器"><a href="#迭代器对象控制生成器" class="headerlink" title="迭代器对象控制生成器"></a>迭代器对象控制生成器</h3><p>调用生成器并不会执行生成器函数，它会创建一个叫作迭代器（iterator）的对象。这个迭代器对象暴露一个next方法，这个方法可以用来向生成器请求一个值，从而控制生成器。调用next方法后，生成器就会开始执行代码，执行到yeild关键字时，就会生成一个中间结果，然后返回一个新对象，新对象封装了结果值和一个指示完成的指示器。<br>每当生成一个值后，生成器都会不阻塞的挂起。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">WeaponGenerator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">yield</span> <span class="string">"Katana"</span>;</span><br><span class="line"><span class="keyword">yield</span> <span class="string">"Wakizashi"</span>;</span><br><span class="line">&#125; <span class="comment">// 定义一个生成器，它能生成一个包含两个武器数据的序列</span></span><br><span class="line"><span class="keyword">const</span> weaponsIterator = WeaponGenerator(); <span class="comment">// 调用生成器得到一个迭代器，从而我们能够控制生成器的执行</span></span><br><span class="line"><span class="keyword">const</span> result1 = weaponsIterator.next();<span class="comment">// 调用迭代器的next方法向生成器请求一个新值</span></span><br><span class="line">assert(<span class="keyword">typeof</span> result1 === <span class="string">"object"</span></span><br><span class="line">&amp;&amp; result1.value === <span class="string">"Katana"</span></span><br><span class="line">&amp;&amp; !result1.done,</span><br><span class="line"><span class="string">"Katana received!"</span>);<span class="comment">// 结果为一个对象，其中包含着一个返回值，及一个指示器告诉我们生成器是否还会生成值</span></span><br><span class="line"><span class="keyword">const</span> result2 = weaponsIterator.next();</span><br><span class="line">assert(<span class="keyword">typeof</span> result2 === <span class="string">"object"</span></span><br><span class="line">&amp;&amp; result2.value === <span class="string">"Wakizashi"</span></span><br><span class="line">&amp;&amp; !result2.done,</span><br><span class="line"><span class="string">"Wakizashi received!"</span>); <span class="comment">// 再次调用next方法从生成器中获取新值</span></span><br><span class="line"><span class="keyword">const</span> result3 = weaponsIterator.next();</span><br><span class="line">assert(<span class="keyword">typeof</span> result3 === <span class="string">"object"</span></span><br><span class="line">&amp;&amp; result3.value === <span class="literal">undefined</span></span><br><span class="line">&amp;&amp; result3.done,</span><br><span class="line"><span class="string">"There are no more results!"</span>); <span class="comment">// 当没有可执行的代码，生成器就会返回“undefined”值，表示它的状态为已经完成</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用生成器"><a href="#使用生成器" class="headerlink" title="使用生成器"></a>使用生成器</h3><h3 id="与生成器交互"><a href="#与生成器交互" class="headerlink" title="与生成器交互"></a>与生成器交互</h3><h3 id="生成器内部构成"><a href="#生成器内部构成" class="headerlink" title="生成器内部构成"></a>生成器内部构成</h3><h2 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h2><h3 id="使用promise"><a href="#使用promise" class="headerlink" title="使用promise"></a>使用promise</h3><p>Promise是异步编程的一种解决方案，避免了层层嵌套的回调函数<br>简单来说，它是一个容器，里面保存着某个未来才会结束事件的结果；从语法上来说，Promise是一个对象，从它可以获取异步操作的消息。<br>Promise有三种状态，pending，fulfilled, rejected。只有异步操作的结果能决定当前是哪一种状态。当pending状态变为fulfilled或者pending状态变为rejected状态后，状态就不会再发生变化了。此时再对Promise添加回调函数也会立即得到这个结果。  </p>
+<p>缺点：无法取消Promise，Promise内部抛出的内部不会反应到外部，当处于pending状态时，无法得知目前进展到哪一阶段。  </p>
+<p>在ES6中，Promise是一个构造函数，用来生成Promise实例。Promise构造函数接受一个函数作为参数，这个函数有两个参数<code>resolve</code>和<code>reject</code>，他们是两个函数。<code>resolve</code>将Promise对象的状态从pending转为fulfilled，函数在异步操作成功时调用，并将异步操作的结果作为参数传递出去，<code>reject</code>将Promise对象的状态从pending转为rejected，在异步操作失败时调用，并将异步操作报出的错误作为参数传递出去。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="string">'/*异步操作成功*/'</span>)&#123;</span><br><span class="line">    resolve(value)</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Promise实例生成以后，可以用then方法指定Promise在fulfilled状态和rejected状态的回调函数。then方法可以接受两个回调函数作为参数，第一个回调函数是Promise对象的状态变为fullfilled时调用，第二个回调函数是可选的，在Promise对象的状态变为rejected时调用。这两个回调函数都接受Promise对象传出的值作为参数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Promise的一个简单的例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timeout</span>(<span class="params">ms</span>) </span>&#123; <span class="comment">// 函数timeout返回了一个Promise实例</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(resolve, ms, <span class="string">'done'</span>) <span class="comment">// 过了ms时间后，调用resolve函数，将Promise状态变为resolved，</span></span><br><span class="line">    <span class="comment">//并将'done'作为异步操作结果作为参数传递给resolve。</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">timeout(<span class="number">1000</span>).then( <span class="function">(<span class="params">value</span>) =&gt;</span> &#123;  <span class="comment">//在Promise状态变为fullfilled时调用这个箭头回调函数</span></span><br><span class="line">  alert(value)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>再来看一个例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise'</span>);</span><br><span class="line">  resolve()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">promise.then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'fullfilled'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</span><br><span class="line"><span class="comment">// promise</span></span><br><span class="line"><span class="comment">// Hello</span></span><br><span class="line"><span class="comment">// fullFilled</span></span><br></pre></td></tr></table></figure>
+<p>这个Promise实例新建后会立即执行，然后就会打印promise，然后resolve()将promise状态变为fullfilled，然后，promise的then方法指定的回调函数属于微任务，会在宏任务执行完才会执行，所以fullfilled最后输出。  </p>
+<p>下面看一个异步加载图片的例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadImgAsync</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span> (<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> image = <span class="keyword">new</span> Image();</span><br><span class="line"></span><br><span class="line">    image.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      resolve(image);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    image.onerror = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'can not get image at'</span> + url));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    image.src = url;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，使用Promise包装了一个图片加载的异步操作。如果加载成功，就调用resolve方法，否则就调用reject方法</p>
+<p>下面看一个用Promise对象实现Ajax操作的例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getJSON = <span class="function"><span class="keyword">function</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> handler = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">this</span>.readyState !== <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">this</span>.status === <span class="number">200</span>) &#123;</span><br><span class="line">        resolve(<span class="keyword">this</span>.response);</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="keyword">this</span>.statusText));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">const</span> client = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">    client.open(<span class="string">"GET"</span>,url);</span><br><span class="line">    client.onreadystatechange = hadler;</span><br><span class="line">    client.responseTyoe = <span class="string">"json"</span></span><br><span class="line">    client.setRequestsHeader(<span class="string">"Accept"</span>,<span class="string">"application"</span>);</span><br><span class="line">    client.send();</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> promise;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">geJSON(<span class="string">"/posts.json"</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">json</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Contents: '</span> + json);</span><br><span class="line">&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'出错了'</span>,error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="处理拒绝promise"><a href="#处理拒绝promise" class="headerlink" title="处理拒绝promise"></a>处理拒绝promise</h3><p>拒绝promise有两种方式，显示拒绝和隐式拒绝</p>
+<ol>
+<li>显示拒绝，在一个Promise执行函数中调用传入的reject函数，然后then的第二个回调函数会被调用<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">  reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"显示拒绝promise"</span>))</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">promise.then(</span><br><span class="line">  () =&gt; <span class="built_in">console</span>.log(<span class="string">"没有被拒绝"</span>),</span><br><span class="line">  error =&gt; <span class="built_in">console</span>.log(error);</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li>隐式拒绝，正处理一个promise的过程中抛出一个异常，链式调用catch来处理<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">  something++</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">promise.then(</span><br><span class="line">  () =&gt; <span class="built_in">console</span>.log(<span class="string">"没有被拒绝"</span>)</span><br><span class="line">).catch(</span><br><span class="line">  error =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'隐式拒绝'</span>, error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="promiseAll的实现"><a href="#promiseAll的实现" class="headerlink" title="promiseAll的实现"></a>promiseAll的实现</h3></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/15/JS07-%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0%E4%B8%8Epromise/" data-id="ckct5amfb0004zow4hs4d1y5q" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/15/webpack%E9%9D%A2%E8%AF%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          webpack面试
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/15/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">事件循环</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/07/16/Vue/">Vue</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/JS07-%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0%E4%B8%8Epromise/">JS07-生成器函数与promise</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">事件循环</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/canvas/">canvas</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

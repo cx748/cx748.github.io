@@ -64,6 +64,544 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JS05-作用域" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/06/JS05-%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-date">
+  <time datetime="2020-07-06T15:11:07.312Z" itemprop="datePublished">2020-07-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/06/JS05-%E4%BD%9C%E7%94%A8%E5%9F%9F/">JS05-作用域</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>变量的作用域无非两种，全局变量和局部变量</p>
+<h3 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h3><p>最外层函数定义的变量拥有全局作用域，即任何内部函数来说，都是可以访问的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> outervar = <span class="string">"outer"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(outerVar);</span><br><span class="line">&#125;</span><br><span class="line">fn(); <span class="comment">//outer</span></span><br></pre></td></tr></table></figure>
+<h3 id="局部作用域"><a href="#局部作用域" class="headerlink" title="局部作用域"></a>局部作用域</h3><p>和全局作用域相反，局部作用域一般只在固定的代码片段内可以访问到，而对于函数外部是无法访问的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> innerVar = <span class="string">"inner"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn();</span><br><span class="line"><span class="built_in">console</span>.log(innerVar); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+<h4 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h4><p>再来看一个代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> scope = <span class="string">'gloabl'</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(scope); <span class="comment">//undefined</span></span><br><span class="line">    <span class="keyword">var</span> scope = <span class="string">'local'</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(scope);<span class="comment">//local</span></span><br><span class="line">&#125;</span><br><span class="line">fn();</span><br></pre></td></tr></table></figure>
+<p>函数内部定义了一个局部变量，函数在解析时就会把这个变量在函数开始提前声明(并不初始化)。</p>
+<h3 id="变量提升的原理"><a href="#变量提升的原理" class="headerlink" title="变量提升的原理"></a>变量提升的原理</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/06/JS05-%E4%BD%9C%E7%94%A8%E5%9F%9F/" data-id="ckcehshz400033ww4659t3km8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JS06-闭包" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/05/JS06-%E9%97%AD%E5%8C%85/" class="article-date">
+  <time datetime="2020-07-05T14:36:50.666Z" itemprop="datePublished">2020-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/05/JS06-%E9%97%AD%E5%8C%85/">JS06-闭包</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="理解闭包"><a href="#理解闭包" class="headerlink" title="理解闭包"></a>理解闭包</h1><p>闭包允许函数访问并操作函数外部的变量或者，只要这些变量或者函数存在于声明函数时的作用域内，闭包就可以让函数访问这些变量或者函数</p>
+<h1 id="使用闭包"><a href="#使用闭包" class="headerlink" title="使用闭包"></a>使用闭包</h1><h2 id="封装私有变量"><a href="#封装私有变量" class="headerlink" title="封装私有变量"></a>封装私有变量</h2><p>原生JS不支持私有变量，但是我们可以通过使用闭包，实现很接近可接受的私有变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> feints = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">this</span>.getFeints  = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> feints;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>.feint = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    feint += <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">;&#125;</span><br><span class="line"><span class="keyword">var</span> ninja1 = <span class="keyword">new</span> Ninja();</span><br><span class="line"><span class="built_in">console</span>.log(ninja1.feints) <span class="comment">// undefined，我们无法直接获取feints的值</span></span><br><span class="line">ninja1.feint();</span><br><span class="line"><span class="built_in">console</span>.log(ninja1.getFeints()) <span class="comment">// 1，我们能通过getFeints方法获取该变量的值</span></span><br><span class="line"><span class="keyword">var</span> ninja2 = <span class="keyword">new</span> Ninja();</span><br><span class="line"><span class="built_in">console</span>.log(ninja2.getfeints()) <span class="comment">//0，ninja2有自己的变量feints</span></span><br></pre></td></tr></table></figure>
+<h1 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h1><p>JS的代码有两种类型，一种是全局代码，在所有函数外部定义；一种是函数代码，位于函数内部。所以就会有两种执行上下文：全局执行上下文和局部执行上下文。<code>最重要的差别是全局上下文只有一个，并且在JS代码开始执行时就创建在调用栈中，而函数上下文是每次调用的时候都会创建新的。</code></p>
+<h1 id="词法环境"><a href="#词法环境" class="headerlink" title="词法环境"></a>词法环境</h1><p>即作用域，可以查看JS05-作用域</p>
+<h2 id="标识符原理"><a href="#标识符原理" class="headerlink" title="标识符原理"></a>标识符原理</h2><h1 id="闭包的工作原理"><a href="#闭包的工作原理" class="headerlink" title="闭包的工作原理"></a>闭包的工作原理</h1><p>有了词法环境与执行上下文的知识，我们可以更好的理解闭包的原理<br>现在我们重新回顾上面的封装私有变量的代码<br>分析第一个Ninja对象创建完成之后的程序状态，如图所示<br><img src="../img/%E9%97%AD%E5%8C%851.png" alt=""><br><code>JS构造函数都是通过关键字new调用的函数，因此每次调用</code>构造<code>函数时，都会创建一个新的词法环境，该词法环境保持这个</code>构造<code>函数内部的局部变量</code>,在本例中，创建了Ninja词法环境，保持着局部变量feint；<code>此外，与其他函数类似，无论何时创建函数，函数都会保持着对创建他们时的环境的引用</code>，本例中，我们创建了两个函数:getFeints与feint，他们都会有Ninja环境的引用。getFeints函数和Feints函数是新创建的ninja1对象的方法，因此可以在Ninja构造函数外部访问getFeints与feint函数，而getFeints与feint函数保持着对创建函数时环境的引用。所以可以外部对象ninja1可以通过这两个函数访问到feints变量<br>再创建一个实例ninja2时，将重复整个过程<br><img src="../img/%E9%97%AD%E5%8C%852.png" alt=""><br>每一个通过Ninja构造函数创建的对象实例均获得了各自的方法，当调用构造函数时，各自的实例方法包含各自的变量。这就是近似的私有变量。让我们看看ninja2.getFeints方法调用时发生了什么<br><img src="../img/%E9%97%AD%E5%8C%853.png" alt=""><br>在调用getFeints()函数之前，JS引擎正在执行全局代码。程序处于全局执行上下文状态，是执行栈里唯一上下文的同时，唯一活跃的词法环境是全局环境，与全局上下文相关联。<br>在调用ninja2.getFeints()时，会在执行栈里压入getFeints的函数上下文，因此创建了新的getFeints执行环境并推入执行栈。这同时引起创建新的词法环境，词法环境通常用于保持跟踪函数中定义的变量，另外getFeints词法环境包含了getFeints函数被创建时所处的环境，Ninja环境是活跃的，里面有feints变量。<br>这个程序是这么获取到feints变量的：首先访问活跃的getFeints词法环境，因为在getFeints函数内没有定义任何的变量，该词法环境是空的。接下来，在当前词法环境的外部环境中进行查找，本来中，创建ninja2对象时，Ninja环境处于活跃状态，此时的的词法环境中有feints变量的引用，完成搜索。</p>
+<h2 id="私有变量的警告"><a href="#私有变量的警告" class="headerlink" title="私有变量的警告"></a>私有变量的警告</h2><p>在上面的程序中，我们如果将ninja1.getFeints赋值给一个对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> importer = &#123;&#125;;</span><br><span class="line">importer.getFeints = ninja1.getFeints</span><br><span class="line"><span class="built_in">console</span>.log(importer.getFeints === <span class="number">1</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>此例表明JS中没有真正的私有对象属性</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/05/JS06-%E9%97%AD%E5%8C%85/" data-id="ckcehshyn00003ww4dcotg0r4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JS04-ES规范解读this" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/05/JS04-ES%E8%A7%84%E8%8C%83%E8%A7%A3%E8%AF%BBthis/" class="article-date">
+  <time datetime="2020-07-05T13:45:10.381Z" itemprop="datePublished">2020-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/05/JS04-ES%E8%A7%84%E8%8C%83%E8%A7%A3%E8%AF%BBthis/">JS04-ES规范解读this</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="根据调用方式来判断this的指向"><a href="#根据调用方式来判断this的指向" class="headerlink" title="根据调用方式来判断this的指向"></a>根据调用方式来判断this的指向</h2><ol>
+<li>作为函数调用 非严格模式下 this指向window，严格模式下 this指向的是undefined</li>
+<li>作为对象的方法进行调用  该对象会成为函数的上下文this</li>
+<li>作为构造函数进行调用 函数上下文是一个新创建的对象实例</li>
+<li>通过函数的apply或者call方法 若想要apply方法调用函数，得像apply传入两个参数：一个是函数上下文的对象，一个是函数的参数数组，call方法的使用和apply一致，只是参数是以参数列表的形式。</li>
+<li>调用箭头函数时，不会隐式传入this参数，而是从定义时的函数继承上下文</li>
+<li>使用函数的bind方法 任何函数都有bind方法，将函数上下文绑定到传入的对象上。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/05/JS04-ES%E8%A7%84%E8%8C%83%E8%A7%A3%E8%AF%BBthis/" data-id="ckcehshyx00023ww4dhqmfnqd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-水平垂直居中的几种方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/05/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" class="article-date">
+  <time datetime="2020-07-05T10:20:45.458Z" itemprop="datePublished">2020-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/05/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">水平垂直居中的几种方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="居中元素高宽是固定的"><a href="#居中元素高宽是固定的" class="headerlink" title="居中元素高宽是固定的"></a>居中元素高宽是固定的</h2><ul>
+<li>absolute + 负margin<br>绝对定位的百分比是相对于父元素的宽高，通过这个特性可以让子元素的居中显示，但绝对定位是基于子元素的左上角，期望的效果是子元素的中心居中显示<br>为了修正这个问题，可以借助外边距的负值，负的外边距可以让元素向相反方向定位，通过指定子元素的外边距为子元素宽度一半的负值，就可以让子元素居中了<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wp"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box size"</span>&gt;</span>123123<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>;</span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">      <span class="comment">/* 公共代码 */</span></span></span><br><span class="line"><span class="css">      <span class="selector-class">.wp</span> &#123;</span></span><br><span class="line">        border: 1px solid red;</span><br><span class="line">        width: 300px;</span><br><span class="line">        height: 300px;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">      <span class="selector-class">.box</span> &#123;</span></span><br><span class="line">        background: green;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">      <span class="selector-class">.box</span><span class="selector-class">.size</span> &#123;</span></span><br><span class="line">        width: 100px;</span><br><span class="line">        height: 100px;</span><br><span class="line">      &#125;</span><br><span class="line"><span class="css">      <span class="comment">/* 公共代码 */</span></span></span><br><span class="line"><span class="css">      <span class="selector-class">.wp</span>&#123;</span></span><br><span class="line">        position: relative;</span><br><span class="line">      &#125;</span><br><span class="line"><span class="css">      <span class="selector-class">.box</span>&#123;</span></span><br><span class="line">        position: absolute;</span><br><span class="line">        left: 50%;</span><br><span class="line"><span class="css">        <span class="selector-tag">top</span><span class="selector-pseudo">:50</span>%;</span></span><br><span class="line">        margin-top: -50px;</span><br><span class="line">        margin-left: -50px;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p>absolute + margin auto<br>将absolute的top,right,left,bottom都设置为0，然后margin：auto。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 公共代码 */</span></span><br><span class="line"><span class="selector-class">.wp</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: green;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-class">.size</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 公共代码 */</span></span><br><span class="line"><span class="selector-class">.wp</span>&#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>:<span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>absolute + calc<br>css3带来了计算属性，可以在top和left的基础上，减去一半的长宽，就能水平垂直居中了</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wp</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    position: absolute;;</span><br><span class="line">    <span class="selector-tag">top</span>: <span class="selector-tag">calc</span>(50% <span class="selector-tag">-</span> 50<span class="selector-tag">px</span>);</span><br><span class="line">    <span class="selector-tag">left</span>: <span class="selector-tag">calc</span>(50% <span class="selector-tag">-</span> 50<span class="selector-tag">px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="居中元素不定宽高"><a href="#居中元素不定宽高" class="headerlink" title="居中元素不定宽高"></a>居中元素不定宽高</h2></li>
+<li><p>absolute + transform<br>修复绝对定位的问题，还可以使用css3新增的transform，transform的translate属性也可以设置百分比，其是相对于自身的宽和高，所以可以讲translate设置为-50%，就可以做到居中了，代码如下</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wp</span>&#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>flex</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wp</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">justify-content</span>:center;</span><br><span class="line">    <span class="attribute">align-items</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/05/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" data-id="ckcehshz500043ww4fsf22zpj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JS03-原型与原型链" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/02/JS03-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="article-date">
+  <time datetime="2020-07-02T12:47:47.357Z" itemprop="datePublished">2020-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/02/JS03-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">JS03-原型与原型链</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="面向对象与原型"><a href="#面向对象与原型" class="headerlink" title="面向对象与原型"></a>面向对象与原型</h1><h2 id="理解原型"><a href="#理解原型" class="headerlink" title="理解原型"></a>理解原型</h2><p>原型的概念很简单，每个对象都有对原型的引用，当查找属性时，如果此对象不存在这个属性，则查找原型上有没有这个属性，原型也是一个对象。<br><code>对象可以通过原型访问其他对象的属性</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Daxia = &#123; <span class="attr">wuqi</span>: <span class="literal">true</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> Ren = &#123; <span class="attr">shou</span>: <span class="literal">true</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> animal = &#123; <span class="attr">move</span>: <span class="literal">true</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"shou"</span> <span class="keyword">in</span> Daxia); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(Daxia, Ren); <span class="comment">//将Ren作为Daxia的原型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"shou"</span> <span class="keyword">in</span> Daxia); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"move"</span> <span class="keyword">in</span> Daxia); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(ren, animal); <span class="comment">//将animal设为Ren的原型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"move"</span> <span class="keyword">in</span> Daxia); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>在 JavaScript 中，对象的原型属性是内置属性，无法直接访问，可以用内置的方法 Object.setPrototypeOf 需要传入两个对象作为参数，并将第二个对象设置为第一个对象的原型。<br>每个对象都可以有一个原型，每个对象的原型也可以拥有一个原型，以此类推，形成一个原型链。查找特定属性将会被委托在整个原型链上，只有当没有更多的原型可以进行查找时，才会停止查找。</p>
+<h2 id="对象构造器与原型"><a href="#对象构造器与原型" class="headerlink" title="对象构造器与原型"></a>对象构造器与原型</h2><p>每个函数都有一个原型对象，该原型对象将被自动设置为通过这个函数创建对象的原型。</p>
+<p><code>清单</code>2 通过原型方法创建新的实例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Ninja.prototype.swingSword = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ninja1 = Ninja(); <span class="comment">//作为函数调用Ninja</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja1 === <span class="literal">undefined</span>); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ninja2 = <span class="keyword">new</span> Ninja(); <span class="comment">//作为构造函数调用</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja2 &amp;&amp; ninja2.swingSword &amp;&amp; ninja2.swingSword()); <span class="comment">//验证不仅创建了新的实例，并且该实例具有原型上的方法</span></span><br></pre></td></tr></table></figure>
+
+<p>在这段代码中，我们先定义了一个名为 Ninja 的空函数，并通过两种方法进行调用：一种是作为普通函数,const ninja1 = Ninja(),另一种是作为构造器进行调用，const ninja2 = new Ninja();<br>当函数创建完成后，会立即获得一个原型对象，可以通过 prototype 属性对原型对象进行扩展，在本例中，在原型对象上添加了 swingSword 方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Ninja.prototype.swingSword = <span class="function"><span class="keyword">function</span>(<span class="params">&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">    return true;</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="../img/%E5%8E%9F%E5%9E%8B1.svg" alt="avatar"><br>swingSword 方法是 Ninja 的原型属性，而不是 ninja 实例的属性，接下来我们探讨一下实例属性和原型属性的区别</p>
+<h3 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h3><p>当把函数作为构造函数，通过操作符<code>new</code>进行调用时，它的上下文被定义为新的对象实例。通过原型暴露属性，通过构造函数的参数进行初始化。<br><code>清单三</code> 观察初始化过程的优先级</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.swung = <span class="literal">false</span>; <span class="comment">//创建布尔类型的实例变量</span></span><br><span class="line">  <span class="keyword">this</span>.swingSword = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !<span class="keyword">this</span>.swung;</span><br><span class="line">  &#125;; <span class="comment">//创建实例方法，该方法返回实例变量的反</span></span><br><span class="line">&#125;</span><br><span class="line">Ninja.prototype.swingSword = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.swung; <span class="comment">//定义一个与实例方法相同的原型方法，将会优先使用哪一个呢</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ninja1 = <span class="keyword">new</span> Ninja();</span><br><span class="line"><span class="built_in">console</span>.log(ninja.swingSword()); <span class="comment">//如果在实例中查找到属性，则不会查找原型</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="../img/%E5%8E%9F%E5%9E%8B2.png" alt="avatar"><br>在构造函数内部，this 指向的是新创建的对象实例，所以在构造器内添加的属性就直接在新的 ninja 实例上了，然后通过 ninja 访问 swingSword 属性时，就直接在实例上找到了，不需要再遍历原型链了。</p>
+<p><code>清单4</code> 通过原型，一切都可以在运行的时候修改</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.swung = <span class="literal">true</span>; <span class="comment">//创建布尔类型的实例变量</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> ninja1 = <span class="keyword">new</span> Ninja();</span><br><span class="line">Ninja.prototype.swingSword = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.swung;</span><br><span class="line">&#125;; <span class="comment">//在原型上添加方法</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja1.swingSword()); <span class="comment">//验证之前的实例是否有这个方法</span></span><br><span class="line"><span class="comment">//true</span></span><br><span class="line">Ninja.prototype = &#123;</span><br><span class="line">  pierce: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;; <span class="comment">//使用字面量重写函数原型</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja1.swingSword()); <span class="comment">//验证之前的实例化后的对象是否还有swingsword方法</span></span><br><span class="line"><span class="comment">//true</span></span><br><span class="line"><span class="keyword">const</span> ninja2 = <span class="keyword">new</span> Ninja();</span><br><span class="line"><span class="built_in">console</span>.log(ninja2.pierce()); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja2.swingSword); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+<p>首先，我们定义一个构造器Ninja，然后实例化一个对象，此时的状态如下：<br><img src="../img/%E5%8E%9F%E5%9E%8B3.png" alt="avatar"><br>构造完成后，实例化对象ninja1有swung属性，他的原型是构造器的原型，只有constructor属性。<br>实例化创建完成后，我们在Ninja原型添加了swingSword方法。此时的状态如下<br><img src="../img/%E5%8E%9F%E5%9E%8B4.png" alt="avatar"><br>因为ninja1实例指向Ninja原型，在实例构造完成之后对原型做更改，该实例仍然能够访问.</p>
+<p>然后，我们使用字面量对象完全重写Ninja的原型对象，该字面量<br>对象仅含有pierce方法。<br><img src="../img/%E5%8E%9F%E5%9E%8B5.png" alt="avatar"><br>即使Ninja函数不再指向旧的Ninja原型，但是旧的原<br>型仍然存在于ninja1的实例中，通过原型链仍然能够访问swingSword方<br>法。  </p>
+<p>但是，如果我们在Ninja发生这些变化之后再创建新的实例对象，此时的程序状态如下<br><img src="../img/%E5%8E%9F%E5%9E%8B6.png" alt="avatar"><br><code>对象与函数原型之间的引用关系是在对象创建时建立的。新创建的对象将引用新的原型</code>，它只能访问pierce方法，原来旧的对象保持着原有的原型，仍然能够访问swingSword方法</p>
+<h3 id="通过构造函数实现对象类型"><a href="#通过构造函数实现对象类型" class="headerlink" title="通过构造函数实现对象类型"></a>通过构造函数实现对象类型</h3><p>我们已经知道能够通过原型查找引用属性，我们也需要知道对象实例是通过哪个函数构造创建的。<br><code>清单5</code> 检查实例与他的constructor</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> ninja = <span class="keyword">new</span> Ninja();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> ninja);<span class="comment">// object</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja <span class="keyword">instanceof</span> Ninja);<span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja.constructor === Ninja)<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>我们先定义一个构造器函数，并且用这个构造器实例化一个对象。然后使用操作符typeof检查该实例的对象类型。这也发现不了什么。因为所有的实例都是对象类型。而instanceof操作符提供了一种检测一个实例是否由特定的构造函数创建的方法。<br>此外，我们可以使用实例原型上的constructor属性，所有实例对象都可以访问constructor属性，constructor属性是创建实例对象的函数的引用，因此我们可以使用该属性创建新的Ninja对象。<br><code>清单6</code> 使用constructor的引用创建新对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> ninja = <span class="keyword">new</span> Ninja();</span><br><span class="line"><span class="keyword">const</span> ninja2 = <span class="keyword">new</span> ninja.constructor(); <span class="comment">//通过第一个实例化对象的constructtor方法创建第二个实例化对象。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="实现原型继承"><a href="#实现原型继承" class="headerlink" title="实现原型继承"></a>实现原型继承</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Person.prototype.dance = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Ninja.prototype = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(Ninja.prototype, <span class="string">"constructor"</span>, &#123;</span><br><span class="line">　enumerable: <span class="literal">false</span>,</span><br><span class="line">　value: Ninja,</span><br><span class="line">　writable: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ninja = <span class="keyword">new</span> Ninja();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(ninja <span class="keyword">instanceof</span> Ninja);<span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja <span class="keyword">instanceof</span> Person); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(ninja <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">//true</span></span><br><span class="line"><span class="comment">//instanceof 它会检查操作符右边的函数的原型是否存在于操作符左边的对象的原型链上</span></span><br></pre></td></tr></table></figure>
+<p><img src="../img/%E7%BB%A7%E6%89%BF1.png" alt="通过将Ninja的原型构造器赋值为Person的实例，实现Ninja继承Person"></p>
+<p>当定义一个Person函数时，同时也创建了person原型，该原型通过constructor属性引用函数本身，然后可以扩展原型上的方法<br>然后定义一个Ninja函数，这个Ninja函数的原型也有一个constructor属性指向函数本身<br>接下来，为了实现继承<code>将Ninja的原型赋值为Person的实例</code>，现在没当创建一个新的Ninja对象时,新创建的Ninja对象将设置为Ninja的原型所指向的对象即Person实例。   </p>
+<h2 id="在ES6中实现继承"><a href="#在ES6中实现继承" class="headerlink" title="在ES6中实现继承"></a>在ES6中实现继承</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  dance()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ninja</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123; <span class="comment">//使用关键字extends实现继承</span></span><br><span class="line">  <span class="keyword">constructor</span>(name,weapon)&#123;</span><br><span class="line">    <span class="keyword">super</span>(name);  <span class="comment">//使用关键字super调用基类构造函数</span></span><br><span class="line">    <span class="keyword">this</span>.weapon = weapon;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  wieldWeapon()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(<span class="string">"Bob"</span>);</span><br><span class="line"><span class="keyword">var</span> ninja = <span class="keyword">new</span> Ninja(<span class="string">"yoshi"</span>,<span class="string">"Wakizashi"</span>);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/02/JS03-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/" data-id="ckc5mqraa0003w4w4db5uhu6w" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/02/test/" class="article-date">
+  <time datetime="2020-07-02T09:39:15.544Z" itemprop="datePublished">2020-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/02/test/">test</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  <meta name="generator" content="Hexo 4.2.1"></head>
+  <body>
+    <div class="box">
+    </div>
+    <style>
+    </style>
+    <script>
+      // function findMostLetters(arr) {
+      //   if(!arr.length) return;
+      //   if(arr.length == 1) return 1;
+      //   var h = {}, maxNum = 0, maxEl = '';
+      //   for (let i = 0; i < str.length; i ++) {
+      //     var a = arr [i];
+      //     h[a] == undefined ? h[a] = 1 : (h[a]++);
+      //     if(h[a] > maxNum){
+      //       maxNum = h[a];
+      //       maxEl = a;
+      //     }
+      //   }
+      //   console.log(maxEl,maxNum)
+      // }
+      // str = 'sdasdasdafgskjebdfskf';
+      // findMostLetters(str);
+      // function timeout(ms) {
+      //   return new Promise((resolve, reject) => {
+      //     setTimeout(reject, ms, 'done');
+      //   });
+      // }
+
+      // timeout(1000).then((value) => {
+      //   alert(value);
+      // }, (error) => {
+      //   console.log(error)
+      // });
+
+      // let promise = new Promise((resolve,reject) => {
+      //   console.log('promise');
+      //   resolve()
+      // })
+
+      // promise.then(() => {
+      //   console.log('fullfilled');
+      // })
+
+      // console.log('Hello')
+
+      // const promise = new Promise((resolve,reject) => {
+      //   reject(new Error("显示拒绝promise"))
+      // });
+
+      // promise.then(
+      //   () => console.log("没有被拒绝"),
+      //   error => console.log(error)
+      // )
+      // const promise = new Promise((resolve,reject) => {
+      //   something++
+      // });
+
+      // promise.then(
+      //   () => console.log("没有被拒绝")
+      // ).catch(
+      //   error => {
+      //     console.log('隐式拒绝', error)
+      //   }
+      // )
+
+      // var age = 21;
+      // function myAge() {
+      //   var age = 0;
+      //   age++;
+      //   console.log(age);
+      // }
+      // myAge();
+      // console.log(age);
+
+      // function Ninja() {};
+
+      // Ninja.prototype.swingSword = function () {
+      //   return true;
+      // };
+
+      // const ninja1 = Ninja; //作为函数调用Ninja
+      // console.log(ninja1)
+      // console.log(ninja1 === undefined); //true
+
+      // 通过原型继承
+      // function People() {};
+      // People.prototype.dance = function(){};
+
+      // function Ninja() {};
+      // Ninja.prototype = new People();
+
+      // const ninja = new Ninja();
+
+      // console.log(typeof ninja.dance == "function");
+      // console.log(ninja instanceof Ninja);
+      // console.log(ninja instanceof People);
+      // People.prototype.sing = function(){};
+      // console.log(typeof ninja.sing);
+      // Function.prototype.defer = function (time) {
+      //   setTimeout(this, time)
+      // }
+      // function test(){
+      //   alert("HEllo")
+      // };
+      // test.defer(1000);
+
+      class Animal{
+        constructor(name){
+          this.name = name;
+          this.speed = 0;
+        };
+
+        run(speed){
+          this.speed = speed;
+          alert(`${this.name} runs with speed ${this.speed}`);
+        };
+
+        stop(){
+          this.speed = 0;
+          alert(`${this.name} stopped`)
+        };
+      };
+
+      class Rabbit extends Animal {
+        hide(){
+          alert(`${this.name} hides`);
+        };
+
+        stop(){
+          super.stop();
+          this.hide();
+        };
+      }
+
+      let rabbit = new Rabbit("White Rabbit");
+      console.log(rabbit);
+
+      rabbit.run(5);
+      rabbit.stop();
+    </script>
+  </body>
+</html>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/02/test/" data-id="ckc5mqrab0005w4w475i7han5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JS02-浅拷贝与深拷贝" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/02/JS02-%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/" class="article-date">
+  <time datetime="2020-07-02T09:23:14.171Z" itemprop="datePublished">2020-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/02/JS02-%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/">JS02-浅拷贝与深拷贝</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="栈与堆的区别"><a href="#栈与堆的区别" class="headerlink" title="栈与堆的区别"></a>栈与堆的区别</h2><p>其实深拷贝与浅拷贝的主要区别来源于数据在内存中的存储类型不同。<br>栈和堆都是从内存中划出来用来存储的区域：</p>
+<ul>
+<li>栈(stack)是自动分配的内存空间，由系统自动释放</li>
+<li>堆(heap)是动态分配的内存，大小不定也不会自动释放</li>
+</ul>
+<h2 id="数据类型与存储方式"><a href="#数据类型与存储方式" class="headerlink" title="数据类型与存储方式"></a>数据类型与存储方式</h2><p>我们在JS-01中知道，数据类型主要有2种，基本数据类型和引用数据类型，<code>基本数据类型</code>是存放在栈中，是直接按照值来存放的。基本数据类型的值是不可变的，动态修改基本类型的值，他的原始值也不会变。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"abc"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str[<span class="number">1</span>] = <span class="string">"f"</span>) <span class="comment">// f</span></span><br><span class="line"><span class="built_in">console</span>.log(str) <span class="comment">//  abc</span></span><br></pre></td></tr></table></figure>
+<p>而<code>引用数据类型</code>时候存放在堆中，变量实际上是存放在栈内存的指针，这个指针指向堆内存中的地址。<br><img src="https://upload-images.jianshu.io/upload_images/17551433-37161303b825a34f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/636/format/webp" alt="avatar"><br>引用数据类型的值可以变</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]; <span class="comment">//数组是引用类型</span></span><br><span class="line">a[<span class="number">1</span>] = <span class="number">5</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//[1,5,3]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h2><ul>
+<li><code>传值和传址</code><br>当我们进行赋值操作时，基本数据类型的赋值是在内存中开辟一段栈内存，然后再把值赋给这个基本数据类型的变量。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br></pre></td></tr></table></figure>
+<img src="https://upload-images.jianshu.io/upload_images/17551433-977a5fba523d8237.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/652/format/webp" alt=""><br>但是引用类型的赋值是传址，只是改变指针的指向。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;&#125;; <span class="comment">// a保存了一个空对象的实例</span></span><br><span class="line"><span class="keyword">var</span> b = a;  <span class="comment">// a和b都指向了这个空对象</span></span><br><span class="line"></span><br><span class="line">a.name = <span class="string">'jozo'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a.name); <span class="comment">// 'jozo'</span></span><br><span class="line"><span class="built_in">console</span>.log(b.name); <span class="comment">// 'jozo'</span></span><br><span class="line"></span><br><span class="line">b.age = <span class="number">22</span>;</span><br><span class="line"><span class="built_in">console</span>.log(b.age);<span class="comment">// 22</span></span><br><span class="line"><span class="built_in">console</span>.log(a.age);<span class="comment">// 22</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a == b);<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<img src="https://upload-images.jianshu.io/upload_images/17551433-d0334e70183e4488.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/650/format/webp" alt=""></li>
+</ul>
+<h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><p>上面内容只是常用的赋值引用，还不能算浅拷贝。</p>
+<ul>
+<li>浅拷贝和赋值有什么区别<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    <span class="string">'name'</span>: <span class="string">'zhangsan'</span>;</span><br><span class="line">    <span class="string">'age'</span>: <span class="string">'18'</span>;</span><br><span class="line">    <span class="string">'language'</span>: [</span><br><span class="line">        <span class="number">1</span>,</span><br><span class="line">        [<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">        [<span class="number">4</span>,<span class="number">5</span>],</span><br><span class="line">    ]</span><br><span class="line">&#125;;<span class="comment">//定义对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj2 = obj1; <span class="comment">//赋值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj3 = shallowCopy(obj1); <span class="comment">//浅拷贝</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowCopy</span>(<span class="params">src</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dst = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> prop <span class="keyword">in</span> src)&#123;</span><br><span class="line">        <span class="keyword">if</span>(src.hasOwnProperty(prop))&#123;</span><br><span class="line">            dst[prop] = src[prop];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dst;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj2.name = <span class="string">"lisi"</span>;</span><br><span class="line">obj3.age=<span class="string">"20"</span>;</span><br><span class="line"></span><br><span class="line">obj2.language[<span class="number">1</span>] = [<span class="string">"二"</span>,<span class="string">"三"</span>];</span><br><span class="line">obj3.language[<span class="number">2</span>] = [<span class="string">"二"</span>,<span class="string">"三"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj1);</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">'name'</span>: <span class="string">'lisi'</span>,</span><br><span class="line">    <span class="string">'age'</span>: <span class="string">'20'</span>,</span><br><span class="line">    <span class="string">'language'</span>: [</span><br><span class="line">        <span class="number">1</span>,</span><br><span class="line">        [<span class="string">'二'</span>，<span class="string">'三'</span>],</span><br><span class="line">        [<span class="string">''</span>,<span class="string">''</span>]</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(obj2);</span><br><span class="line"><span class="built_in">console</span>.log(obj3);</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/02/JS02-%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/" data-id="ckcehshyw00013ww4g8ldasmm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-常见算法题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/01/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E9%A2%98/" class="article-date">
+  <time datetime="2020-07-01T15:54:21.837Z" itemprop="datePublished">2020-07-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/01/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E9%A2%98/">常见算法题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Q1-判断回文"><a href="#Q1-判断回文" class="headerlink" title="Q1 判断回文"></a>Q1 判断回文</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkHuiwen</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str == str.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Q2-去掉一组整数型数组重复的值"><a href="#Q2-去掉一组整数型数组重复的值" class="headerlink" title="Q2 去掉一组整数型数组重复的值"></a>Q2 去掉一组整数型数组重复的值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> data = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span> (data.indexOf(arr[i]) == <span class="number">-1</span>) &#123;</span><br><span class="line">      data.push(arr[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> data</span><br><span class="line">&#125;; </span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">var</span> arrNew = unique(arr);</span><br></pre></td></tr></table></figure>
+<h3 id="Q3-数组或者对象的深拷贝"><a href="#Q3-数组或者对象的深拷贝" class="headerlink" title="Q3 数组或者对象的深拷贝"></a>Q3 数组或者对象的深拷贝</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> objClone = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;;</span><br><span class="line">  <span class="keyword">if</span> (obj &amp;&amp; <span class="keyword">typeof</span> obj === <span class="string">'object'</span>) &#123; <span class="comment">// 如果obj存在并且数据类型是对象或者是数组</span></span><br><span class="line">    <span class="keyword">for</span> (key <span class="keyword">in</span> obj) &#123; <span class="comment">// 遍历obj中的元素</span></span><br><span class="line">      <span class="keyword">if</span>(obj.hasOwnProperty(key)) &#123; <span class="comment">// hasOwnProperty表示是否有自己的属性，这个方法会检查一个对象是否有某个属性，但是不会去查找它的原型链</span></span><br><span class="line">        <span class="keyword">if</span> (obj[key] &amp;&amp; <span class="keyword">typeof</span> obj[key] === <span class="string">'object'</span>) &#123; <span class="comment">// 如果对象的属性值为Object的时候，递归调用deepCLone</span></span><br><span class="line">          objClone[key] = deepClone(obj[key])</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123; <span class="comment">// 如果对象的属性值不试object的时候，直接复制参数对象的键值对</span></span><br><span class="line">          objClone[key] = obj[key]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> objClone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Q4-实现promise-all"><a href="#Q4-实现promise-all" class="headerlink" title="Q4 实现promise.all"></a>Q4 实现promise.all</h3><h3 id="Q5-字符串匹配"><a href="#Q5-字符串匹配" class="headerlink" title="Q5 字符串匹配"></a>Q5 字符串匹配</h3><h3 id="Q6-找到升序数组nums中的目标值的开始位置和结束位置，如果不存在则返回-1-1"><a href="#Q6-找到升序数组nums中的目标值的开始位置和结束位置，如果不存在则返回-1-1" class="headerlink" title="Q6 找到升序数组nums中的目标值的开始位置和结束位置，如果不存在则返回[-1,-1]"></a>Q6 找到升序数组nums中的目标值的开始位置和结束位置，如果不存在则返回[-1,-1]</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pop</span>(<span class="params">arr,target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> temp = [];</span><br><span class="line">  temp[<span class="number">0</span>] = arr.indexOf(target);</span><br><span class="line">  temp[<span class="number">1</span>] = temp [<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">if</span>(temp[<span class="number">0</span>] == <span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> temp</span><br><span class="line">  &#125;esle&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = temp[<span class="number">1</span>]; i &lt; arr.length; i++)&#123;</span><br><span class="line">      <span class="keyword">if</span>(arr[i] == arr[temp[<span class="number">1</span>]])&#123;</span><br><span class="line">        temp[<span class="number">1</span>] = i;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Q7-统计一个字符串出现最多的字母"><a href="#Q7-统计一个字符串出现最多的字母" class="headerlink" title="Q7 统计一个字符串出现最多的字母"></a>Q7 统计一个字符串出现最多的字母</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findMostLetters</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!arr.length) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">if</span>(arr.length == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">var</span> h = &#123;&#125;, maxNum = <span class="number">0</span>, maxEl = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; str.length; i ++) &#123;</span><br><span class="line">    <span class="keyword">var</span> a = arr [i];</span><br><span class="line">    h[a] == <span class="literal">undefined</span> ? h[a] = <span class="number">1</span> : (h[a]++);</span><br><span class="line">    <span class="keyword">if</span>(h[a] &gt; maxNum)&#123;</span><br><span class="line">      maxNum = h[a];</span><br><span class="line">      maxEl = a;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(maxEl,maxNum)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Q8-排序"><a href="#Q8-排序" class="headerlink" title="Q8 排序"></a>Q8 排序</h3><h4 id="冒泡排序-每次从头比较两个相邻的元素，每轮排序都会确定一个确定的位置"><a href="#冒泡排序-每次从头比较两个相邻的元素，每轮排序都会确定一个确定的位置" class="headerlink" title="冒泡排序, 每次从头比较两个相邻的元素，每轮排序都会确定一个确定的位置"></a>冒泡排序, 每次从头比较两个相邻的元素，每轮排序都会确定一个确定的位置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; arr.length-i; j++)&#123;</span><br><span class="line">      <span class="keyword">if</span>(arr[j] &gt; arr[j+<span class="number">1</span>])&#123;</span><br><span class="line">        <span class="keyword">let</span> temp = arr[j];</span><br><span class="line">        arr[j] = arr[j+<span class="number">1</span>];</span><br><span class="line">        arr[j+<span class="number">1</span>] = temp;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="选择排序：选择排序是将每一个元素和它后面的元素进行比较和交换-每次选出一个最小的"><a href="#选择排序：选择排序是将每一个元素和它后面的元素进行比较和交换-每次选出一个最小的" class="headerlink" title="选择排序：选择排序是将每一个元素和它后面的元素进行比较和交换,每次选出一个最小的"></a>选择排序：选择排序是将每一个元素和它后面的元素进行比较和交换,每次选出一个最小的</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectSort</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;arr.length; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j=i+<span class="number">1</span>; j&lt;arr.length;j++)&#123;</span><br><span class="line">      <span class="keyword">if</span>(arr[i]&gt;arr[j])&#123;</span><br><span class="line">        [arr[i],arr[j]] = [arr[j],arr[i]];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="插入排序，就像是打扑克的码牌-每次排序和已经拍好序的牌比较然后插入位置"><a href="#插入排序，就像是打扑克的码牌-每次排序和已经拍好序的牌比较然后插入位置" class="headerlink" title="插入排序，就像是打扑克的码牌,每次排序和已经拍好序的牌比较然后插入位置"></a>插入排序，就像是打扑克的码牌,每次排序和已经拍好序的牌比较然后插入位置</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertSort</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i =<span class="number">1</span>; i&lt; arr.length; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span>(j=i; j&gt;<span class="number">0</span>; j--)&#123;</span><br><span class="line">      <span class="keyword">if</span>(arr[j] &lt; arr[j<span class="number">-1</span>])&#123;</span><br><span class="line">        [arr[j],arr[j<span class="number">-1</span>]] = [arr[j<span class="number">-1</span>],arr[j]];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/01/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E9%A2%98/" data-id="ckc5mqra80001w4w44hzj0bnl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-浏览器问题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/07/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E9%97%AE%E9%A2%98/" class="article-date">
@@ -106,7 +644,7 @@
 <h2 id="Session机制"><a href="#Session机制" class="headerlink" title="Session机制"></a>Session机制</h2><p>　　除了使用Cookie，Web应用程序中还经常使用Session来记录客户端状态。Session是服务器端使用的一种记录客户端状态的机制，使用上比Cookie简单一些，相应的也增加了服务器的存储压力。</p>
 <h3 id="什么是session"><a href="#什么是session" class="headerlink" title="什么是session"></a>什么是session</h3><p>Session是另一种记录客户状态的机制，不同的是Cookie保存在客户端浏览器中，而Session保存在服务器上。客户端浏览器访问服务器的时候，服务器把客户端信息以某种形式记录在服务器上。这就是Session。客户端浏览器再次访问时只需要从该Session中查找该客户的状态就可以了。</p>
 <p>如果说Cookie机制是通过检查客户身上的“通行证”来确定客户身份的话，那么Session机制就是通过检查服务器上的“客户明细表”来确认客户身份。Session相当于程序在服务器上建立的一份客户档案，客户来访的时候只需要查询客户档案表就可以了。</p>
-
+<h1 id="浏览器渲染机制"><a href="#浏览器渲染机制" class="headerlink" title="浏览器渲染机制"></a>浏览器渲染机制</h1>
       
     </div>
     <footer class="article-footer">
@@ -156,540 +694,11 @@
 
 
   
-    <article id="post-musicPlayer" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/30/musicPlayer/" class="article-date">
-  <time datetime="2020-06-30T14:44:14.845Z" itemprop="datePublished">2020-06-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/30/musicPlayer/">musicPlayer</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="音乐播放器"><a href="#音乐播放器" class="headerlink" title="音乐播放器"></a>音乐播放器</h1><p>因为现在播放器因为版权问题，会时常下架一些歌，一直换播放器也是比较麻烦的事情，所以想着是否能够把自己非常喜欢的歌下载下来，然后通过自己做的播放器播放。</p>
-<h2 id="模块设计"><a href="#模块设计" class="headerlink" title="模块设计"></a>模块设计</h2><ol>
-<li>列表播放器</li>
-<li>播放器视图</li>
-<li>歌词</li>
-<li>背景音频可视化</li>
-<li>调音工具(暂时还没完成，以后会更新)</li>
-</ol>
-<h3 id="模块功能"><a href="#模块功能" class="headerlink" title="模块功能"></a>模块功能</h3><h4 id="播放列表功能"><a href="#播放列表功能" class="headerlink" title="播放列表功能"></a>播放列表功能</h4><ol>
-<li>根据歌名选择对应的音频</li>
-<li>当前歌曲播放完毕后会按列表顺序播放音频</li>
-<li>列表播放按钮随着歌曲状态改变</li>
-<li>音频状态切歌的时候要改变</li>
-</ol>
-<h3 id="播放器视图"><a href="#播放器视图" class="headerlink" title="播放器视图"></a>播放器视图</h3><ol>
-<li>播放器的播放按钮能控制当前的音频</li>
-<li>播放器的播放按钮图标随着音频状态更新</li>
-</ol>
-<h3 id="歌词栏"><a href="#歌词栏" class="headerlink" title="歌词栏"></a>歌词栏</h3><ol>
-<li>歌词要随着歌曲播放时间轮播</li>
-</ol>
-<h3 id="背景音频可视化"><a href="#背景音频可视化" class="headerlink" title="背景音频可视化"></a>背景音频可视化</h3><ol>
-<li>将音频的频率在页面背景可视化展现出来</li>
-</ol>
-<h2 id="模块功能实现"><a href="#模块功能实现" class="headerlink" title="模块功能实现"></a>模块功能实现</h2><h3 id="播放列表"><a href="#播放列表" class="headerlink" title="播放列表"></a>播放列表</h3><h4 id="生成播放列表"><a href="#生成播放列表" class="headerlink" title="生成播放列表"></a>生成播放列表</h4><p>每一首歌应该都有<code>src</code>,<code>name</code>,<code>lyric</code>属性，为了减少 html 里的代码量，可以把这些抽象在一个对象数组<code>songs</code>里，数组的每一项代表每一首歌的属性。然后根据这个数组来添加 html 的 dom 节点增加播放列表的 item。列表里的每首歌后面会有一个播放按钮用来控制和显示当前该歌曲的播放状态。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; songs.length; i++) &#123;</span><br><span class="line">  <span class="keyword">let</span> song = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">  song.className = <span class="string">"song"</span>;</span><br><span class="line">  song.dataset.src = songs[i].src;</span><br><span class="line">  song.dataset.lyc = songs[i].lyric;</span><br><span class="line">  song.innerHTML = <span class="string">`&lt;span&gt;<span class="subst">$&#123;songs[i].name&#125;</span>&lt;/span&gt; &lt;span class="iconfont toggle" data-title="<span class="subst">$&#123;songs[i].name&#125;</span>""&gt;&amp;#xe645;&lt;/span&gt;`</span>;</span><br><span class="line">  playList.appendChild(song);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>根据 songs 里的数据循环地创建&lt;div class=”song”&gt;的 dom 节点，然后再给这个 dom 赋予自定义的属性和这个 dom 的子节点，然后把这个节点插入到他的父节点下。<br><code>dataset</code>：HTMLElement.dataset 属性允许无论是在读取模式还是写入模式访问 HTML 或者 Dom 中元素设置的所有自定义数据属性<code>(data-*)</code>集。<br>`${ }`：其中反引号 ( ` )标识这是一个模板字面量，而${}是变量占位符，之间允许放入任意的 JS 表达式，会将运算结果当做是这个模板字面量的一部分。在上面的代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">song.innerHTML = <span class="string">`&lt;span&gt;<span class="subst">$&#123;songs[i].name&#125;</span>&lt;/span&gt; &lt;span class="iconfont toggle"</span></span><br></pre></td></tr></table></figure>
-
-<p>会访问 songs[i]的 name，并将其插入到 song.innerHTML 字符串中。</p>
-<h3 id="播放列表中需要增加的事件监听"><a href="#播放列表中需要增加的事件监听" class="headerlink" title="播放列表中需要增加的事件监听"></a>播放列表中需要增加的事件监听</h3><ol>
-<li>监听列表每首歌的播放按钮的点击事件，用来控制单首歌的播放暂停。</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">toggles.forEach(<span class="function">(<span class="params">toggle</span>) =&gt;</span> &#123;</span><br><span class="line">  toggle.addEventListener(<span class="string">"click"</span>, handlePressed);</span><br><span class="line">&#125;); <span class="comment">//给播放按钮添加事件监听</span></span><br></pre></td></tr></table></figure>
-
-<p><code>handlePressed</code>函数用来处理歌曲的播放状态和切歌动作。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handlePressed</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> srcNow = <span class="built_in">decodeURI</span>(audioPlay.src); <span class="comment">//获取当前播放/暂停下的歌曲src</span></span><br><span class="line">  <span class="keyword">const</span> nameNow = audioPlay.dataset.name; <span class="comment">//获取当前播放/暂停下的歌曲sname</span></span><br><span class="line">  <span class="keyword">const</span> nameNext = <span class="keyword">this</span>.dataset.title; <span class="comment">//获取将要操作的歌曲name</span></span><br><span class="line">  <span class="keyword">const</span> audioToPlaySrc = songs.find(<span class="function">(<span class="params">song</span>) =&gt;</span> song.name == nameNext).src; <span class="comment">//获取将要操作的歌曲src</span></span><br><span class="line">  <span class="keyword">if</span> (nameNow != nameNext) &#123;</span><br><span class="line">    <span class="comment">//根据name判断歌曲是否是当前歌曲，不是的话则切歌，切歌则会触发change事件，在change事件中改变样式</span></span><br><span class="line">    audioPlay.src = audioToPlaySrc; <span class="comment">//更改src</span></span><br><span class="line">    audioPlay.dataset.name = nameNext; <span class="comment">//更改data-name</span></span><br><span class="line">    <span class="comment">//console.log(audioPlay);</span></span><br><span class="line">    audioPlay.play();</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//如果是则暂停/播放</span></span><br><span class="line">    <span class="keyword">if</span> (audioPlay.paused) &#123;</span><br><span class="line">      audioPlay.play();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      audioPlay.pause();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>监听正在播放音频的结束事件，用来控制按列表顺序播放。</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">audioPlay.addEventListener(<span class="string">"ended"</span>, sequentialPlay); <span class="comment">//监听歌曲结束事件，处理歌曲的顺序播放</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sequentialPlay</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//实现顺序播放</span></span><br><span class="line">  <span class="keyword">const</span> index = songs.findIndex(<span class="function">(<span class="params">song</span>) =&gt;</span> song.name == audioPlay.dataset.name);</span><br><span class="line">  <span class="built_in">console</span>.log(index);</span><br><span class="line">  audioPlay.src = songs[index + <span class="number">1</span>].src;</span><br><span class="line">  audioPlay.dataset.name = songs[index + <span class="number">1</span>].name;</span><br><span class="line">  audioPlay.play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="播放器"><a href="#播放器" class="headerlink" title="播放器"></a>播放器</h3><h4 id="画出播放器"><a href="#画出播放器" class="headerlink" title="画出播放器"></a>画出播放器</h4><h4 id="监听播放器按钮的点击事件"><a href="#监听播放器按钮的点击事件" class="headerlink" title="监听播放器按钮的点击事件"></a>监听播放器按钮的点击事件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">420</span>,</span><br><span class="line">  y = <span class="number">2</span>,</span><br><span class="line">  w = <span class="number">35</span>,</span><br><span class="line">  h = <span class="number">26</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//播放按钮</span></span><br><span class="line">canvas.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 鼠标x轴 &gt;= 矩阵x轴 &amp;&amp; 鼠标x轴 &lt;= 矩阵x轴 + 矩阵宽度</span></span><br><span class="line">  <span class="comment">// 鼠标y轴 &gt;= 矩阵y轴 &amp;&amp; 鼠标y轴 &lt;= 矩阵y轴 + 矩阵高度</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    e.layerX &gt;= x &amp;&amp;</span><br><span class="line">    e.layerX &lt;= x + w &amp;&amp;</span><br><span class="line">    e.layerY &gt;= y &amp;&amp;</span><br><span class="line">    e.layerY &lt;= y + h</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">if</span> (audioPlay.paused) &#123;</span><br><span class="line">      audioPlay.play();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      audioPlay.pause();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>x,y,w,h 属性确定按钮所在位置，然后通过监听鼠标点击这个位置的事件来控制当前的歌曲。</p>
-<h2 id="歌词"><a href="#歌词" class="headerlink" title="歌词"></a>歌词</h2><h3 id="生成歌词"><a href="#生成歌词" class="headerlink" title="生成歌词"></a>生成歌词</h3><p>在网上下载的歌词文档格式是下面这种格式<br>[00:23.10]人群里突然觉得空<br>[00:25.52]眼前飘过有你的种种<br>我们可以把每一句歌词改成一个对象，对象有两个属性 time，和 text 分别对应时间和歌词，然后将这些对象存入一个总的 lyrics 数组。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createLyrics</span>(<span class="params">lrcContent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (lrcContent.length == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">var</span> lrcs = lrcContent.split(<span class="string">"\n"</span>); <span class="comment">//把整个歌词拆分成一句歌词一句歌词的数组</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> lrcs) &#123;</span><br><span class="line">    lrcs[i] = lrcs[i].replace(<span class="regexp">/(^\s*) | (\s*$)/g</span>, <span class="string">""</span>); <span class="comment">//去除前后空格</span></span><br><span class="line">    <span class="keyword">var</span> timeOrigin = lrcs[i].substring(</span><br><span class="line">      lrcs[i].indexOf(<span class="string">"["</span>) + <span class="number">1</span>,</span><br><span class="line">      lrcs[i].indexOf(<span class="string">"]"</span>)</span><br><span class="line">    ); <span class="comment">//取[]之间的内容：时间</span></span><br><span class="line">    <span class="keyword">var</span> timeProcessed = timeOrigin.split(<span class="string">":"</span>); <span class="comment">//分离 : 前后的文字</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(<span class="built_in">parseInt</span>(timeProcessed[<span class="number">0</span>]))) &#123;</span><br><span class="line">      <span class="keyword">var</span> time =</span><br><span class="line">        <span class="built_in">parseFloat</span>(timeProcessed[<span class="number">0</span>]) * <span class="number">60</span> + <span class="built_in">parseFloat</span>(timeProcessed[<span class="number">1</span>]); <span class="comment">//将时间转化成秒</span></span><br><span class="line">      <span class="keyword">var</span> text = lrcs[i].substring(lrcs[i].indexOf(<span class="string">"]"</span>) + <span class="number">1</span>); <span class="comment">//将每句歌词对象插入歌词数组</span></span><br><span class="line">      lyrics.push(&#123;</span><br><span class="line">        time: time,</span><br><span class="line">        text: text,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>有了歌词的对象数组后，我们可以根据歌的播放时间来决定轮播哪句歌词, 监听 audio 的 timeupdate 事件来更新歌词和样式。lrcContent 形参是原生歌词的文本字符串，将其放在 textarea 里面，但是 display 是 none。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">audioPlay.addEventListener(<span class="string">"timeupdate"</span>, lyricsChange); <span class="comment">//当歌曲的currentTime发生改变时，要处理相应dom的样式和歌词</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lyricsChange</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//更新歌词</span></span><br><span class="line">  <span class="keyword">if</span> (lyrics.length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">//如果歌词为空，则创建歌词对象数组</span></span><br><span class="line">    <span class="keyword">let</span> lrcContent = <span class="built_in">document</span>.getElementById(<span class="string">`<span class="subst">$&#123;audioPlay.dataset.name&#125;</span>`</span>)</span><br><span class="line">      .innerHTML;</span><br><span class="line">    createLyrics(lrcContent);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (j == lyrics.length) <span class="keyword">return</span>; <span class="comment">//在页面显示歌词，j是歌词数组的索引</span></span><br><span class="line">  <span class="keyword">let</span> curTime = <span class="keyword">this</span>.currentTime;</span><br><span class="line">  <span class="built_in">console</span>.log(curTime);</span><br><span class="line">  <span class="built_in">console</span>.log(j);</span><br><span class="line">  <span class="built_in">console</span>.log(lyrics[j].time);</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">parseFloat</span>(lyrics[j].time) &lt;= curTime) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(lyrics[j].text);</span><br><span class="line">    lrcRow.innerHTML = lyrics[j].text;</span><br><span class="line">    j++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>每一首歌开始播放的时候，都应该初始化歌词数组，然后把新歌的歌词写到数组里</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">audioPlay.addEventListener(<span class="string">"durationchange"</span>, lyricInit); <span class="comment">//监听切歌事件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lyricInit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//初始化歌词数组和索引</span></span><br><span class="line">  lyrics = [];</span><br><span class="line">  j = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="按钮状态更新"><a href="#按钮状态更新" class="headerlink" title="按钮状态更新"></a>按钮状态更新</h2><p>因为这些按钮的状态都是根据 audio 的播放/暂停来决定的，所以我们可以监听 audio 的开始播放和暂停事件来完成操作。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">audioPlay.addEventListener(<span class="string">"pause"</span>, styleChange); <span class="comment">//监听歌曲暂停事件，处理样式</span></span><br><span class="line">audioPlay.addEventListener(<span class="string">"play"</span>, styleChange); <span class="comment">//监听歌曲播放事件，处理样式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">styleChange</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> icon;</span><br><span class="line">  <span class="comment">//更新当前播放按钮的样式</span></span><br><span class="line">  <span class="keyword">if</span> (audioPlay.paused) &#123;</span><br><span class="line">    icon = <span class="string">"&amp;#xe645;"</span>;</span><br><span class="line">    run(<span class="string">"rgb(100,100,250)"</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    icon = <span class="string">"&amp;#xe615;"</span>;</span><br><span class="line">    run(<span class="string">"rgb(100,260,170)"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> toggle = toggles.find(</span><br><span class="line">    (toggle) =&gt; toggle.dataset.title == audioPlay.dataset.name <span class="comment">//找到当前audio对应的toggle</span></span><br><span class="line">  );</span><br><span class="line">  toggle.innerHTML = icon;</span><br><span class="line">  toggles</span><br><span class="line">    .filter(<span class="function">(<span class="params">toggleLeft</span>) =&gt;</span> toggleLeft !== toggle)</span><br><span class="line">    .forEach(<span class="function">(<span class="params">toggleLeft</span>) =&gt;</span> &#123;</span><br><span class="line">      toggleLeft.innerHTML = <span class="string">"&amp;#xe645;"</span>; <span class="comment">//其他audio对应的toggle变成待播放</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="背景音频可视化-1"><a href="#背景音频可视化-1" class="headerlink" title="背景音频可视化"></a>背景音频可视化</h2><p>调用 audioContext API 可以获得 audio 源的频率数据和波形数据。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> audioCtx = <span class="keyword">new</span> (<span class="built_in">window</span>.AudioContext || <span class="built_in">window</span>.webkitAudioContext)(); <span class="comment">//创建一个audioCtx的接口</span></span><br><span class="line"><span class="built_in">console</span>.log(audioCtx);</span><br><span class="line">audioPlay.crossOrigin = <span class="string">"anonymous"</span>; <span class="comment">// 设置允许跨域,audioContext连接对跨域有限制</span></span><br><span class="line"><span class="keyword">var</span> analyser = audioCtx.createAnalyser(); <span class="comment">//创建一个分析器，分析器也是一个audioContent节点，用于显示音频时间和频率数据</span></span><br><span class="line">source = audioCtx.createMediaElementSource(audioPlay); <span class="comment">//创建源, 在这是正在播放的音乐</span></span><br><span class="line">source.connect(analyser); <span class="comment">//将源audioContext与分析器连接起来</span></span><br><span class="line"><span class="keyword">var</span> distotion = audioCtx.createWaveShaper(); <span class="comment">//创建一个表示非线性失真的waveShaperNode，可以给音频添加失真效果。</span></span><br><span class="line">analyser.connect(distotion); <span class="comment">//分析器与失真器连接起来</span></span><br><span class="line">distotion.connect(audioCtx.destination); <span class="comment">//连接音频上下文的最终节点输出</span></span><br><span class="line"><span class="comment">//现在需要通过分析器analyser抓取音频数据，analyser将使用快速傅里叶变换在特定频域中捕获音频数据，具体的频域通过analyer.fftSize设置，默认是2048，并且fifSize的值必须是2的幂。</span></span><br><span class="line"><span class="comment">//analyser.fftSize = 20486;</span></span><br><span class="line">analyser.fftSize = <span class="number">256</span>;</span><br><span class="line"><span class="comment">//新创建一个数组用来缓存抓取到的每一次频率数据，由于接下来的抓取数据方法返回的数据比较特别，标准的js数组满足不了，所以根据要抓取数据的内容，选择Float32Array还是Uint8Array。</span></span><br><span class="line"><span class="keyword">var</span> bufferLength = analyser.frequencyBinCount; <span class="comment">//设置缓冲区的大小，frequencyBincount是ffSize的一半</span></span><br><span class="line"><span class="keyword">var</span> dataArray = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(bufferLength); <span class="comment">//如果用的是analyser.getByteTimeDomainData的方法抓取波形数据 byte整形数据，占1个字节</span></span><br><span class="line"><span class="comment">//抓取频率数据我们需要Analyser.getFloatFrequrencyData() 和 analyser.getByteFrequencyData()方法</span></span><br><span class="line"><span class="comment">//抓取波形数据我们需要analyser.getFloatTimeDomainData() 和 analyer.getByteTimeDomainData()方法</span></span><br><span class="line"><span class="comment">//analyser.getByteTimeDomainData(dataArray); //此时的波形数据已经存到dataArray数组里了</span></span><br><span class="line"><span class="comment">//analyser.getByteFrequencyData(dataArray); //此时的频率数据已经存到dataArray数组里了</span></span><br></pre></td></tr></table></figure>
-
-<p>dataArray 经过分析器的处理，获得的是那一帧的波形或者频率数据，要实现可视化，我们需要在画布中对每一帧数据都可视化。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">drawBgBar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> drawVisual = requestAnimationFrame(drawBgBar); <span class="comment">//通过requestAnimationFrame每秒执行60次drawBgBar函数。</span></span><br><span class="line">  analyser.getByteFrequencyData(dataArray); <span class="comment">//获得频率数据</span></span><br><span class="line">  <span class="built_in">console</span>.log(dataArray);</span><br><span class="line">  canvasBgCtx.fillStyle = <span class="string">"black"</span>;</span><br><span class="line">  canvasBgCtx.fillRect(<span class="number">0</span>, <span class="number">0</span>, WIDTH, HEIGHT); <span class="comment">//讲画布背景变黑</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> barWidth = WIDTH / bufferLength; <span class="comment">//把画布的宽度除以数组长度获得每个数组应该占屏幕的位置</span></span><br><span class="line">  <span class="keyword">var</span> barHeight;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; bufferLength; i++) &#123;</span><br><span class="line">    barHeight = dataArray[i] / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> linGrad2 = ctx.createLinearGradient(</span><br><span class="line">      x,  <span class="comment">//柱状图的左上横轴坐标</span></span><br><span class="line">      HEIGHT - barHeight / <span class="number">2</span>,<span class="comment">//柱状图的左上纵轴坐标</span></span><br><span class="line">      x + barWidth, <span class="comment">//柱状图下方横坐标</span></span><br><span class="line">      HEIGHT <span class="comment">//柱状图下方纵坐标，就是屏幕最低点</span></span><br><span class="line">    ); <span class="comment">//柱状图的颜色是渐变的</span></span><br><span class="line">    linGrad2.addColorStop(<span class="string">"0"</span>, <span class="string">"#f00"</span>); <span class="comment">//渐变颜色的开始</span></span><br><span class="line">    linGrad2.addColorStop(<span class="string">"0.5"</span>, <span class="string">"#ff0"</span>);</span><br><span class="line">    linGrad2.addColorStop(<span class="string">"1.0"</span>, <span class="string">"#0f0"</span>);</span><br><span class="line">    canvasBgCtx.fillStyle = linGrad2;<span class="comment">// 渐变填充柱状图矩形</span></span><br><span class="line">    canvasBgCtx.fillRect(x, HEIGHT - barHeight / <span class="number">2</span>, barWidth, barHeight);</span><br><span class="line"></span><br><span class="line">    x += barWidth + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/30/musicPlayer/" data-id="ckc21lhij0000msw41f7pe4et" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-页面布局" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/13/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/" class="article-date">
-  <time datetime="2020-06-13T02:05:58.405Z" itemprop="datePublished">2020-06-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/13/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/">页面布局</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Display"><a href="#Display" class="headerlink" title="Display"></a>Display</h1><p>display属性 指网页的布局，主要有两个重要的布局方式：flex和grid</p>
-<h2 id="弹性布局-flex"><a href="#弹性布局-flex" class="headerlink" title="弹性布局 flex"></a>弹性布局 flex</h2><p>布局的传统解决方案是基于盒状模型，依赖display属性 + position属性 + float属性。这种解决方案对于那些特殊的布局非常不方便，比如垂直居中。</p>
-<h2 id="flex语法"><a href="#flex语法" class="headerlink" title="flex语法"></a>flex语法</h2><p>Flex 是 flexible box的缩写，意思是弹性布局，用来为盒状模型提供更大的灵活性。</p>
-<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>采用flex布局的元素，称为flex容器，它的所有子元素成为容器成员，成为flex项目(flex item)，简称项目。<br><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png" alt="avatar"><br>容器默认存在两个轴，main axis–主轴， cross axis交叉轴。项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴的空间叫做cross-size。</p>
-<h3 id="容器的属性"><a href="#容器的属性" class="headerlink" title="容器的属性"></a>容器的属性</h3><ul>
-<li>flex-direction</li>
-<li>flex-warp</li>
-<li>flex-flow</li>
-<li>justify-content</li>
-<li>align-items</li>
-<li>align-content</li>
-</ul>
-<h4 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h4><p>flex-direction属性决定主轴的方向。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">flex-direction</span>: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>row(默认值)：主轴为水平方向，起点在左端。</li>
-<li>row-reverse: 主轴为水平方向，起点在右端。</li>
-<li>column：主轴为垂直方向，起点在上沿。</li>
-<li>column-reverse：主轴为垂直方向，起点在下沿。<h3 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h3>默认情况下，项目是沿着轴线排列，flex-wrap属性决定在一条轴线排不下的情况下如何换行。<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: nowrap | wrap | wrap-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>nowrap(默认)：不换行</li>
-</ul>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071007.png" alt="avatar"></p>
-<ul>
-<li>wrap：换行，第一行在上方</li>
-</ul>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071008.jpg" alt="avatar"></p>
-<ul>
-<li>wrap-reverse：换行，第一行在下方</li>
-</ul>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071009.jpg" alt="avatar"></p>
-<h3 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h3><p>flex-flow是属性flex-direction与属性flex-flow的简写，默认值是row nowrap</p>
-<h3 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h3><p>justify-content定义了项目在主轴上的排列方式</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">justify-content</span>: flex-start|flex-end|center|space-between|space-around;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071010.png" alt="avatar"><br>它可能取5个值，具体的对齐方式与主轴有关，假设主轴是从左到右。</p>
-<ul>
-<li>flex-start(默认值): 左对齐。</li>
-<li>flex-end：右对齐 </li>
-<li>center：居中对齐</li>
-<li>space-between：两端对齐，项目之间的间隔相等。</li>
-<li>space-around：每个项目两侧的间隔相等。</li>
-</ul>
-<h3 id="align-item"><a href="#align-item" class="headerlink" title="align-item"></a>align-item</h3><p>align-item属性定义在交叉轴上的对齐方式。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">align-item</span>: flex-start|flex-end|center|baseline|stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071012.png" alt="avatar"></p>
-<p>stretch(默认值)：轴线占满整个交叉轴</p>
-<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h3><p>align-content属性定义了多根轴线的对齐方式，如果只有一根轴线则补齐作用。</p>
-<h2 id="项目的属性"><a href="#项目的属性" class="headerlink" title="项目的属性"></a>项目的属性</h2><p>以下的6个属性设置在项目上</p>
-<ul>
-<li>order</li>
-<li>flex-grow</li>
-<li>flex-shrink</li>
-<li>flex-basis</li>
-<li>flex</li>
-<li>align-self</li>
-</ul>
-<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>order属性定义项目的顺序。数值越小越靠前</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">order</span>: &lt;integer&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h3><p>flex-grow属性定义项目放大比例，默认为0，既如果存在剩余空间，也不放大。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>: &lt;number&gt; <span class="comment">/*默认为0，不放大*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071014.png" alt="avatar"><br>如果所有项目的flex-grow属性都为1，则他们将等分剩余空间。如果一个项目的flex-grow属性为2，其他的项目都为1，则这个项目分得的空间是其他项目的两倍。</p>
-<h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h3><p>flex-shrink 属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: &lt;number&gt;<span class="comment">/*默认为1，项目会在空间不足的时候缩小*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071015.jpg" alt="avatar"></p>
-<p>如果所有的项目item的flex-shrink属性值都是1，当空间不足时都会等比例缩小。如果一个项目的flex-shrink的值是0，其他项目的属性值是1，则空间不足时，前者不缩小。</p>
-<h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h3><p>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间(main size)。浏览器根据这个属性，计算主轴是否有多余的空间。它的默认值是auto，就是项目本来的大小。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: &lt;length&gt; <span class="comment">/* 默认值是auto*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p>flex属性是flex-grow，flex-shrink，flex-basis的简写，默认值是 0 1 auto。后两个属性值可选</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">flex</span>: none | auto | [ &lt;<span class="string">'flex-grow'</span>&gt; &lt;<span class="string">'flex-shrink'</span>&gt;? || &lt;<span class="string">'flex-basis'</span>&gt; ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>该属性有两个快捷值，auto(1 1 auto) 和 none(0 0 auto)。<br>优先使用flex属性，没必要分开写成三个属性。</p>
-<h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><p>align-self属性允许单个项目与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示可继承父元素的align-item属性，如果没有父元素，则等同于stretch。</p>
-<h2 id="Grid网格布局"><a href="#Grid网格布局" class="headerlink" title="Grid网格布局"></a>Grid网格布局</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/13/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/" data-id="ckc5mqrad0007w4w422vs3uye" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CSS问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/10/CSS%E9%97%AE%E9%A2%98/" class="article-date">
-  <time datetime="2020-06-10T09:42:12.217Z" itemprop="datePublished">2020-06-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/10/CSS%E9%97%AE%E9%A2%98/">CSS问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="学习与实战过程中遇到的CSS问题"><a href="#学习与实战过程中遇到的CSS问题" class="headerlink" title="学习与实战过程中遇到的CSS问题"></a>学习与实战过程中遇到的CSS问题</h1><h2 id="导航栏在页面变化时，格式发生了错误"><a href="#导航栏在页面变化时，格式发生了错误" class="headerlink" title="导航栏在页面变化时，格式发生了错误"></a>导航栏在页面变化时，格式发生了错误</h2><p>网页放大会将窗口大小缩小相应的放大倍数；<br>网页缩小会将窗口大小放大相应的缩小倍数的倒数分之一。<br>网页缩放时，有定长宽的元素不会受到缩放的影响；<br>如果元素有设置max-width或者min-width，缩放到一定程度是该元素就不会受到缩放倍数的影响（放大时页面会产生滚动条）；<br>如果页面是百分比布局，没有设置max-width或者min-width，窗口不会产生滚动条</p>
-<h2 id="盒模型的两种模式"><a href="#盒模型的两种模式" class="headerlink" title="盒模型的两种模式"></a>盒模型的两种模式</h2><p>标准模式：box-sizing: content-box(默认)；宽高不包括内边距和外边距<br>怪异模式：box-border；宽高包括内边距和外边距</p>
-<h2 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h2><p>一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。</p>
-<p>二是触发浮动元素父元素的BFC，使到该父元素可以包含浮动元素，关于这一点</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/10/CSS%E9%97%AE%E9%A2%98/" data-id="ckbz106t30000now425xc5qj6" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-webpack" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/09/webpack/" class="article-date">
-  <time datetime="2020-06-09T06:38:43.817Z" itemprop="datePublished">2020-06-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/09/webpack/">webpack</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="webpack-学习"><a href="#webpack-学习" class="headerlink" title="webpack 学习"></a>webpack 学习</h1><hr>
-<h2 id="01-webpack安装"><a href="#01-webpack安装" class="headerlink" title="01 webpack安装"></a>01 webpack安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev webpack-cli</span><br></pre></td></tr></table></figure>
-<h2 id="02-初始化webpack"><a href="#02-初始化webpack" class="headerlink" title="02 初始化webpack"></a>02 初始化webpack</h2><p>在工作目录本地安装webpack，接着安装webpack-cli(此工具用于在命令行运行webpack)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br><span class="line">npm install webpack webpack-cli --save-dev</span><br></pre></td></tr></table></figure>
-
-<h2 id="03-webpack初体验"><a href="#03-webpack初体验" class="headerlink" title="03 webpack初体验"></a>03 webpack初体验</h2><p>运行指令：</p>
-<ol>
-<li>开发环境：webpack 源文件 -o 目标文件 –mode=development</li>
-<li>生产环境： wenpack 源文件 -o 目标文件 –mode=production</li>
-</ol>
-<p>生产环境生成的built.js是压缩后的，在学习过程中使用开发环境</p>
-<h2 id="04-打包样式资源"><a href="#04-打包样式资源" class="headerlink" title="04 打包样式资源"></a>04 打包样式资源</h2><p>webpack只能打包JS/JSON文件，不能处理其他的资源，但是我们通过loader引入其他类型的文件。<br>例如，我们需要引入CSS文件：<br>首先下载引入CSS所需要的loarder</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">webpack init</span><br><span class="line"></span><br><span class="line">npm i webpack webpack-cli -D</span><br><span class="line">npm i css-loader style-loader -D</span><br></pre></td></tr></table></figure>
-<p>然后在webpack.config.js中进行配置</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    webpack.config.js 是webpack的配置文件</span></span><br><span class="line"><span class="comment">        作用：指示webpack做什么事情</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        所有构建工具都是基于nodejs这个平台，模块化默认采用commonJS</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//resolve 用来拼接绝对路径的方法</span></span><br><span class="line"><span class="keyword">const</span> &#123; resolve &#125; = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">//webpack配置</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//入口起点</span></span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    <span class="comment">//输出</span></span><br><span class="line">    output: &#123;</span><br><span class="line">        <span class="comment">//文件名</span></span><br><span class="line">        filename: <span class="string">'built.js'</span>,</span><br><span class="line">        <span class="comment">//输出路径</span></span><br><span class="line">        <span class="comment">//_dirname代表当前文件的目录绝对路径</span></span><br><span class="line">        path: resolve(__dirname, <span class="string">'build'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//loader的配置</span></span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules: [</span><br><span class="line">            <span class="comment">//详细loader配置</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//匹配哪些文件</span></span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    <span class="comment">//执行顺序，从右到左</span></span><br><span class="line">                    <span class="comment">//创建style标签，将JS中的项目资源插入进去，添加到head中生效</span></span><br><span class="line">                    <span class="string">'style-loader'</span>, </span><br><span class="line">                    <span class="comment">//将CSS文件变成commonJS的模块加载到JS，里面内容是样式字符串</span></span><br><span class="line">                    <span class="string">'css-loader'</span></span><br><span class="line">                 ]</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    <span class="string">'style-loader'</span>, </span><br><span class="line">                    <span class="string">'css-loader'</span>,</span><br><span class="line">                    <span class="string">'less-loader'</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//plugins的配置</span></span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">//详细plugins的配置</span></span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">    <span class="comment">//模式</span></span><br><span class="line">    mode: <span class="string">'development'</span>,</span><br><span class="line">        <span class="comment">//mode: 'production'</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>配置完成之后在工作目录下执行 <code>webpack</code> 就会把配置中的资源打包到目标文件里。</p>
-<h2 id="05-打包html资源"><a href="#05-打包html资源" class="headerlink" title="05 打包html资源"></a>05 打包html资源</h2><p>webpack.config配置文件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">loader: 1.下载  2.使用</span></span><br><span class="line"><span class="comment">plugins：1. 下载  2.引用  3.使用</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; resolve &#125; = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line"></span><br><span class="line">    output: &#123; </span><br><span class="line">        filename: <span class="string">'built.js'</span>,</span><br><span class="line">        path: resolve(__dirname,<span class="string">'build'</span>)</span><br><span class="line">     &#125;,</span><br><span class="line"></span><br><span class="line">     <span class="built_in">module</span>: &#123;</span><br><span class="line">         rules: [</span><br><span class="line">             <span class="comment">//loader配置</span></span><br><span class="line">         ]</span><br><span class="line">     &#125;,</span><br><span class="line"></span><br><span class="line">     plugins: [</span><br><span class="line">        <span class="comment">//plugin的配置</span></span><br><span class="line">        <span class="comment">//npm html-webpack-plugin -D 下载</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//功能：默认会创建一个空的html，自动引入打包输出的所有资源</span></span><br><span class="line">        <span class="comment">//需要有结构的html文件</span></span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            <span class="comment">//复制'./src/index.htm'文件，并自动引入打包输出的所有资源</span></span><br><span class="line">            template: <span class="string">'./src/index.html'</span></span><br><span class="line">        &#125;)</span><br><span class="line">     ],</span><br><span class="line"></span><br><span class="line">     mode: <span class="string">'development'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/09/webpack/" data-id="ckb7o2wci0000nkw4950l5nde" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JS01-数据类型" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/09/JS01-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="article-date">
-  <time datetime="2020-06-09T01:39:14.964Z" itemprop="datePublished">2020-06-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/09/JS01-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS01-数据类型</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JS数据类型"><a href="#JS数据类型" class="headerlink" title="JS数据类型"></a>JS数据类型</h1><p>除object外的所有数据类型都是不可变的(值本身不可以发生改变)</p>
-<h2 id="7种原始类型"><a href="#7种原始类型" class="headerlink" title="7种原始类型"></a>7种原始类型</h2><h3 id="boolean类型"><a href="#boolean类型" class="headerlink" title="boolean类型"></a><code>boolean类型</code></h3><p>表示一个逻辑实体，可以有两个值：true和false</p>
-<h3 id="Null类型"><a href="#Null类型" class="headerlink" title="Null类型"></a><code>Null类型</code></h3><p>Null类型只有一个值：null。值null是一个字面量，不是全局对象的一个属性。null是表示缺少标识，指示变量没有指向任何对象。</p>
-<h3 id="undefined类型"><a href="#undefined类型" class="headerlink" title="undefined类型"></a><code>undefined类型</code></h3><p>一个没有赋值的变量会有个默认值undefined。undefined是全局对象的一个属性。</p>
-<h3 id="数字类型number"><a href="#数字类型number" class="headerlink" title="数字类型number"></a><code>数字类型number</code></h3><p>JS中只有一种数字类型，双精度64位二进制格式的值-(2^53-1) ~ 2^53-1, 他并没有为整数给出一种特定的类型</p>
-<h3 id="BigInt"><a href="#BigInt" class="headerlink" title="BigInt"></a><code>BigInt</code></h3><p>BigInt是JS中的一种基础数值类型，可以用任意精度表示整数，可以安全操作大整数，甚至可以突破数字的安全整数限制。BigInt通过在整数末尾添加n或者调用构造函数来创建</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">2n</span> ** <span class="number">53n</span> <span class="comment">//9007199254740992n</span></span><br><span class="line"><span class="keyword">const</span> y = x + <span class="number">1n</span> <span class="comment">// 9007199254740993n</span></span><br></pre></td></tr></table></figure>
-<h3 id="字符串类型string"><a href="#字符串类型string" class="headerlink" title="字符串类型string"></a><code>字符串类型string</code></h3><p>JS的字符串是不可更改的，但是可以基于原始字符串创建新的字符串</p>
-<ol>
-<li>string.substr()获取一个字符串的子串</li>
-<li>string.concat()或者‘+’链接两个字符串</li>
-</ol>
-<p>ps：JS中URL.href是字符串类型, 而new URL() 返回的是一个对象；</p>
-<h3 id="符号类型symbol"><a href="#符号类型symbol" class="headerlink" title="符号类型symbol"></a><code>符号类型symbol</code></h3><p>符号(Symbols)是ECMAScript 第6版新定义的。符号类型是唯一的并且是不可修改的, 并且也可以用来作为Object的key的值。</p>
-<h2 id="object对象类型"><a href="#object对象类型" class="headerlink" title="object对象类型"></a>object对象类型</h2><p>在 Javascript 里，对象可以被看作是一组属性的集合。用对象字面量语法来定义一个对象时，会自动初始化一组属性。（也就是说，你定义一个var a = “Hello”，那么a本身就会有a.substring这个方法，以及a.length这个属性，以及其它；如果你定义了一个对象，var a = {}，那么a就会自动有a.hasOwnProperty及a.constructor等属性和方法。）而后，这些属性还可以被增减。属性的值可以是任意类型，包括具有复杂数据结构的对象。属性使用键来标识，它的键值可以是一个字符串或者符号值(Symbol);<br>ECMAjavascript中的对象其实就是一组数据和功能的集合。对象可以通过执行new操作符后跟要创建的对象类型的名称来创建。创建object类型的实例并为其添加属性（或）方法，就可以自定义创建对象。</p>
-<pre><code>如：var o = new Object( );
-
-object 的每个实例都有下列属性和方法：
-
-constructor：保存着用于创建当前对象的函数。（构造函数)constructor就是object();
-
-hasOwnProperty(propertyName):用于检查给定的当前属性在当前对象实例中）而不是在实例原型中）是否存在。其中，作为参数的属性名（propertyName)必须以字稚串形式指定（例如：o.hasOwnProperty(“name”))。
-
-isPrototypeOf(object):用于检查传入的对象是否是传入对象原型。
-
-propertyIsEnumerable(propertyName):用于检查给定属性是否能够用for-in语句。与hasOwnProperty（）方法一样，作为参数的属性名必须以字符串形式指定。
-
-toLocaleString( ):返回对象的字符串表示，该字符串与执行环境的地区对应。
-
-toString( ):返回对象的字符串表示。
-
-valueOf( ):返回对象的字符串、数值或者布尔值表示。通常与toString( )方法的返回值得相同。
-
-ECMAJS中object是所有对象的基础，因些所有对象都具有这些基本的属性和方法。</code></pre><ol>
-<li>数据属性<br>数据属性是键值对，并且每个数据属性有以下特性<ul>
-<li>[[value]] 任何JavaScript数据类型 包含这个属性的属性值 undefined(默认值)</li>
-<li>[[Writable]] Boolean类型 如果该值为<code>false</code>则该属性的value特性不可改变 false(默认值)</li>
-<li>[[Enumberable]] Boolean类型 如果该值为<code>true</code>则该属性的可以用for in循环来枚举, false(默认值)</li>
-<li>[[Configurable]] Boolean类型 如果该值为<code>false</code>则该属性不可被删除，并且出了[[value]]和[[writable]]外其他特性都不可改变 false(默认值)</li>
-</ul>
-</li>
-<li>访问器属性<br>访问器属性有一个或两个访问器函数 (get 和 set) 来存取数值，并且有以下特性:<ul>
-<li>[[Get]]    函数对象或者undefined类型    该函数使用一个空的参数列表，能够在有权访问的情况下读取属性值 undefined。</li>
-<li>[Set]]    函数对象或者 undefined    该函数有一个参数，用来写入属性值，另见 set。    undefined</li>
-<li>[[Enumerable]]    Boolean    如果该值为 true，则该属性可以用 for…in 循环来枚举。    false</li>
-<li>[[Configurable]]    Boolean    如果该值为 false，则该属性不能被删除，并且不能被转变成一个数据属性。    false</li>
-</ul>
-</li>
-</ol>
-<p>object是引用类型，变量存的是地址值，其中包含了Date，function，Array等类型。</p>
-<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="检测数据类型的方法"><a href="#检测数据类型的方法" class="headerlink" title="检测数据类型的方法"></a>检测数据类型的方法</h2><p>typeof检测：</p>
-<ol>
-<li>typeof 对于原始类型来说，除了null都可以显示正确类型（null-&gt;object）；</li>
-<li>typeof 对于对象来说，除了函数都会显示object（function -&gt; function）；</li>
-<li>instanceof 可以判断某个变量是否是每个对象的实例。</li>
-<li>比较理想的方法是 Object.prototype.toString.call(variable)</li>
-</ol>
-<h2 id="如何判断一个对象是空对象"><a href="#如何判断一个对象是空对象" class="headerlink" title="如何判断一个对象是空对象"></a>如何判断一个对象是空对象</h2><ol>
-<li>判断对象的key的长度是否为0，Object.keys(objectVariable).length === 0;<h2 id="null与undefined之间的区别"><a href="#null与undefined之间的区别" class="headerlink" title="null与undefined之间的区别"></a>null与undefined之间的区别</h2>null：null是已经定义了但是没有赋值;<br>undefined：undefined是还没有定义；<h2 id="对象与Map之间的区别"><a href="#对象与Map之间的区别" class="headerlink" title="对象与Map之间的区别"></a>对象与Map之间的区别</h2>回答这个问题之前，我们先要知道ES6为什么会有Map的出现。<br>第一，在JS标准化对象中，我们可以通过原型访问到对象没有显示定义的属性，比如constructor，如果我们希望对象的键为constructor的值返回的是undefined，传统的对象就满足不了。<br>第二，在ES6之前，对象的key必须是字符串，如果想映射为其他类型，它会默默转化为字符串，而且不会有任何提示。例如试图将非字符串类型如HTML元素作为key时，其值被toString默认转变成字符串类型。HTML元素转换成字符串类型后值为[object HTMLDivElement], 如果对象接下来的key里还有HTML元素，则它的value会被后来的覆盖掉。<br>所有对象和Map间的区别主要是在于Map的key能够是除string类型和symbol以外的其他类型<h2 id="与-的区别"><a href="#与-的区别" class="headerlink" title="==与===的区别"></a>==与===的区别</h2>== 当比较的两者类型不同时会进行类型转换<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> == <span class="string">'1'</span> <span class="comment">// string转number</span></span><br><span class="line"><span class="literal">null</span> == <span class="literal">undefined</span> <span class="comment">//true 如果仅需要过滤掉null, undefined 两种属性时可以利用此特性</span></span><br><span class="line">[] == ! [] <span class="comment">//true 因为对象转基本类型后做比较 false == fase 0 == 0</span></span><br><span class="line">[] == ![] <span class="comment">//true</span></span><br><span class="line">[] == <span class="literal">false</span> <span class="comment">//true</span></span><br><span class="line"><span class="string">''</span> == <span class="literal">false</span> <span class="comment">//true</span></span><br><span class="line"><span class="string">''</span> == <span class="built_in">Number</span>(<span class="literal">false</span>) <span class="comment">//true</span></span><br><span class="line"><span class="string">''</span> == <span class="number">0</span> <span class="comment">//true</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">''</span>) == <span class="number">0</span> <span class="comment">//true</span></span><br><span class="line"><span class="number">0</span> == <span class="number">0</span> <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<h2 id="JS类型是如何隐性转换的"><a href="#JS类型是如何隐性转换的" class="headerlink" title="JS类型是如何隐性转换的"></a>JS类型是如何隐性转换的</h2></li>
-<li>首先看双等号前后有没有NaN，如果有直接false；</li>
-<li>再看双等号前后有没有bool，有的话就将布尔类型转换成数字；</li>
-<li>接着看双等号前后有没有字符串，有的话分为三种情况：<ol>
-<li>对方是对象，对象虚自己使用toString进项转换；</li>
-<li>对方是数字，字符串转数字</li>
-<li>对方是字符串，直接比较</li>
-<li>其他直接返回false</li>
-</ol>
-</li>
-<li>如果一方是数字，一方是对象，对象需要取valueOf进行比较，其他返回false</li>
-<li>null 和 undefined不会进行类型转换，但他俩相等。</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/09/JS01-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="ckc5mqrab0004w4w40xui2bcr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-01DrumKit" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/06/01DrumKit/" class="article-date">
-  <time datetime="2020-06-06T02:24:33.000Z" itemprop="datePublished">2020-06-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/06/01DrumKit/">JavaScript30</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-JavaScript-Drum-Kit"><a href="#1-JavaScript-Drum-Kit" class="headerlink" title="1 JavaScript Drum Kit"></a>1 JavaScript Drum Kit</h1><blockquote>
-<p>@<a href="https://github.com/cx748" target="_blank" rel="noopener">帕吉的小肚腩</a></p>
-</blockquote>
-<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p>模拟一个打鼓的界面，用户在按下 ASDFGHJKL 这几个键之后，与之对应的的按钮会随之变大，对应的鼓点声音也会响起来。</p>
-<p><a href="http://lifewithwork.cn/JS30/day1/drumkit.html" target="_blank" rel="noopener">在线效果</a></p>
-<h2 id="关键要点"><a href="#关键要点" class="headerlink" title="关键要点"></a>关键要点</h2><ol>
-<li>键盘事件</li>
-<li>播放声音</li>
-<li>改变样式</li>
-</ol>
-<h2 id="步骤分解"><a href="#步骤分解" class="headerlink" title="步骤分解"></a>步骤分解</h2><ol>
-<li><strong>添加键盘事件监听</strong> 在window上增加keydown事件 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'keydown'</span>, playSound);</span><br></pre></td></tr></table></figure></li>
-<li><strong>对应的事件处理playSound</strong>：按下键盘后会播放声音<ol>
-<li>获取键码</li>
-<li>根据键码找到对应的音频 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> audio = <span class="built_in">document</span>.querySelector(<span class="string">`audio[data-key = "<span class="subst">$&#123;event.keyCode&#125;</span>"]`</span>);</span><br></pre></td></tr></table></figure></li>
-<li>根据键码找到页面中对应的元素 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> key = <span class="built_in">document</span>.querySelector(<span class="string">`div[data-key = "<span class="subst">$&#123;event.keyCode&#125;</span>"]`</span>);</span><br></pre></td></tr></table></figure></li>
-<li>播放对应的音频并放大按钮 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">key.classList.add(<span class="string">"playing"</span>) </span><br><span class="line">audio.currentTime = <span class="number">0</span>; <span class="comment">//每次播放后都将音频进度归零</span></span><br><span class="line">audio.play();</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-<li><strong>为所有的<code>div.key</code> 添加transition事件监听</strong>：每次按键对应的按钮会随之变大<ol>
-<li>获取所有样式为<code>key</code>的元素<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> keys = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">'.key'</span>))</span><br></pre></td></tr></table></figure></li>
-<li>为每一个样式添加事件监听<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeTransition</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (event.propertyName !== <span class="string">'transform'</span>) <span class="keyword">return</span>; <span class="comment">// 过滤其中一种事件</span></span><br><span class="line">  event.target.classList.remove(<span class="string">'playing'</span>); <span class="comment">// 移除高亮的样式</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">keys.forEach(<span class="function"><span class="params">key</span> =&gt;</span> key.addEventListener(<span class="string">"transitionend"</span>, removeTransition);</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-</li>
-</ol>
-<h2 id="解决难点"><a href="#解决难点" class="headerlink" title="解决难点"></a>解决难点</h2><h3 id="如何将按键与页面按钮连接起来"><a href="#如何将按键与页面按钮连接起来" class="headerlink" title="如何将按键与页面按钮连接起来"></a>如何将按键与页面按钮连接起来</h3><p>连接的帮手是<code>keydown</code>事件中的<code>keyCode</code>属性。keyCode属性的值与键盘对应的ASCII码值相等。在初始的页面中，div和audio都添加了一个<code>data-key</code>属性用于存储对应的键码。这样的话可以在触发键盘监听事件后既可获取<code>keyCode</code>的属性值。</p>
-<h3 id="如何使页面按钮恢复原状"><a href="#如何使页面按钮恢复原状" class="headerlink" title="如何使页面按钮恢复原状"></a>如何使页面按钮恢复原状</h3><p>可以利用transitioned这个事件，它在每次CSS transition结束后会触发，我们可以利用这个事件，在每次击鼓样式改变(变大，变颜色)完成之后清除对应的样式</p>
-<h2 id="这个小项目用的语法和事件"><a href="#这个小项目用的语法和事件" class="headerlink" title="这个小项目用的语法和事件"></a>这个小项目用的语法和事件</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p> `字符串 ${ 变量、属性名 } `：模板字面量（Template literals）中用于表示模板字符串的标识。特点是字符串首尾用反引号（`），内部的模板部分用 ${ } 括起来表示，具体请看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/template_strings" target="_blank" rel="noopener">MDN文档</a>。简单例子如下：</p>
-<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="comment">//不用模板的写法</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"三是"</span> + (a + b) + <span class="string">"不是"</span> + (<span class="number">2</span> * a + b)); <span class="comment">//"三是3不是4"</span></span><br><span class="line"><span class="comment">//使用模板字符串的写法</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`三是<span class="subst">$&#123;a + b&#125;</span>不是<span class="subst">$&#123;<span class="number">2</span> * a + b&#125;</span>`</span>); <span class="comment">//"三是3不是4"</span></span><br></pre></td></tr></table></figure></code></pre><h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><ol>
-<li><p>keydown：事件触发与键盘按键按下的时候，所有的按键都会触发keydown事件，无论这些按键是否产生字符值</p>
-</li>
-<li><p>transitionend：transitionend 事件会在 CSS transition 结束后触发</p>
-</li>
-</ol>
-<p><a href="http://www.lifewithwork.cn" target="_blank" rel="noopener">www.lifewithwork.cn</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/06/01DrumKit/" data-id="ckb7tpkcr00006cw4f4vvgg8e" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/06/hello-world/" class="article-date">
-  <time datetime="2020-06-06T02:19:26.418Z" itemprop="datePublished">2020-06-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/06/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/06/hello-world/" data-id="ckb7bko000000dow46x9zhdzy" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
   </nav>
 
 </section>
@@ -721,23 +730,23 @@ ECMAJS中object是所有对象的基础，因些所有对象都具有这些基�
       <ul>
         
           <li>
-            <a href="/2020/07/14/myVueProject1-todoList/">myVueProject1-todoList</a>
+            <a href="/2020/07/16/Vue/">Vue</a>
           </li>
         
           <li>
-            <a href="/2020/07/12/axios/">axios</a>
+            <a href="/2020/07/15/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
           </li>
         
           <li>
-            <a href="/2020/07/06/JS05-%E4%BD%9C%E7%94%A8%E5%9F%9F/">JS05-作用域</a>
+            <a href="/2020/07/15/JS07-%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0%E4%B8%8Epromise/">JS07-生成器函数与promise</a>
           </li>
         
           <li>
-            <a href="/2020/07/05/JS06-%E9%97%AD%E5%8C%85/">JS06-闭包</a>
+            <a href="/2020/07/15/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">事件循环</a>
           </li>
         
           <li>
-            <a href="/2020/07/05/JS04-ES%E8%A7%84%E8%8C%83%E8%A7%A3%E8%AF%BBthis/">JS04-ES规范解读this</a>
+            <a href="/2020/07/15/canvas/">canvas</a>
           </li>
         
       </ul>

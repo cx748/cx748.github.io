@@ -7,15 +7,21 @@
   
   <title>JS06-闭包 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="理解闭包闭包允许函数访问并操作函数外部的变量或者，只要这些变量或者函数存在于声明函数时的作用域内，闭包就可以让函数访问这些变量或者函数 使用闭包封装私有变量原生JS不支持私有变量，但是我们可以通过使用闭包，实现很接近可接受的私有变量 123456789101112131415function Ninja () &amp;#123;  var feints &#x3D; 0;  this.getFeints  &#x3D; f">
+<meta property="og:type" content="article">
 <meta property="og:title" content="JS06-闭包">
 <meta property="og:url" content="http://yoursite.com/2020/07/05/JS06-%E9%97%AD%E5%8C%85/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="理解闭包闭包允许函数访问并操作函数外部的变量或者，只要这些变量或者函数存在于声明函数时的作用域内，闭包就可以让函数访问这些变量或者函数 使用闭包封装私有变量原生JS不支持私有变量，但是我们可以通过使用闭包，实现很接近可接受的私有变量 123456789101112131415function Ninja () &amp;#123;  var feints &#x3D; 0;  this.getFeints  &#x3D; f">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/07/05/img/%E9%97%AD%E5%8C%851.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/05/img/%E9%97%AD%E5%8C%852.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/05/img/%E9%97%AD%E5%8C%853.png">
 <meta property="article:published_time" content="2020-07-05T14:36:50.666Z">
-<meta property="article:modified_time" content="2020-07-06T15:10:52.082Z">
+<meta property="article:modified_time" content="2020-07-18T02:31:30.721Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/05/img/%E9%97%AD%E5%8C%851.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -86,7 +92,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="理解闭包"><a href="#理解闭包" class="headerlink" title="理解闭包"></a>理解闭包</h1><p>闭包允许函数访问并操作函数外部的变量或者，只要这些变量或者函数存在于声明函数时的作用域内，闭包就可以让函数访问这些变量或者函数</p>
+<h1 id="使用闭包"><a href="#使用闭包" class="headerlink" title="使用闭包"></a>使用闭包</h1><h2 id="封装私有变量"><a href="#封装私有变量" class="headerlink" title="封装私有变量"></a>封装私有变量</h2><p>原生JS不支持私有变量，但是我们可以通过使用闭包，实现很接近可接受的私有变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ninja</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> feints = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">this</span>.getFeints  = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> feints;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>.feint = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    feint += <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">;&#125;</span><br><span class="line"><span class="keyword">var</span> ninja1 = <span class="keyword">new</span> Ninja();</span><br><span class="line"><span class="built_in">console</span>.log(ninja1.feints) <span class="comment">// undefined，我们无法直接获取feints的值</span></span><br><span class="line">ninja1.feint();</span><br><span class="line"><span class="built_in">console</span>.log(ninja1.getFeints()) <span class="comment">// 1，我们能通过getFeints方法获取该变量的值</span></span><br><span class="line"><span class="keyword">var</span> ninja2 = <span class="keyword">new</span> Ninja();</span><br><span class="line"><span class="built_in">console</span>.log(ninja2.getfeints()) <span class="comment">//0，ninja2有自己的变量feints</span></span><br></pre></td></tr></table></figure>
+<h1 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h1><p>JS的代码有两种类型，一种是全局代码，在所有函数外部定义；一种是函数代码，位于函数内部。所以就会有两种执行上下文：全局执行上下文和局部执行上下文。<code>最重要的差别是全局上下文只有一个，并且在JS代码开始执行时就创建在调用栈中，而函数上下文是每次调用的时候都会创建新的。</code></p>
+<h1 id="词法环境"><a href="#词法环境" class="headerlink" title="词法环境"></a>词法环境</h1><p>即作用域，可以查看JS05-作用域</p>
+<h2 id="标识符原理"><a href="#标识符原理" class="headerlink" title="标识符原理"></a>标识符原理</h2><h1 id="闭包的工作原理"><a href="#闭包的工作原理" class="headerlink" title="闭包的工作原理"></a>闭包的工作原理</h1><p>有了词法环境与执行上下文的知识，我们可以更好的理解闭包的原理<br>现在我们重新回顾上面的封装私有变量的代码<br>分析第一个Ninja对象创建完成之后的程序状态，如图所示<br><img src="../img/%E9%97%AD%E5%8C%851.png" alt=""><br><code>JS构造函数都是通过关键字new调用的函数，因此每次调用</code>构造<code>函数时，都会创建一个新的词法环境，该词法环境保持这个</code>构造<code>函数内部的局部变量</code>,在本例中，创建了Ninja词法环境，保持着局部变量feint；<code>此外，与其他函数类似，无论何时创建函数，函数都会保持着对创建他们时的环境的引用</code>，本例中，我们创建了两个函数:getFeints与feint，他们都会有Ninja环境的引用。getFeints函数和Feints函数是新创建的ninja1对象的方法，因此可以在Ninja构造函数外部访问getFeints与feint函数，而getFeints与feint函数保持着对创建函数时环境的引用。所以可以外部对象ninja1可以通过这两个函数访问到feints变量<br>再创建一个实例ninja2时，将重复整个过程<br><img src="../img/%E9%97%AD%E5%8C%852.png" alt=""><br>每一个通过Ninja构造函数创建的对象实例均获得了各自的方法，当调用构造函数时，各自的实例方法包含各自的变量。这就是近似的私有变量。让我们看看ninja2.getFeints方法调用时发生了什么<br><img src="../img/%E9%97%AD%E5%8C%853.png" alt=""><br>在调用getFeints()函数之前，JS引擎正在执行全局代码。程序处于全局执行上下文状态，是执行栈里唯一上下文的同时，唯一活跃的词法环境是全局环境，与全局上下文相关联。<br>在调用ninja2.getFeints()时，会在执行栈里压入getFeints的函数上下文，因此创建了新的getFeints执行环境并推入执行栈。这同时引起创建新的词法环境，词法环境通常用于保持跟踪函数中定义的变量，另外getFeints词法环境包含了getFeints函数被创建时所处的环境，Ninja环境是活跃的，里面有feints变量。<br>这个程序是这么获取到feints变量的：首先访问活跃的getFeints词法环境，因为在getFeints函数内没有定义任何的变量，该词法环境是空的。接下来，在当前词法环境的外部环境中进行查找，本来中，创建ninja2对象时，Ninja环境处于活跃状态，此时的的词法环境中有feints变量的引用，完成搜索。</p>
+<h2 id="私有变量的警告"><a href="#私有变量的警告" class="headerlink" title="私有变量的警告"></a>私有变量的警告</h2><p>在上面的程序中，我们如果将ninja1.getFeints赋值给一个对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> importer = &#123;&#125;;</span><br><span class="line">importer.getFeints = ninja1.getFeints</span><br><span class="line"><span class="built_in">console</span>.log(importer.getFeints === <span class="number">1</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>此例表明JS中没有真正的私有对象属性</p>
+
       
     </div>
     <footer class="article-footer">
@@ -148,23 +163,23 @@
       <ul>
         
           <li>
-            <a href="/2020/07/14/myVueProject1-todoList/">myVueProject1-todoList</a>
+            <a href="/2020/07/16/Vue/">Vue</a>
           </li>
         
           <li>
-            <a href="/2020/07/12/axios/">axios</a>
+            <a href="/2020/07/15/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
           </li>
         
           <li>
-            <a href="/2020/07/06/JS05-%E4%BD%9C%E7%94%A8%E5%9F%9F/">JS05-作用域</a>
+            <a href="/2020/07/15/JS07-%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0%E4%B8%8Epromise/">JS07-生成器函数与promise</a>
           </li>
         
           <li>
-            <a href="/2020/07/05/JS06-%E9%97%AD%E5%8C%85/">JS06-闭包</a>
+            <a href="/2020/07/15/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">事件循环</a>
           </li>
         
           <li>
-            <a href="/2020/07/05/JS04-ES%E8%A7%84%E8%8C%83%E8%A7%A3%E8%AF%BBthis/">JS04-ES规范解读this</a>
+            <a href="/2020/07/15/canvas/">canvas</a>
           </li>
         
       </ul>

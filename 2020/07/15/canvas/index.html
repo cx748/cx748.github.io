@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>canvas | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="绘制矩形123456var canvas &#x3D; document.getElementById(&#39;&#39;);var ctx &#x3D; canvas.getContext(&quot;2d&quot;);ctx.fillRect(x,y,width,height) &#x2F;&#x2F;填充矩形ctx.strokeRect(x,y,width,height) &#x2F;&#x2F;轮廓填充ctx.clearRect(x, y, width, height) &#x2F;&#x2F;清楚">
+<meta property="og:type" content="article">
+<meta property="og:title" content="canvas">
+<meta property="og:url" content="http://yoursite.com/2020/07/15/canvas/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="绘制矩形123456var canvas &#x3D; document.getElementById(&#39;&#39;);var ctx &#x3D; canvas.getContext(&quot;2d&quot;);ctx.fillRect(x,y,width,height) &#x2F;&#x2F;填充矩形ctx.strokeRect(x,y,width,height) &#x2F;&#x2F;轮廓填充ctx.clearRect(x, y, width, height) &#x2F;&#x2F;清楚">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://developer.mozilla.org/@api/deki/files/87/=Canvas_lineargradient.png">
+<meta property="og:image" content="https://developer.mozilla.org/@api/deki/files/79/=Canvas_drawimage.jpg">
+<meta property="article:published_time" content="2020-07-15T07:35:11.623Z">
+<meta property="article:modified_time" content="2020-06-27T07:59:59.024Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.mozilla.org/@api/deki/files/87/=Canvas_lineargradient.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-canvas" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/15/canvas/" class="article-date">
+  <time datetime="2020-07-15T07:35:11.623Z" itemprop="datePublished">2020-07-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      canvas
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="绘制矩形"><a href="#绘制矩形" class="headerlink" title="绘制矩形"></a>绘制矩形</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">''</span>);</span><br><span class="line"><span class="keyword">var</span> ctx = canvas.getContext(<span class="string">"2d"</span>);</span><br><span class="line"></span><br><span class="line">ctx.fillRect(x,y,width,height) <span class="comment">//填充矩形</span></span><br><span class="line">ctx.strokeRect(x,y,width,height) <span class="comment">//轮廓填充</span></span><br><span class="line">ctx.clearRect(x, y, width, height) <span class="comment">//清楚矩形区域</span></span><br></pre></td></tr></table></figure>
+<h2 id="绘制路径"><a href="#绘制路径" class="headerlink" title="绘制路径"></a>绘制路径</h2><ol>
+<li>创建路径起始点</li>
+<li>画图命令画出路径</li>
+<li>把路径闭合</li>
+<li>路径生成之后，可以通过描边或者填充来 渲染路径<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ctx.beginPath() <span class="comment">//新建路径 </span></span><br><span class="line">ctx.closePath() <span class="comment">// 闭合路径</span></span><br><span class="line">ctx.stroke() <span class="comment">//通过线条来绘制轮廓</span></span><br><span class="line">ctx.fill() <span class="comment">//通过填充路径的内容区域生成实心的图形</span></span><br><span class="line"></span><br><span class="line">moveTo(x,y) <span class="comment">//将笔触移动到指定的x以及y上</span></span><br><span class="line">lineTo(x,y)</span><br><span class="line"></span><br><span class="line">ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise) <span class="comment">//画一个以（x,y）为圆心的以radius为半径的圆弧（圆），从startAngle开始到endAngle结束，按照anticlockwise给定的方向（默认为顺时针）来生成。</span></span><br><span class="line"></span><br><span class="line">quadraticCurveTo(cp1x, cp1y, x, y)</span><br><span class="line"><span class="comment">//绘制二次贝塞尔曲线，cp1x,cp1y为一个控制点，x,y为结束点。</span></span><br><span class="line">bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)</span><br><span class="line"><span class="comment">//绘制三次贝塞尔曲线，cp1x,cp1y为控制点一，cp2x,cp2y为控制点二，x,y为结束点。</span></span><br></pre></td></tr></table></figure>
+<h2 id="线形"><a href="#线形" class="headerlink" title="线形"></a>线形</h2>lineWidth = value 设置线条宽度。<br>lineCap = type<br>设置线条末端样式。<br>lineJoin = type<br>设定线条与线条间接合处的样式。<br>miterLimit = value<br>限制当两条线相交时交接处最大长度；所谓交接处长度（斜接长度）是指线条交接处内角顶点到外角顶点的长度。<br>getLineDash()<br>返回一个包含当前虚线样式，长度为非负偶数的数组。<br>setLineDash(segments)<br>设置当前虚线样式。<br>lineDashOffset = value<br>设置虚线样式的起始偏移量。  <h2 id="渐变-Gradients"><a href="#渐变-Gradients" class="headerlink" title="渐变 Gradients"></a>渐变 Gradients</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> ctx = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>).getContext(<span class="string">'2d'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Create gradients</span></span><br><span class="line">  <span class="keyword">var</span> lingrad = ctx.createLinearGradient(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">150</span>);</span><br><span class="line">  lingrad.addColorStop(<span class="number">0</span>, <span class="string">'#00ABEB'</span>);</span><br><span class="line">  lingrad.addColorStop(<span class="number">0.5</span>, <span class="string">'#fff'</span>);</span><br><span class="line">  lingrad.addColorStop(<span class="number">0.5</span>, <span class="string">'#26C000'</span>);</span><br><span class="line">  lingrad.addColorStop(<span class="number">1</span>, <span class="string">'#fff'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> lingrad2 = ctx.createLinearGradient(<span class="number">0</span>,<span class="number">50</span>,<span class="number">0</span>,<span class="number">95</span>);</span><br><span class="line">  lingrad2.addColorStop(<span class="number">0.5</span>, <span class="string">'#000'</span>);</span><br><span class="line">  lingrad2.addColorStop(<span class="number">1</span>, <span class="string">'rgba(0,0,0,0)'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// assign gradients to fill and stroke styles</span></span><br><span class="line">  ctx.fillStyle = lingrad;</span><br><span class="line">  ctx.strokeStyle = lingrad2;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// draw shapes</span></span><br><span class="line">  ctx.fillRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">130</span>,<span class="number">130</span>);</span><br><span class="line">  ctx.strokeRect(<span class="number">50</span>,<span class="number">50</span>,<span class="number">50</span>,<span class="number">50</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><img src="https://developer.mozilla.org/@api/deki/files/87/=Canvas_lineargradient.png" alt="adatar"></p>
+<h2 id="图案样式"><a href="#图案样式" class="headerlink" title="图案样式"></a>图案样式</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctx.createPatten(img,type)<span class="comment">//type取值为repeat repeat-x repeat-y no-repeat</span></span><br></pre></td></tr></table></figure>
+<h2 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> ctx=<span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>).getContext(<span class="string">'2d'</span>);</span><br><span class="line">  ctx.shadowOffsetX = <span class="number">2</span>; <span class="comment">//向右偏移</span></span><br><span class="line">  ctx.shadowOffsetY = <span class="number">2</span>; <span class="comment">//向下偏移</span></span><br><span class="line">  ctx.shadowBlur = <span class="number">2</span>; <span class="comment">//模糊</span></span><br><span class="line">  ctx.shadowColor = <span class="string">"rgba(0,0,0,0.5)"</span>;</span><br><span class="line"></span><br><span class="line">  ctx.font = <span class="string">"20px times new roman"</span>;</span><br><span class="line">  ctx.fillStyle= <span class="string">"black"</span>;</span><br><span class="line">  ctx.fillText = (<span class="string">"sample string"</span>,<span class="number">5</span>,<span class="number">30</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用图像"><a href="#使用图像" class="headerlink" title="使用图像"></a>使用图像</h1><p>引入图像到canvas主要有两个步骤  </p>
+<ol>
+<li>获得一个图片源或者canvas元素</li>
+<li>使用drawImage()函数将图片绘在画布上</li>
+</ol>
+<h2 id="获得图片"><a href="#获得图片" class="headerlink" title="获得图片"></a>获得图片</h2><p>canvas的API可以使用下面类型中的一种作为图片的源</p>
+<ol>
+<li>HTMLImageElement：这些图片是有由Image函数构造出来的，或者任何的&lt;img&gt;元素。</li>
+<li>HTMLVideoElement元素：用一个HTML的&lt;Video&gt;元素作为图片源，可是从视频中抓取当前帧作为一个图像</li>
+<li>HTMLCanvasElement元素，可以使用另外一个&lt;canvas&gt;作为图片源</li>
+<li>ImageBitmap：这是一个高性能的位图，可以低延迟地绘制，它可以从上述的所有源以及其它几种源中生成</li>
+</ol>
+<p>这些源统一由 CanvasImageSource类型来引用。</p>
+<h2 id="绘制图片"><a href="#绘制图片" class="headerlink" title="绘制图片"></a>绘制图片</h2><p>drawImage(image, x, y)<br>其中 image 是 image 或者 canvas 对象，x 和 y 是其在目标 canvas 里的起始坐标.<br>drawImage(image,x,y,wdith,height)<br>这个方法多了2个参数：width 和 height，这两个参数用来控制 当向canvas画入时应该缩放的大小.<br>drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)<br>第一个参数和其它的是相同的，都是一个图像或者另一个 canvas 的引用。其它8个参数参照右图解，前4个是定义图像源的切片位置和大小，后4个则是定义切片的目标显示位置和大小。<br><img src="https://developer.mozilla.org/@api/deki/files/79/=Canvas_drawimage.jpg" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/15/canvas/" data-id="ckct5amfd0007zow42blbb0hv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/15/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          事件循环
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/15/DOM%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">DOM操作</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/07/16/Vue/">Vue</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/JS07-%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0%E4%B8%8Epromise/">JS07-生成器函数与promise</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">事件循环</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/canvas/">canvas</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

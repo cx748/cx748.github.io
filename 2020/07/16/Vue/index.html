@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Vue | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Vue的生命周期beforeCreate(创建前) 在数据观测和初始化还没有开始created(创建后) 完成数据观测，属性和方法的运算，初始化时间，还没有开始渲染beforeMount(载入前) 在挂载开始之前被调用。Vue实例完成编译模板，把data里面的数据和模板生成html，但是html并没有被挂载到页面上Mounted(载入后) 在el被新创建的vm.$el替换，并挂载到实例上去之后调用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue">
+<meta property="og:url" content="http://yoursite.com/2020/07/16/Vue/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Vue的生命周期beforeCreate(创建前) 在数据观测和初始化还没有开始created(创建后) 完成数据观测，属性和方法的运算，初始化时间，还没有开始渲染beforeMount(载入前) 在挂载开始之前被调用。Vue实例完成编译模板，把data里面的数据和模板生成html，但是html并没有被挂载到页面上Mounted(载入后) 在el被新创建的vm.$el替换，并挂载到实例上去之后调用">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-16T01:34:38.485Z">
+<meta property="article:modified_time" content="2020-07-16T02:42:48.817Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Vue" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/16/Vue/" class="article-date">
+  <time datetime="2020-07-16T01:34:38.485Z" itemprop="datePublished">2020-07-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vue
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Vue的生命周期"><a href="#Vue的生命周期" class="headerlink" title="Vue的生命周期"></a>Vue的生命周期</h2><p>beforeCreate(创建前) 在数据观测和初始化还没有开始<br>created(创建后) 完成数据观测，属性和方法的运算，初始化时间，还没有开始渲染<br>beforeMount(载入前) 在挂载开始之前被调用。Vue实例完成编译模板，把data里面的数据和模板生成html，但是html并没有被挂载到页面上<br>Mounted(载入后) 在el被新创建的vm.$el替换，并挂载到实例上去之后调用。此时vue实例已经完成把html渲染到html页面<br>beforeUpdate(更新前) 数据更新前调用，这个时候不会触发附加的重渲染过程<br>updated(更新后) 数据更改导致的虚拟Dom重新渲染之后调用。调用时组件DOM已经更新<br>beforeDestroy(销毁前) 实例销毁之前调用，实例仍然可用<br>destroyed(销毁后) 在实例销毁之后调用，调用后所有事件监听会被移除，子实例也会被销毁  </p>
+<h3 id="什么vue生命周期"><a href="#什么vue生命周期" class="headerlink" title="什么vue生命周期"></a>什么vue生命周期</h3><p>Vue实例从创建到销毁的过程</p>
+<h3 id="vue生命周期的作用是什么"><a href="#vue生命周期的作用是什么" class="headerlink" title="vue生命周期的作用是什么"></a>vue生命周期的作用是什么</h3><p>生命周期中有多个事件钩子，让我们能更好的控制整个VUe实例的过程</p>
+<h3 id="第一次加载页面会触发哪些钩子"><a href="#第一次加载页面会触发哪些钩子" class="headerlink" title="第一次加载页面会触发哪些钩子"></a>第一次加载页面会触发哪些钩子</h3><p>创建前后，载入前后</p>
+<h3 id="Dom渲染在哪个周期中完成"><a href="#Dom渲染在哪个周期中完成" class="headerlink" title="Dom渲染在哪个周期中完成"></a>Dom渲染在哪个周期中完成</h3><p>mounted中完成Dom渲染</p>
+<h2 id="对于MVVM的理解"><a href="#对于MVVM的理解" class="headerlink" title="对于MVVM的理解"></a>对于MVVM的理解</h2><p>MVVM是Model-view-ViewModel的缩写<br>Model代表的数据模型<br>View代表UI组件，负责将数据模型转换成UI展现出来<br>ViewModel 监听模型数据的改变和控制视图的行为，处理用户交互，用来同步View和Model的对象<br>ViewModel 通过双向数据绑定把View层和Model层连接了起来，而View和Model之间的同步工作完全是自动的。开发者只需关系业务逻辑，不需要手动操作DOM，不需要关注数据状态的同步问题，复杂的数据状态维护完全有MVVM来同一管理。</p>
+<h2 id="双向数据绑定"><a href="#双向数据绑定" class="headerlink" title="双向数据绑定"></a>双向数据绑定</h2><p>原理主要是，采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter和getter，当数据变动时发布消息给订阅者，然后触发监听回调。</p>
+<h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><h3 id="全局指令"><a href="#全局指令" class="headerlink" title="全局指令"></a>全局指令</h3><p>直接调用vue的的directive方法</p>
+<h3 id="局部指令"><a href="#局部指令" class="headerlink" title="局部指令"></a>局部指令</h3><p>在vue实例里定义directive对象</p>
+<h2 id="Vue组件间的参数传递"><a href="#Vue组件间的参数传递" class="headerlink" title="Vue组件间的参数传递"></a>Vue组件间的参数传递</h2><h3 id="父组件与子组件传值"><a href="#父组件与子组件传值" class="headerlink" title="父组件与子组件传值"></a>父组件与子组件传值</h3><p>父组件传给子组件：组件用v-bind传值，子组件通过props方法接收数据<br>子组件传给父组件，$emit方法传递参数</p>
+<h3 id="兄弟组件传值"><a href="#兄弟组件传值" class="headerlink" title="兄弟组件传值"></a>兄弟组件传值</h3><h4 id="把数据放在他们的父组件，通过父组件通信"><a href="#把数据放在他们的父组件，通过父组件通信" class="headerlink" title="把数据放在他们的父组件，通过父组件通信"></a>把数据放在他们的父组件，通过父组件通信</h4><h4 id="借助PubSubJs库"><a href="#借助PubSubJs库" class="headerlink" title="借助PubSubJs库"></a>借助PubSubJs库</h4><p>订阅消息 PubSub.subscribe(‘msg’,data){}<br>发布消息 PubSub.publish(‘msh’,data)</p>
+<h4 id="通过Vuex插件实现"><a href="#通过Vuex插件实现" class="headerlink" title="通过Vuex插件实现"></a>通过Vuex插件实现</h4><h2 id="Vue-router"><a href="#Vue-router" class="headerlink" title="Vue-router"></a>Vue-router</h2><p>vue-router是vue.js的官方路由管理器，用于构建单页应用</p>
+<h3 id="单页应用的优缺点"><a href="#单页应用的优缺点" class="headerlink" title="单页应用的优缺点"></a>单页应用的优缺点</h3><p>优点： 有很好的交互体验，用户不需要重新刷新页面。 良好的前后端分离模式。减轻服务器压力，服务器只需要提供数据<br>缺点：不能使用浏览器的前进后退管理；初次加载耗时较多</p>
+<h3 id="router和route的区别"><a href="#router和route的区别" class="headerlink" title="$router和route的区别"></a>$router和route的区别</h3><p>$route是路由信息对象，包括path,params,hash,name等路由信息参数，而$router是’路由实例’对象，包括了跳转方法和钩子函数。</p>
+<h3 id="怎么定义Vue-router的动态路由，如何获取传过来的值"><a href="#怎么定义Vue-router的动态路由，如何获取传过来的值" class="headerlink" title="怎么定义Vue-router的动态路由，如何获取传过来的值"></a>怎么定义Vue-router的动态路由，如何获取传过来的值</h3><p>在router目录下的index.js文件中，对path属性加上/:id，使用router对象的params.id获取</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/16/Vue/" data-id="ckct5amfa0003zow43ki47gkr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/07/15/webpack%E9%9D%A2%E8%AF%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">webpack面试</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/07/16/Vue/">Vue</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/JS07-%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0%E4%B8%8Epromise/">JS07-生成器函数与promise</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">事件循环</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/15/canvas/">canvas</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
